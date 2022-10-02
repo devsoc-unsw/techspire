@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import Inter variable font from google fonts */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+@layer base {
+  html,
+  body,
+  #__next {
+    height: 100%;
+  }
+
+  /* Disable touch highlight on mobile */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
