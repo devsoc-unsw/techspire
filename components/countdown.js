@@ -5,9 +5,11 @@ import ShowCounter from "./ShowCounter"
 const useCountdown = (targetDate) => {
     const countDownDate = new Date(targetDate).getTime();
 
-    const [countDown, setCountDown] = useState(
-        countDownDate - new Date().getTime()
-    )
+    const [countDown, setCountDown] = useState()
+
+    useEffect(() => {
+        setCountDown(countDownDate - new Date().getTime())
+    }, [])
 
     useEffect(() => {
         const interval = setInterval(() => {
