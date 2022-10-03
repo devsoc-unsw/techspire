@@ -12,10 +12,15 @@ const Thingy = () => {
     <div className="flex gap-2">
       <nav className="sticky top-0 flex h-screen w-48 flex-col justify-center pl-2">
         {speakers.map((speaker, idx) => (
-          <div key={speaker} className="flex items-center">
+          <div
+            key={speaker}
+            className={`group flex items-center transition-colors ${
+              idx === activeSpeaker && "text-light"
+            }`}
+          >
             <div
-              className={`mx-2 w-8 border-b border-white opacity-0 transition-opacity ${
-                idx === activeSpeaker && "opacity-100"
+              className={`mx-2 w-8 border-b border-transparent transition-colors group-hover:border-white ${
+                idx === activeSpeaker && "!border-light"
               }`}
             ></div>
             {speaker}
