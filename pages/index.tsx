@@ -28,16 +28,16 @@ const Home: NextPage = () => {
           />
         </div>
         <h1
-          className={`flex text-6xl font-bold tracking-wide md:text-9xl ${
+          className={`group flex text-6xl font-bold tracking-wide md:text-9xl ${
             completed && "animate-bounce"
           }`}
         >
-          <span className="sm:-mr-2 md:-mr-5">T</span>ech
+          <span className="-mr-2 bg-dark md:-mr-5">T</span>ech
           <div
             className={`animate-gradient-xy bg-gradient-to-r from-purple-800 via-violet-400 to-pink-400 bg-clip-text text-transparent`}
           >
-            <span className="selection:bg-white">
-              spir
+            <span className="-ml-14 transition-[margin] selection:bg-white group-hover:ml-0 md:-ml-[7.5rem]">
+              inspir
               <span className="-ml-1.5">e</span>
             </span>
           </div>
