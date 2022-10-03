@@ -6,17 +6,17 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      sans: ["Inter", "sans-serif"],
+      sans: ["Nevis", "sans-serif"],
     },
-    // fontSize: {
-    //   '1xl': '1rem',
-    //   '2xl': '1.5rem',
-    //   '3xl': '2rem',
-    //   '4xl': '4rem',
-    //   '5xl': '3rem',
-    //   '6xl': '6rem',
-    //   '7xl': '7rem',
-    // }
+    colors: {
+      black: "#000",
+      white: "#fff",
+      brand: "#31509E",
+      accent: "#FFC46C",
+      dark: "#1D1D35",
+      light: "#A8C0F0",
+      violet: "#927DE8",
+    },
   },
   plugins: [
     // Typography

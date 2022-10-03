@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Countdown from "../components/countdown";
+import Countdown from "../components/Countdown/countdown";
 
 const Home: NextPage = () => {
   const EVENT_DATE = new Date(2022, 9, 28, 15);

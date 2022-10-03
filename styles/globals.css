@@ -5,6 +5,12 @@
 /* Import Inter variable font from google fonts */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
+/* Import Nevis from public folder */
+@font-face {
+  font-family: "Nevis";
+  src: url("/fonts/Nevis.ttf");
+}
+
 @layer base {
   html,
   body,
