@@ -4,7 +4,7 @@ import useChildrenIntersectionObserver from "../hooks/useChildrenIntersectionObs
 const Thingy = () => {
   const speakers = ["Atlassian", "Marc Chee", "aliwefj", "oafiewf", "aksdjfh"];
   const intersectorRef = useRef<HTMLDivElement>(null);
-  const intersecting = useChildrenIntersectionObserver(intersectorRef, {
+  const activeSpeaker = useChildrenIntersectionObserver(intersectorRef, {
     threshold: 0.5,
   });
 
@@ -15,7 +15,7 @@ const Thingy = () => {
           <div key={speaker} className="flex items-center">
             <div
               className={`mx-2 w-8 border-b border-white opacity-0 transition-opacity ${
-                intersecting.has(idx) && "opacity-100"
+                idx === activeSpeaker && "opacity-100"
               }`}
             ></div>
             {speaker}
