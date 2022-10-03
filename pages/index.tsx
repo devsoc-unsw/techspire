@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Countdown from "../components/Countdown"
+import Countdown from "../components/Countdown";
 
 const Home: NextPage = () => {
-  const EVENT_DATE = new Date(2022, 9, 28, 15)
+  const EVENT_DATE = new Date(2022, 9, 28, 15);
 
   return (
     <>
@@ -14,7 +14,8 @@ const Home: NextPage = () => {
       </Head>
       <main className="grid h-full place-content-center">
         <h1 className="animate-bounce text-4xl font-bold">Hello Next.js!</h1>
-        <Countdown targetDate={EVENT_DATE}/>
+        <Countdown targetDate={EVENT_DATE} />
+        <p>test</p>
       </main>
     </>
   );
