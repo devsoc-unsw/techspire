@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 
 import Logo from "../public/images/logo.png";
+import Card from "../components/Card";
 
 const DynamicBasedCountdown = dynamic(
   () => import("../components/BasedCountdown"),
@@ -26,13 +27,15 @@ const Home: NextPage = () => {
         />
       </div>
       <h1
-        className={`flex text-6xl font-bold tracking-wide md:text-9xl ${
+        className={`group flex text-6xl font-bold tracking-wide md:text-9xl ${
           completed && "animate-bounce"
         }`}
       >
-        <div className="sm:-mr-2 md:-mr-5">T</div>ech
-        <span className="text-accent selection:bg-white">
-          spir
+        <div className="z-10 flex bg-dark">
+          <div className="-mr-2 bg-dark md:-mr-5">T</div>ech
+        </div>
+        <span className="-ml-14 text-accent transition-[margin] selection:bg-white group-hover:ml-0 md:-ml-[7.5rem]">
+          inspir
           <span className="-ml-1.5">e</span>
         </span>
       </h1>
@@ -43,6 +46,8 @@ const Home: NextPage = () => {
         completed={completed}
         setCompleted={setCompleted}
       />
+
+      <Card className="top-8 left-4" />
     </LandingLayout>
   );
 };

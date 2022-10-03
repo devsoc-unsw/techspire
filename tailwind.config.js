@@ -14,9 +14,10 @@ module.exports = {
       white: "#fff",
       brand: "#31509E",
       accent: "#FFC46C",
-      dark: "#1D1D35",
+      dark: "#0E0E18",
       light: "#A8C0F0",
       violet: "#927DE8",
+      card: "#494D6A",
     },
   },
   plugins: [
