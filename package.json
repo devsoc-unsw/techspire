@@ -10,18 +10,20 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "**/*.{js,jsx,ts,tsx,css}": [
+    "**/*.{js,jsx,ts,tsx}": [
       "prettier --write",
       "eslint --cache --cache-location .next/cache/eslint/"
     ]
   },
   "dependencies": {
+    "canvas-confetti": "^1.5.1",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.7",
+    "@types/canvas-confetti": "^1.4.3",
     "@types/node": "18.7.23",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",

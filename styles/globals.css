@@ -16,6 +16,8 @@
   body,
   #__next {
     height: 100%;
+    overflow-x: hidden;
+    @apply bg-dark;
   }
 
   /* Disable touch highlight on mobile */
