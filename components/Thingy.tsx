@@ -1,22 +1,28 @@
+import { useRef } from "react";
+import useChildrenIntersectionObserver from "../hooks/useChildrenIntersectionObserver";
+
 const Thingy = () => {
   const speakers = ["Atlassian", "Marc Chee", "aliwefj", "oafiewf", "aksdjfh"];
-  const activeSpeaker = "Marc Chee";
+  const intersectorRef = useRef<HTMLDivElement>(null);
+  const intersecting = useChildrenIntersectionObserver(intersectorRef, {
+    threshold: 0.5,
+  });
 
   return (
     <div className="flex gap-2">
       <nav className="sticky top-0 flex h-screen w-48 flex-col justify-center pl-2">
-        {speakers.map((speaker) => (
+        {speakers.map((speaker, idx) => (
           <div key={speaker} className="flex items-center">
             <div
-              className={`mx-2 w-8 border-b border-white opacity-0 ${
-                speaker === activeSpeaker && "opacity-100"
+              className={`mx-2 w-8 border-b border-white opacity-0 transition-opacity ${
+                intersecting.has(idx) && "opacity-100"
               }`}
             ></div>
             {speaker}
           </div>
         ))}
       </nav>
-      <main className="flex-1">
+      <main className="flex-1" ref={intersectorRef}>
         {speakers.map((speaker) => (
           <section
             key={speaker}
