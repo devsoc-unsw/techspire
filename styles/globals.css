@@ -8,7 +8,7 @@
 /* Import Nevis from public folder */
 @font-face {
   font-family: "Nevis";
-  src: url("/fonts/Nevis.ttf");
+  src: url("/fonts/nevis.ttf");
 }
 
 @layer base {
