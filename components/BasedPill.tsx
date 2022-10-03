@@ -10,7 +10,7 @@ const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => (
       completed && "animate-bounce"
     }`}
   >
-    <div className="absolute inset-0 z-[-1] rounded-full bg-gradient-to-br from-light to-violet blur-sm group-hover:blur" />
+    <div className="absolute inset-0 z-[-1] rounded-full bg-gradient-to-br from-light to-violet opacity-70 blur-sm group-hover:blur" />
     <div className="absolute inset-0 z-[-1] rounded-full bg-gradient-to-br from-light to-violet opacity-70 group-hover:opacity-100" />
     {children}
   </div>

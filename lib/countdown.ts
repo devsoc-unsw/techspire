@@ -4,6 +4,8 @@ export const calculateTimeLeft = (date: Date) => {
   return diff;
 };
 
+const pad = (unit: number) => unit.toString().padStart(2, "0");
+
 export const formatTime = (time?: number) => {
   if (time === undefined) {
     return "Oepsie poepsie";
@@ -14,5 +16,5 @@ export const formatTime = (time?: number) => {
   const minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((time % (1000 * 60)) / 1000);
 
-  return `${days}:${hours}:${minutes}:${seconds}`;
+  return `${pad(days)}d ${pad(hours)}h ${pad(minutes)}m ${pad(seconds)}s`;
 };
