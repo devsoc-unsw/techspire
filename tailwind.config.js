@@ -6,10 +6,10 @@ module.exports = {
   ],
   darkMode: false,
   theme: {
-    fontFamily: {
-      sans: ["Nevis", "sans-serif"],
-    },
     extend: {
+      fontFamily: {
+        sans: ["Nevis", "sans-serif"],
+      },
       animation: {
         "gradient-x": "gradient-x 15s ease infinite",
         "gradient-y": "gradient-y 15s ease infinite",
@@ -60,10 +60,12 @@ module.exports = {
         white: "#fff",
         brand: "#31509E",
         // accent: "#FFC46C",
-        dark: "#1B1B1B",
+        // dark: "#1B1B1B",
+        dark: "#0E0E18",
         // dark: "#1D1D35",
         light: "#A8C0F0",
         // violet: "#927DE8",
+        card: "#494D6A",
       },
     },
   },
