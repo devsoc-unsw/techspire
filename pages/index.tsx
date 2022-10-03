@@ -15,7 +15,6 @@ const Home: NextPage = () => {
       <main className="grid h-full place-content-center">
         <h1 className="animate-bounce text-4xl font-bold">Hello Next.js!</h1>
         <Countdown targetDate={EVENT_DATE} />
-        <p>test</p>
       </main>
     </>
   );
