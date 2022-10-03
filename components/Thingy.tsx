@@ -18,7 +18,15 @@ const Thingy = () => {
                 idx === activeSpeaker && "opacity-100"
               }`}
             ></div>
-            {speaker}
+            <div
+              onClick={() => {
+                Array.from(intersectorRef.current.children)[idx].scrollIntoView(
+                  { behavior: "smooth" }
+                );
+              }}
+            >
+              {speaker}
+            </div>
           </div>
         ))}
       </nav>
@@ -28,6 +36,7 @@ const Thingy = () => {
             key={speaker}
             className="flex h-screen flex-1 snap-center flex-col justify-center gap-4 px-8 py-16"
           >
+            {speaker}
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
