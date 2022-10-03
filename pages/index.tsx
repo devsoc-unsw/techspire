@@ -30,13 +30,17 @@ const Home: NextPage = () => {
           completed && "animate-bounce"
         }`}
       >
-        <div className="sm:-mr-2 md:-mr-5">T</div>ech
-        <span className="text-accent selection:bg-white">
-          spir
-          <span className="-ml-1.5">e</span>
-        </span>
+        <div
+          className={`animate-gradient-xy bg-gradient-to-r from-purple-800 via-violet-400 to-pink-400 bg-clip-text text-transparent`}
+        >
+          <span className="sm:-mr-2 md:-mr-5">T</span>ech
+          <span className="selection:bg-white">
+            spir
+            <span className="-ml-1.5">e</span>
+          </span>
+        </div>
       </h1>
-      <h3 className={`text-2xl text-light`}>Friday 28th Oct 3-6pm | Week 7</h3>
+      <h3 className={`text-2xl`}>Friday 28th Oct 3-6pm | Week 7</h3>
 
       <DynamicBasedCountdown
         date={new Date(2022, 9, 28, 15)}
