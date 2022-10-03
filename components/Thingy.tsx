@@ -4,7 +4,7 @@ import useChildrenIntersectionObserver from "../hooks/useChildrenIntersectionObs
 const Thingy = () => {
   const speakers = ["Atlassian", "Marc Chee", "aliwefj", "oafiewf", "aksdjfh"];
   const intersectorRef = useRef<HTMLDivElement>(null);
-  const activeSpeaker = useChildrenIntersectionObserver(intersectorRef, {
+  const intersecting = useChildrenIntersectionObserver(intersectorRef, {
     threshold: 0.5,
   });
 
@@ -15,12 +15,12 @@ const Thingy = () => {
           <div
             key={speaker}
             className={`group flex items-center transition-colors ${
-              idx === activeSpeaker && "text-light"
+              intersecting.has(idx) && "text-light"
             }`}
           >
             <div
               className={`mx-2 w-8 border-b border-transparent transition-colors group-hover:border-white ${
-                idx === activeSpeaker && "!border-light"
+                intersecting.has(idx) && "!border-light"
               }`}
             ></div>
             {speaker}

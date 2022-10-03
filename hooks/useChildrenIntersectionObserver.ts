@@ -5,12 +5,22 @@ const useChildrenIntersectionObserver = (
   ref: RefObject<HTMLElement>,
   config = {}
 ) => {
-  const [intersecting, setIntersecting] = useState(-1);
+  const [intersecting, setIntersecting] = useState(new Set());
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) =>
-        setIntersecting(entries.findIndex((entry) => entry.isIntersecting)),
+        setIntersecting(
+          new Set(
+            entries
+              .map(
+                (entry, idx) =>
+                  [entry, idx] as [IntersectionObserverEntry, number]
+              )
+              .filter(([entry]) => entry.isIntersecting)
+              .map(([_, idx]) => idx)
+          )
+        ),
       config
     );
     if (ref.current) {
