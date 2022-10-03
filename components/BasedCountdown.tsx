@@ -5,11 +5,12 @@ import BasedPill from "./BasedPill";
 
 interface Props {
   date: Date;
+  completed: boolean;
+  setCompleted: (_value: boolean) => void;
 }
 
-const BasedCountdown: FC<Props> = ({ date }) => {
+const BasedCountdown: FC<Props> = ({ date, completed, setCompleted }) => {
   const [value, setValue] = useState(calculateTimeLeft(date));
-  const [completed, setCompleted] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { fire } = useConfetti();
 
@@ -25,12 +26,17 @@ const BasedCountdown: FC<Props> = ({ date }) => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [date, fire]);
+  }, [date, fire, completed, setCompleted]);
 
   return (
     <>
-      <canvas ref={canvasRef} className="absolute z-50 h-screen w-screen" />
-      <BasedPill>{completed ? "Completed" : formatTime(value)}</BasedPill>
+      <canvas
+        ref={canvasRef}
+        className="pointer-events-none absolute z-50 h-screen w-screen"
+      />
+      <BasedPill completed={completed}>
+        {completed ? "ITS TIME!!! 🥳" : formatTime(value)}
+      </BasedPill>
     </>
   );
 };

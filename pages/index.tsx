@@ -1,21 +1,40 @@
 import type { NextPage } from "next";
-import Image from "next/image";
 import LandingLayout from "../components/Layouts/LandingLayout";
-import BasedCountdown from "../components/BasedCountdown";
+
+import dynamic from "next/dynamic";
+import { useState } from "react";
+
+const DynamicBasedCountdown = dynamic(
+  () => import("../components/BasedCountdown"),
+  { ssr: false }
+);
 
 const Home: NextPage = () => {
+  const [completed, setCompleted] = useState(false);
+
   return (
     <LandingLayout>
-      <div className="w-50 h-50">
+      {/* <div className="w-1/2 h-50">
         <Image
           src="/images/logo.png"
-          width={1000}
-          height={230}
+          layout="fill"
+          objectFit="contain"
           alt="CSESoc Logo"
         />
-      </div>
-      <h1 className="text-6xl font-bold">LOGO HERE</h1>
-      <BasedCountdown date={new Date(Date.now() + 3000)} />
+      </div> */}
+      <h1
+        className={`text-6xl font-bold tracking-wide md:text-9xl ${
+          completed && "animate-bounce"
+        }`}
+      >
+        Tech
+        <span className="text-accent selection:bg-white">spire</span>
+      </h1>
+      <DynamicBasedCountdown
+        date={new Date(Date.now() + 3000)}
+        completed={completed}
+        setCompleted={setCompleted}
+      />
     </LandingLayout>
   );
 };
