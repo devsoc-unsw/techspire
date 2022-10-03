@@ -41,8 +41,16 @@ module.exports = {
             "background-size": "400% 400%",
             "background-position": "left center",
           },
+          "25%": {
+            "background-size": "300% 300%",
+            "background-position": "left center",
+          },
           "50%": {
             "background-size": "200% 200%",
+            "background-position": "right center",
+          },
+          "75%": {
+            "background-size": "300% 300%",
             "background-position": "right center",
           },
         },
