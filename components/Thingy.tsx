@@ -2,7 +2,14 @@ import { useRef } from "react";
 import useChildrenIntersectionObserver from "../hooks/useChildrenIntersectionObserver";
 
 const Thingy = () => {
-  const speakers = ["Atlassian", "Marc Chee", "aliwefj", "oafiewf", "aksdjfh"];
+  const speakers = [
+    "Amazon",
+    "Atlassian",
+    "Canva",
+    "Marc Chee",
+    "Pearler",
+    "Jobsboard",
+  ];
   const intersectorRef = useRef<HTMLDivElement>(null);
   const intersecting = useChildrenIntersectionObserver(intersectorRef, {
     threshold: 0.5,
@@ -14,15 +21,17 @@ const Thingy = () => {
         {speakers.map((speaker, idx) => (
           <div
             key={speaker}
-            className={`group flex items-center transition-colors ${
-              intersecting.has(idx) && "text-light"
+            className={`group flex items-center transition-colors hover:cursor-pointer ${
+              intersecting.has(idx) &&
+              "animate-gradient-xy bg-gradient-to-br from-light to-[#f472b6] bg-clip-text text-transparent transition group-hover:blur"
             }`}
           >
             <div
-              className={`mx-2 w-8 border-b border-transparent transition-colors group-hover:border-white ${
-                intersecting.has(idx) && "!border-light"
+              className={`mx-2 h-px w-8 transition-colors group-hover:bg-white ${
+                intersecting.has(idx) &&
+                "animate-gradient-xy !bg-gradient-to-br from-light to-[#f472b6]"
               }`}
-            ></div>
+            />
             <div
               onClick={() => {
                 Array.from(intersectorRef.current.children)[idx].scrollIntoView(
