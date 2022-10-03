@@ -3,8 +3,8 @@ const Thingy = () => {
   const activeSpeaker = "Marc Chee";
 
   return (
-    <div className="flex">
-      <nav className="sticky top-0 flex h-screen w-48 flex-col justify-center">
+    <div className="flex gap-2">
+      <nav className="sticky top-0 flex h-screen w-48 flex-col justify-center pl-2">
         {speakers.map((speaker) => (
           <div key={speaker} className="flex items-center">
             <div
