@@ -1,8 +1,8 @@
 const DateTimeDisplay = ({ value, type }) => {
   return (
     <>
-      <text class="font-bold xl:text-8xl">{value}</text>{" "}
-      <text class="xl:text-4xl">{type} </text>
+      <span className="xl:span-8xl font-bold ">{value}</span>{" "}
+      <span className="xl:span-4xl">{type} </span>
     </>
   );
 };
