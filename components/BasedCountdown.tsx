@@ -32,7 +32,7 @@ const BasedCountdown: FC<Props> = ({ date, completed, setCompleted }) => {
     <>
       <canvas
         ref={canvasRef}
-        className="pointer-events-none absolute z-50 h-screen w-screen"
+        className="pointer-events-none absolute z-50 !m-0 h-screen w-screen"
       />
       <BasedPill completed={completed}>
         {completed ? "ITS TIME!!! 🥳" : formatTime(value)}
