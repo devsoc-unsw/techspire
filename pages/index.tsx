@@ -60,7 +60,7 @@ const Home: NextPage = () => {
             <div className="absolute right-0 opacity-0">a</div>
             <div className="absolute right-0 opacity-0">in</div>
             <div className="absolute right-0 opacity-0">
-              <span className="-mr-2 bg-dark md:-mr-5">T</span>ech
+              <span className="-mr-2 md:-mr-5">T</span>ech
             </div>
           </div>
           <div className="z-10 w-1/2 bg-dark">
