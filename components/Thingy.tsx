@@ -41,52 +41,62 @@ const Thingy = () => {
           </div>
         ))}
       </nav>
-      <main className="flex-1" ref={intersectorRef}>
+      <main className={`flex-1`} ref={intersectorRef}>
         {speakers.map((speaker) => (
           <section
             key={speaker}
-            className="flex h-screen flex-1 snap-center flex-col justify-center gap-4 px-8 py-16"
+            className="flex h-screen flex-1 snap-center justify-center gap-4 px-8 py-16"
           >
-            {speaker}
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
+            <section className="flex flex-[2_2_0%] flex-col justify-center space-y-5">
+              {speaker}
+              <br />
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
 
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
 
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
 
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+            </section>
+            <section className="flex flex-[1_1_0%] flex-col justify-center">
+              <div>
+                <video autoPlay muted>
+                  <source src="./videos/portal.mp4" type="video/mp4" />
+                </video>
+              </div>
+            </section>
           </section>
         ))}
       </main>

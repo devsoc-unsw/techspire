@@ -57,15 +57,15 @@ const Home: NextPage = () => {
           }`}
         >
           <div className="relative w-1/2" ref={techPrefixRef}>
-            <div className="absolute right-0 opacity-0">a</div>
-            <div className="absolute right-0 opacity-0">in</div>
             <div className="absolute right-0 opacity-0">
               <span className="-mr-2 md:-mr-5">T</span>ech
             </div>
+            <div className="absolute right-0 opacity-0">a</div>
+            <div className="absolute right-0 opacity-0">in</div>
           </div>
-          <div className="z-10 w-1/2 bg-dark">
+          <div className="z-10 w-1/2">
             <div
-              className={`animate-gradient-xy bg-gradient-to-r from-purple-800 via-violet-400 to-pink-400 bg-clip-text text-transparent`}
+              className={`animate-gradient-xy bg-gradient-to-r from-purple-400 via-violet-400 to-pink-400 bg-clip-text text-transparent`}
             >
               <span className="transition-[margin] selection:bg-white">
                 spir
@@ -74,7 +74,7 @@ const Home: NextPage = () => {
             </div>
           </div>
         </h1>
-        <h3 className={`text-2xl`}>Friday 28th Oct 3-6pm | Week 7</h3>
+        <h3 className={`z-10 text-2xl`}>Friday 28th Oct 3-6pm | Week 7</h3>
 
         <DynamicBasedCountdown
           date={new Date(2022, 9, 28, 15)}
