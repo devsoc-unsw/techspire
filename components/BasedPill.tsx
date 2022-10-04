@@ -1,5 +1,15 @@
 import type { PropsWithChildren } from "react";
 
+interface BgProps {
+  className?: string;
+}
+
+const Bg = ({ className = "", children }: PropsWithChildren<BgProps>) => (
+  <div className={`absolute inset-0 z-[-1] rounded-md ${className}`}>
+    {children}
+  </div>
+);
+
 interface Props {
   completed: boolean;
 }
@@ -10,8 +20,15 @@ const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => (
       completed && "animate-bounce"
     }`}
   >
-    <div className="absolute inset-0 z-[-1] rounded-md bg-gradient-to-br from-light to-[#f472b6] blur-sm transition group-hover:blur" />
-    <div className="absolute inset-0 z-[-1] rounded-md bg-[#121223] group-hover:opacity-100" />
+    <Bg className="blur-sm transition group-hover:blur">
+      <div className="relative inset-0 flex h-full items-center overflow-hidden rounded-md">
+        <div
+          className="absolute inset-x-0 animate-spin rounded-full bg-gradient-to-br from-blue-400 to-pink-400 pb-[100%]"
+          style={{ animationDuration: "2s" }}
+        />
+      </div>
+    </Bg>
+    <Bg className="bg-[#121223]" />
     {children}
   </div>
 );
