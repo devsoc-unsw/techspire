@@ -20,13 +20,11 @@ const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => (
       completed && "animate-bounce"
     }`}
   >
-    <Bg className="blur-sm transition group-hover:blur">
-      <div className="relative inset-0 flex h-full items-center overflow-hidden rounded-md">
-        <div
-          className="absolute inset-x-0 animate-spin rounded-full bg-gradient-to-br from-blue-400 to-pink-400 pb-[100%]"
-          style={{ animationDuration: "2s" }}
-        />
-      </div>
+    <Bg className="flex items-center overflow-hidden rounded-md blur-sm transition group-hover:blur">
+      <div
+        className="absolute inset-x-0 animate-spin rounded-full bg-gradient-to-br from-blue-400 to-pink-400 pb-[100%]"
+        style={{ animationDuration: "2s" }}
+      />
     </Bg>
     <Bg className="bg-[#121223]" />
     {children}
