@@ -14,6 +14,7 @@ module.exports = {
         "gradient-x": "gradient-x 15s ease infinite",
         "gradient-y": "gradient-y 15s ease infinite",
         "gradient-xy": "gradient-xy 15s ease infinite",
+        "slide-text": "slide-text 2s ease infinite",
       },
       keyframes: {
         "gradient-y": {
@@ -52,6 +53,20 @@ module.exports = {
           "75%": {
             "background-size": "300% 300%",
             "background-position": "right center",
+          },
+        },
+        "slide-text": {
+          "0%": {
+            transform: "translateX(-30px)",
+            opacity: 0,
+          },
+          "25%, 75%": {
+            transform: "none",
+            opacity: 1,
+          },
+          "100%": {
+            transform: "translateX(30px)",
+            opacity: 0,
           },
         },
       },
