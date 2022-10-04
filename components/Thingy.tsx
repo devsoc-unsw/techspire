@@ -21,9 +21,9 @@ const Thingy = () => {
         {speakers.map((speaker, idx) => (
           <div
             key={speaker}
-            className={`group flex items-center transition-colors hover:cursor-pointer ${
+            className={`group flex items-center opacity-70 transition-opacity hover:cursor-pointer hover:opacity-100 ${
               intersecting.has(idx) &&
-              "animate-gradient-xy bg-gradient-to-br from-light to-[#f472b6] bg-clip-text text-transparent transition group-hover:blur"
+              "animate-gradient-xy bg-gradient-to-br from-light to-[#f472b6] bg-clip-text text-transparent !opacity-100"
             }`}
           >
             <div
