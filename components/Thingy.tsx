@@ -25,6 +25,11 @@ const Thingy = () => {
               intersecting.has(idx) &&
               "animate-gradient-xy bg-gradient-to-br from-light to-[#f472b6] bg-clip-text text-transparent !opacity-100"
             }`}
+            onClick={() => {
+              Array.from(intersectorRef.current!.children)[idx].scrollIntoView({
+                behavior: "smooth",
+              });
+            }}
           >
             <div
               className={`mx-2 h-px w-8 transition-colors group-hover:bg-white ${
@@ -32,15 +37,7 @@ const Thingy = () => {
                 "animate-gradient-xy !bg-gradient-to-br from-light to-[#f472b6]"
               }`}
             />
-            <div
-              onClick={() => {
-                Array.from(intersectorRef.current.children)[idx].scrollIntoView(
-                  { behavior: "smooth" }
-                );
-              }}
-            >
-              {speaker}
-            </div>
+            {speaker}
           </div>
         ))}
       </nav>
