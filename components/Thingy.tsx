@@ -1,29 +1,35 @@
 import { useRef } from "react";
 import useChildrenIntersectionObserver from "../hooks/useChildrenIntersectionObserver";
+import AmazonText from "./Speakers/AmazonText";
+import AtlassianText from "./Speakers/AtlassianText";
+import CanvaText from "./Speakers/CanvaText";
+import MarcCheeText from "./Speakers/MarcCheeText";
+import PearlerText from "./Speakers/PearlerText";
+import JobsboardText from "./Speakers/JobsboardText";
 
 const data = {
   Amazon: {
-    text: "Amazon example infographic",
+    text: <AmazonText />,
     video: "./videos/portal.mp4",
   },
   Atlassian: {
-    text: "Atlassian example infographic",
+    text: <AtlassianText />,
     video: "./videos/portal.mp4",
   },
   Canva: {
-    text: "Canva example infographic",
+    text: <CanvaText />,
     video: "./videos/portal.mp4",
   },
   "Marc Chee": {
-    text: "Marc Chee example infographic",
+    text: <MarcCheeText />,
     video: "./videos/marc.mp4",
   },
   Pearler: {
-    text: "Pearler example infographic",
+    text: <PearlerText />,
     video: "./videos/portal.mp4",
   },
   Jobsboard: {
-    text: "Jobsboard example infographic",
+    text: <JobsboardText />,
     video: "./videos/portal.mp4",
   },
 };
@@ -77,37 +83,7 @@ const Thingy = () => {
             <section className="flex flex-[4_4_0%] flex-col justify-center space-y-5">
               {speaker}
               <br />
-              <p>{data[speaker as keyof typeof data].text}</p>
-
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </p>
-
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </p>
-
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </p>
+              {data[speaker as keyof typeof data].text}
             </section>
             <section className="flex flex-[3_3_0%] flex-col justify-center">
               <div>
