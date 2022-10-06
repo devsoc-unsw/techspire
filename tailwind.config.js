@@ -7,13 +7,17 @@ module.exports = {
   darkMode: false,
   theme: {
     extend: {
+      brightness: {
+        1: ".1",
+        25: ".25",
+      },
       fontFamily: {
         sans: ["Nevis", "sans-serif"],
       },
       animation: {
-        "gradient-x": "gradient-x 15s ease infinite",
-        "gradient-y": "gradient-y 15s ease infinite",
-        "gradient-xy": "gradient-xy 15s ease infinite",
+        "gradient-x": "gradient-x 10s ease infinite",
+        "gradient-y": "gradient-y 10s ease infinite",
+        "gradient-xy": "gradient-xy 10s ease infinite",
         "slide-text": "slide-text 2s ease infinite",
       },
       keyframes: {
