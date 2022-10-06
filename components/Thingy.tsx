@@ -74,7 +74,7 @@ const Thingy = () => {
             key={speaker}
             className="flex h-screen flex-1 snap-center justify-center gap-4 px-8 py-16"
           >
-            <section className="flex flex-[2_2_0%] flex-col justify-center space-y-5">
+            <section className="flex flex-[4_4_0%] flex-col justify-center space-y-5">
               {speaker}
               <br />
               <p>{data[speaker as keyof typeof data].text}</p>
@@ -109,7 +109,7 @@ const Thingy = () => {
                 sunt in culpa qui officia deserunt mollit anim id est laborum.
               </p>
             </section>
-            <section className="flex flex-[1_1_0%] flex-col justify-center">
+            <section className="flex flex-[3_3_0%] flex-col justify-center">
               <div>
                 <video
                   autoPlay
