@@ -81,7 +81,7 @@ const Thingy = () => {
             className="flex h-screen flex-1 snap-center justify-center gap-4 px-8 py-16"
           >
             <section className="flex flex-[4_4_0%] flex-col justify-center space-y-5">
-              {speaker}
+              <text className="sm:text-3xl md:text-6xl">{speaker}</text>
               <br />
               {data[speaker as keyof typeof data].text}
             </section>
