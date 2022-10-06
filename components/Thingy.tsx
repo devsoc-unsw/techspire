@@ -89,6 +89,7 @@ const Thingy = () => {
               <div>
                 <video
                   autoPlay
+                  loop
                   muted
                   controls
                   controlsList="nodownload noplaybackrate nofullscreen"

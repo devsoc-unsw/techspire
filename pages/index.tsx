@@ -44,6 +44,7 @@ const Home: NextPage = () => {
     <>
       <video
         autoPlay
+        loop
         muted
         className={`absolute -z-10 min-h-full w-auto min-w-full max-w-none brightness-[0.3]`}
       >
