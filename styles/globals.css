@@ -17,7 +17,11 @@
   #__next {
     height: 100%;
     overflow: hidden;
-    @apply bg-dark;
+    /* @apply bg-dark; */
+  }
+  
+  ::-webkit-scrollbar {
+    display: none;
   }
 
   /* Disable touch highlight on mobile */

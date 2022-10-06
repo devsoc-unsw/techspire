@@ -42,6 +42,13 @@ const Home: NextPage = () => {
 
   return (
     <>
+      <video
+        autoPlay
+        muted
+        className={`absolute -z-10 min-h-full w-auto min-w-full max-w-none brightness-[0.3]`}
+      >
+        <source src="./videos/ribbon.mp4" type="video/mp4" />
+      </video>
       <LandingLayout>
         <div className="w-64">
           <Image
