@@ -7,7 +7,7 @@ import MarcCheeText from "./Speakers/MarcCheeText";
 import PearlerText from "./Speakers/PearlerText";
 import JobsboardText from "./Speakers/JobsboardText";
 
-const data = {
+const speakers = {
   Amazon: {
     text: <AmazonText />,
     video: "./videos/portal.mp4",
@@ -35,14 +35,6 @@ const data = {
 };
 
 const Thingy = () => {
-  const speakers = [
-    "Amazon",
-    "Atlassian",
-    "Canva",
-    "Marc Chee",
-    "Pearler",
-    "Jobsboard",
-  ];
   const intersectorRef = useRef<HTMLDivElement>(null);
   const intersecting = useChildrenIntersectionObserver(intersectorRef, {
     threshold: 0.5,
@@ -51,7 +43,7 @@ const Thingy = () => {
   return (
     <div className="flex gap-2">
       <nav className="sticky top-0 flex h-screen w-48 flex-col justify-center pl-2">
-        {speakers.map((speaker, idx) => (
+        {Object.entries(speakers).map(([speaker], idx) => (
           <div
             key={speaker}
             className={`group flex items-center opacity-80 transition-opacity hover:cursor-pointer hover:opacity-100 ${
@@ -75,7 +67,7 @@ const Thingy = () => {
         ))}
       </nav>
       <main className={`flex-1`} ref={intersectorRef}>
-        {speakers.map((speaker) => (
+        {Object.entries(speakers).map(([speaker, { text, video }]) => (
           <section
             key={speaker}
             className="flex h-screen flex-1 snap-center justify-center gap-4 px-8 py-16"
@@ -83,7 +75,7 @@ const Thingy = () => {
             <section className="flex flex-[4_4_0%] flex-col justify-center space-y-5">
               <text className="z-999 sm:text-3xl md:text-6xl">{speaker}</text>
               <br />
-              {data[speaker as keyof typeof data].text}
+              {text}
             </section>
             <section className="flex flex-[3_3_0%] flex-col justify-center">
               <div>
@@ -95,10 +87,7 @@ const Thingy = () => {
                   controlsList="nodownload noplaybackrate nofullscreen"
                   disablePictureInPicture
                 >
-                  <source
-                    src={data[speaker as keyof typeof data].video}
-                    type="video/mp4"
-                  />
+                  <source src={video} type="video/mp4" />
                 </video>
               </div>
             </section>
