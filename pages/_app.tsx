@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <RootLayout>
       <Head>
-        <title>CSESoc Techspire 2022</title>
+        <title>CSESoc TECHspire 2022</title>
         <meta
           name="description"
           content="The premier technology conference from the largest computer science society in the southern hemisphere."
