@@ -28,12 +28,12 @@ const Home: NextPage = () => {
       child.classList.add("animate-slide-text");
       setTimeout(() => {
         child.classList.remove("animate-slide-text");
-      }, 2000);
+      }, 3000);
 
       i = (i + 1) % elem.children.length;
     };
     animate();
-    const interval = setInterval(animate, 2000);
+    const interval = setInterval(animate, 3000);
 
     return () => {
       clearInterval(interval);
@@ -60,13 +60,13 @@ const Home: NextPage = () => {
           />
         </div>
         <h1
-          className={`group flex w-full text-6xl font-bold tracking-wide md:text-9xl ${
+          className={`group flex w-full text-6xl font-bold tracking-wide md:text-8xl lg:text-11xl ${
             completed && "animate-bounce"
           }`}
         >
           <div className="relative w-1/2" ref={techPrefixRef}>
             <div className="absolute right-0 opacity-0">
-              <span className="-mr-2 md:-mr-5">T</span>ECH
+              <span className="-mr-2 md:-mr-5 lg:-mr-8">T</span>ech
             </div>
             <div className="absolute right-0 opacity-0">a</div>
             <div className="absolute right-0 opacity-0">in</div>
@@ -82,7 +82,7 @@ const Home: NextPage = () => {
             </div>
           </div>
         </h1>
-        <h3 className={`z-10 text-2xl`}>Friday 28th Oct 3-6pm | Week 7</h3>
+        {/* <h3 className={`z-10 text-2xl`}>Friday 28th Oct 3-6pm | Week 7</h3> */}
 
         <DynamicBasedCountdown
           date={new Date(2022, 9, 28, 15)}

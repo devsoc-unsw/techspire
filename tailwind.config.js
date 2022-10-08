@@ -7,18 +7,24 @@ module.exports = {
   darkMode: false,
   theme: {
     extend: {
+      fontSize: {
+        "10xl": "10rem",
+        "11xl": "12rem",
+      },
       brightness: {
         1: ".1",
         25: ".25",
       },
       fontFamily: {
         sans: ["Nevis", "sans-serif"],
+        digital: ["Digital"],
       },
       animation: {
         "gradient-x": "gradient-x 10s ease infinite",
         "gradient-y": "gradient-y 10s ease infinite",
         "gradient-xy": "gradient-xy 10s ease infinite",
-        "slide-text": "slide-text 2s ease infinite",
+        "slide-text": "slide-text 3s ease infinite",
+        "pulse-and-spin": "pulse 2s infinite, spin 5s linear infinite",
       },
       keyframes: {
         "gradient-y": {
@@ -70,6 +76,14 @@ module.exports = {
           },
           "100%": {
             transform: "translateX(30px)",
+            opacity: 0,
+          },
+        },
+        "pulse-and-spin": {
+          "0%, 100%": {
+            opacity: 1,
+          },
+          "50%": {
             opacity: 0,
           },
         },

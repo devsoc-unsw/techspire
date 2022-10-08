@@ -16,17 +16,14 @@ interface Props {
 
 const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => (
   <div
-    className={`group relative z-0 px-4 py-2 font-mono text-xl md:px-4 md:py-2.5 md:text-2xl ${
+    className={`sm:text-md group relative z-0 px-4 py-2 font-mono md:px-4 md:py-2.5 md:text-3xl lg:text-6xl ${
       completed && "animate-bounce"
     }`}
   >
-    <Bg className="flex items-center overflow-hidden rounded-md blur-sm transition group-hover:blur">
-      <div
-        className="absolute inset-x-0 animate-spin rounded-full bg-gradient-to-br from-blue-400 to-pink-400 pb-[100%]"
-        style={{ animationDuration: "2s" }}
-      />
+    <Bg className="flex items-center overflow-hidden rounded-md blur-sm transition group-hover:blur sm:-m-1 lg:-m-3">
+      <div className="absolute inset-x-0 animate-pulse-and-spin rounded-full bg-gradient-to-br from-blue-400 to-pink-400 pb-[100%]" />
     </Bg>
-    <Bg className="bg-[#121223]" />
+    <Bg className="bg-[#121223] lg:-m-2" />
     {children}
   </div>
 );

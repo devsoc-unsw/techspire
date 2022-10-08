@@ -11,6 +11,11 @@
   src: url("/fonts/nevis.ttf");
 }
 
+@font-face {
+  font-family: "Digital";
+  src: url("/fonts/digital.ttf");
+}
+
 @layer base {
   html,
   body,
