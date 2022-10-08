@@ -94,7 +94,7 @@ const Home: NextPage = () => {
             <div className="absolute right-0 opacity-0">a</div>
             <div className="absolute right-0 opacity-0">in</div>
           </div>
-          <div className="z-10 w-1/2">
+          <div className="z-10">
             <div
               className={`animate-gradient-xy bg-gradient-to-r from-purple-400 via-violet-400 to-pink-400 bg-clip-text text-transparent`}
             >
