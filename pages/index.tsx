@@ -90,11 +90,11 @@ const Home: NextPage = () => {
           }`}
         >
           <div className="relative w-1/2" ref={techPrefixRef}>
-            <div className="invisible absolute right-0">
+            <span className="invisible absolute right-0">
               <span className="-mr-2 md:-mr-5 lg:-mr-8">T</span>ech
-            </div>
-            <div className="invisible absolute right-0">a</div>
-            <div className="invisible absolute right-0">in</div>
+            </span>
+            <span className="invisible absolute right-0">a</span>
+            <span className="invisible absolute right-0">in</span>
           </div>
           <div className="z-10">
             <div
