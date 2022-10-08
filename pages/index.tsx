@@ -16,7 +16,17 @@ const DynamicBasedCountdown = dynamic(
 const Home: NextPage = () => {
   const [completed, setCompleted] = useState(false);
   const techPrefixRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [autoplayBlocked, setAutoplayBlocked] = useState(false);
+
   useEffect(() => {
+    const videoElem = videoRef.current;
+    if (videoElem) {
+      videoElem.play().catch(() => {
+        setAutoplayBlocked(true);
+      });
+    }
+
     let i = 0;
     const animate = () => {
       const elem = techPrefixRef.current;
@@ -42,11 +52,23 @@ const Home: NextPage = () => {
 
   return (
     <>
+      <div
+        className={`absolute inset-0 z-20 hidden bg-black/80 ${
+          autoplayBlocked ? "!grid place-items-center" : ""
+        }`}
+        onClick={() => {
+          videoRef.current?.play();
+          setAutoplayBlocked(false);
+        }}
+      >
+        Start
+      </div>
       <video
         autoPlay
         loop
         muted
         className={`absolute -z-10 min-h-full w-auto min-w-full max-w-full object-cover brightness-[0.3]`}
+        ref={videoRef}
       >
         <source src="./videos/ribbon.mp4" type="video/mp4" />
       </video>

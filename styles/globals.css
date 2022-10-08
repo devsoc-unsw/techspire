@@ -19,7 +19,11 @@
     overflow: hidden;
     /* @apply bg-dark; */
   }
-  
+
+  body {
+    @apply bg-dark;
+  }
+
   ::-webkit-scrollbar {
     display: none;
   }
