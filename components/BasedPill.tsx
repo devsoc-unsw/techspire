@@ -11,6 +11,14 @@ const Bg = ({ className = "", children }: PropsWithChildren<BgProps>) => (
   </div>
 );
 
+const Glow = ({ className = "", children }: PropsWithChildren<BgProps>) => (
+  <Bg
+    className={`flex items-center overflow-hidden rounded-md blur-sm transition group-hover:blur sm:-m-1 lg:-m-3 ${className}`}
+  >
+    {children}
+  </Bg>
+);
+
 const HiddenText = ({ children }: PropsWithChildren) => (
   <div className="absolute inset-0 grid place-items-center bg-gradient-to-r from-purple-400 via-violet-400 to-pink-400 bg-clip-text text-center text-xs text-transparent opacity-0 md:text-2xl lg:text-5xl">
     {children}
@@ -65,13 +73,13 @@ const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => {
       onMouseLeave={onMouseLeave}
     >
       {/* The below background will fade in on hover */}
-      <Bg className="flex items-center overflow-hidden rounded-md opacity-0 blur-sm transition group-hover:opacity-50 group-hover:blur sm:-m-1 lg:-m-3">
+      <Glow className="opacity-0 group-hover:opacity-50">
         <div className="absolute inset-x-0 animate-spin rounded-full bg-gradient-to-br from-blue-400 to-pink-400 pb-[100%]" />
-      </Bg>
+      </Glow>
 
-      <Bg className="flex items-center overflow-hidden rounded-md blur-sm transition group-hover:blur sm:-m-1 lg:-m-3">
+      <Glow>
         <div className="absolute inset-x-0 animate-pulse-and-spin rounded-full bg-gradient-to-br from-blue-400 to-pink-400 pb-[100%]" />
-      </Bg>
+      </Glow>
       <Bg className="bg-[#121223] lg:-m-2" />
       <div className="group-hover:hidden">{children}</div>
       <div className="relative hidden group-hover:block">
