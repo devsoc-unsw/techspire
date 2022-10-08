@@ -83,7 +83,7 @@ const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => {
       <Bg className="bg-[#121223] lg:-m-2" />
       <div className="group-hover:hidden">{children}</div>
       <div className="relative hidden group-hover:block">
-        <div className="opacity-0">99d 99h 99m 99s</div>
+        <div className="invisible">99d 99h 99m 99s</div>
         <div ref={infoRef}>
           <HiddenText>Fri Oct 28th 3-6pm</HiddenText>
           <HiddenText>UNSW Leighton Hall</HiddenText>

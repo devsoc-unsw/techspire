@@ -36,9 +36,11 @@ const Home: NextPage = () => {
       }
 
       const child = elem.children[i];
+      child.classList.remove("invisible");
       child.classList.add("animate-slide-text");
       setTimeout(() => {
         child.classList.remove("animate-slide-text");
+        child.classList.add("invisible");
       }, 3000);
 
       i = (i + 1) % elem.children.length;
@@ -88,11 +90,11 @@ const Home: NextPage = () => {
           }`}
         >
           <div className="relative w-1/2" ref={techPrefixRef}>
-            <div className="absolute right-0 opacity-0">
+            <div className="invisible absolute right-0">
               <span className="-mr-2 md:-mr-5 lg:-mr-8">T</span>ech
             </div>
-            <div className="absolute right-0 opacity-0">a</div>
-            <div className="absolute right-0 opacity-0">in</div>
+            <div className="invisible absolute right-0">a</div>
+            <div className="invisible absolute right-0">in</div>
           </div>
           <div className="z-10">
             <div
