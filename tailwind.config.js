@@ -18,7 +18,7 @@ module.exports = {
         "gradient-x": "gradient-x 10s ease infinite",
         "gradient-y": "gradient-y 10s ease infinite",
         "gradient-xy": "gradient-xy 10s ease infinite",
-        "slide-text": "slide-text 2s ease infinite",
+        "slide-text": "slide-text 2s ease 1",
       },
       keyframes: {
         "gradient-y": {
