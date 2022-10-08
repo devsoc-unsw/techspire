@@ -23,7 +23,7 @@ module.exports = {
         "gradient-x": "gradient-x 10s ease infinite",
         "gradient-y": "gradient-y 10s ease infinite",
         "gradient-xy": "gradient-xy 10s ease infinite",
-        "slide-text": "slide-text 3s ease infinite",
+        "slide-text": "slide-text 3s ease 1",
         "pulse-and-spin": "pulse 2s infinite, spin 5s linear infinite",
       },
       keyframes: {
