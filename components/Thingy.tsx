@@ -66,7 +66,7 @@ const Thingy = () => {
           </div>
         ))}
       </nav>
-      <main className={`flex-1`} ref={intersectorRef}>
+      <main id="info-section" className={`flex-1`} ref={intersectorRef}>
         {Object.entries(speakers).map(([speaker, { text, video }]) => (
           <section
             key={speaker}

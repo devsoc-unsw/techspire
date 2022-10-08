@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 
 import Logo from "../public/images/logo.png";
 import Thingy from "../components/Thingy";
+import Arrow from "../components/Arrow";
 
 const DynamicBasedCountdown = dynamic(
   () => import("../components/BasedCountdown"),
@@ -89,6 +90,9 @@ const Home: NextPage = () => {
           completed={completed}
           setCompleted={setCompleted}
         />
+        <div className="absolute bottom-[20%] justify-center">
+          <Arrow />
+        </div>
 
         {/* <Card className="top-8 left-4" /> */}
       </LandingLayout>

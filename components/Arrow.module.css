@@ -1,0 +1,55 @@
+.outer-container {
+    position: relative;
+    animation: bob 5s 1s infinite;
+  }
+
+.container {
+    display: inline-block;
+    position: relative;
+    margin-top: 25px;
+    filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.35));
+    transform: rotate(45deg);
+    pointer-events: none;
+}
+
+.container * {
+    transition: filter 0.5s;
+}
+
+.arrow
+{
+    display: inline-block;
+    position: relative;
+    padding: 12px;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+}
+
+
+.small {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 10px;    
+    border-color: rgba(255, 255, 255, 0.65);
+}
+
+@keyframes bob {
+50% {
+    transform: translateY(7px);
+}
+}
+
+.capture-mouse {
+    display: block;
+    position: absolute;
+    padding: 35px 250px;
+    left: 50%;
+    bottom: 50%;
+    transform: translate(-50%, 80%);
+    cursor: pointer;
+}
+
+.capture-mouse:hover + .container * {
+    filter: drop-shadow(0 0 12px white);
+}
