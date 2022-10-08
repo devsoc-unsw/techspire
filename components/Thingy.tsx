@@ -43,7 +43,7 @@ const Thingy = () => {
   return (
     <div className="flex gap-4 lg:px-4">
       <nav className="sticky top-0 hidden h-screen w-40 flex-col justify-center pl-2 md:flex lg:w-48">
-        {Object.entries(speakers).map(([speaker], idx) => (
+        {Object.keys(speakers).map((speaker, idx) => (
           <div
             key={speaker}
             className={`group flex items-center opacity-80 transition-opacity hover:cursor-pointer hover:opacity-100 ${
