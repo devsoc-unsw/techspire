@@ -24,6 +24,7 @@ interface Props {
 const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => {
   const infoRef = useRef<HTMLDivElement>(null);
   const [timer, setTimer] = useState<NodeJS.Timer>();
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>();
 
   const onMouseEnter = () => {
     let i = 0;
@@ -35,9 +36,11 @@ const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => {
 
       const child = elem.children[i];
       child.classList.add("animate-dissolve-text");
-      setTimeout(() => {
-        child.classList.remove("animate-dissolve-text");
-      }, 3000);
+      setTimeoutId(
+        setTimeout(() => {
+          child.classList.remove("animate-dissolve-text");
+        }, 3000)
+      );
 
       i = (i + 1) % elem.children.length;
     };
@@ -47,6 +50,7 @@ const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => {
 
   const onMouseLeave = () => {
     clearInterval(timer);
+    clearTimeout(timeoutId);
     Array.from(infoRef.current?.children ?? []).forEach((child) => {
       child.classList.remove("animate-dissolve-text");
     });
