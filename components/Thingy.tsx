@@ -41,8 +41,8 @@ const Thingy = () => {
   });
 
   return (
-    <div className="flex gap-2">
-      <nav className="sticky top-0 hidden h-screen w-48 flex-col justify-center pl-2 md:flex">
+    <div className="flex gap-4 lg:px-4">
+      <nav className="sticky top-0 hidden h-screen w-40 flex-col justify-center pl-2 md:flex lg:w-48">
         {Object.entries(speakers).map(([speaker], idx) => (
           <div
             key={speaker}
@@ -70,13 +70,13 @@ const Thingy = () => {
         {Object.entries(speakers).map(([speaker, { text, video }]) => (
           <section
             key={speaker}
-            className="flex h-screen flex-1 snap-center flex-col justify-center gap-4 px-8 py-16 md:flex-row"
+            className="flex h-screen flex-1 snap-center flex-col justify-center gap-8 px-8 py-16 md:flex-row lg:gap-16"
           >
-            <section className="flex flex-[4_4_0%] flex-col justify-center space-y-5">
+            <section className="flex flex-col justify-center space-y-5 md:flex-[4_4_0%]">
               <h1 className="z-999 text-3xl md:text-6xl">{speaker}</h1>
               {text}
             </section>
-            <aside className="flex flex-[3_3_0%] flex-col justify-center">
+            <aside className="flex flex-col justify-center md:flex-[3_3_0%]">
               <video
                 autoPlay
                 loop
