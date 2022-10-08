@@ -26,6 +26,7 @@ module.exports = {
         "slide-text": "slide-text 3s ease 1",
         "dissolve-text": "dissolve-text 3s ease 1",
         "pulse-and-spin": "pulse 2s infinite, spin 5s linear infinite",
+        spin: "spin 5s linear infinite",
       },
       keyframes: {
         "gradient-y": {

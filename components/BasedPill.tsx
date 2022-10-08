@@ -11,6 +11,12 @@ const Bg = ({ className = "", children }: PropsWithChildren<BgProps>) => (
   </div>
 );
 
+const HiddenText = ({ children }: PropsWithChildren) => (
+  <div className="absolute inset-0 grid place-items-center bg-gradient-to-r from-purple-400 via-violet-400 to-pink-400 bg-clip-text text-center text-xs text-transparent opacity-0 md:text-2xl lg:text-5xl">
+    {children}
+  </div>
+);
+
 interface Props {
   completed: boolean;
 }
@@ -54,6 +60,11 @@ const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => {
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
+      {/* The below background will fade in on hover */}
+      <Bg className="flex items-center overflow-hidden rounded-md opacity-0 blur-sm transition group-hover:opacity-50 group-hover:blur sm:-m-1 lg:-m-3">
+        <div className="absolute inset-x-0 animate-spin rounded-full bg-gradient-to-br from-blue-400 to-pink-400 pb-[100%]" />
+      </Bg>
+
       <Bg className="flex items-center overflow-hidden rounded-md blur-sm transition group-hover:blur sm:-m-1 lg:-m-3">
         <div className="absolute inset-x-0 animate-pulse-and-spin rounded-full bg-gradient-to-br from-blue-400 to-pink-400 pb-[100%]" />
       </Bg>
@@ -62,12 +73,8 @@ const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => {
       <div className="relative hidden group-hover:block">
         <div className="opacity-0">99d 99h 99m 99s</div>
         <div ref={infoRef}>
-          <div className="absolute inset-0 grid place-items-center text-center text-xs opacity-0 md:text-2xl lg:text-5xl">
-            October 28th 3-6pm
-          </div>
-          <div className="absolute inset-0 grid place-items-center text-center text-xs opacity-0 md:text-2xl lg:text-5xl">
-            UNSW Leighton Hall
-          </div>
+          <HiddenText>Fri Oct 28th 3-6pm</HiddenText>
+          <HiddenText>UNSW Leighton Hall</HiddenText>
         </div>
       </div>
     </div>
