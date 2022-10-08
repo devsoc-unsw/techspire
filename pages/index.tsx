@@ -112,7 +112,7 @@ const Home: NextPage = () => {
           completed={completed}
           setCompleted={setCompleted}
         />
-        <div className="absolute bottom-[20%] justify-center">
+        <div className="absolute bottom-[10%] justify-center">
           <Arrow />
         </div>
 
