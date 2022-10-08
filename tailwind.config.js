@@ -24,6 +24,7 @@ module.exports = {
         "gradient-y": "gradient-y 10s ease infinite",
         "gradient-xy": "gradient-xy 10s ease infinite",
         "slide-text": "slide-text 3s ease 1",
+        "dissolve-text": "dissolve-text 3s ease 1",
         "pulse-and-spin": "pulse 2s infinite, spin 5s linear infinite",
       },
       keyframes: {
@@ -76,6 +77,17 @@ module.exports = {
           },
           "100%": {
             transform: "translateX(30px)",
+            opacity: 0,
+          },
+        },
+        "dissolve-text": {
+          "0%": {
+            opacity: 0,
+          },
+          "15%, 85%": {
+            opacity: 1,
+          },
+          "100%": {
             opacity: 0,
           },
         },
