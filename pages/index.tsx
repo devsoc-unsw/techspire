@@ -46,7 +46,7 @@ const Home: NextPage = () => {
         autoPlay
         loop
         muted
-        className={`absolute -z-10 min-h-full w-auto min-w-full max-w-none brightness-[0.3]`}
+        className={`absolute -z-10 min-h-full w-auto min-w-full max-w-full object-cover brightness-[0.3]`}
       >
         <source src="./videos/ribbon.mp4" type="video/mp4" />
       </video>
