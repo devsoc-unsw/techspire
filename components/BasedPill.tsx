@@ -20,7 +20,13 @@ const Glow = ({ className = "", children }: PropsWithChildren<BgProps>) => (
 );
 
 const HiddenText = ({ children }: PropsWithChildren) => (
-  <div className="absolute inset-0 grid place-items-center bg-gradient-to-r from-purple-400 via-violet-400 to-pink-400 bg-clip-text text-center text-xs text-transparent opacity-0 md:text-2xl lg:text-5xl">
+  <div className="absolute inset-0 grid place-items-center bg-gradient-to-r from-purple-400 via-violet-400 to-pink-400 bg-clip-text text-center text-xs text-transparent opacity-0 transition-opacity duration-1000 md:text-2xl lg:text-5xl">
+    {children}
+  </div>
+);
+
+const HiddenTextButton = ({ children }: PropsWithChildren) => (
+  <div className="absolute inset-0 grid animate-gradient-x-fast place-items-center bg-gradient-to-r from-purple-400 via-violet-400 to-pink-400 bg-clip-text text-center font-bold text-transparent opacity-0 transition-opacity duration-1000">
     {children}
   </div>
 );
@@ -31,9 +37,7 @@ interface Props {
 
 const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => {
   const infoRef = useRef<HTMLDivElement>(null);
-  const infoRefContainer = useRef<HTMLDivElement>(null);
   const countdownRef = useRef<HTMLDivElement>(null);
-  const [timer, setTimer] = useState<NodeJS.Timer>();
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>();
   const [finishedSequence, setFinishedSequence] = useState(false);
 
@@ -42,62 +46,48 @@ const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => {
       return;
     }
 
-    elem.classList.add("animate-dissolve-text");
-    elem.style.animationDuration = `${duration / 1000}s`;
+    elem.classList.add("opacity-100");
     setTimeoutId(
       setTimeout(() => {
-        elem.classList.remove("animate-dissolve-text");
+        elem.classList.remove("opacity-100");
       }, duration)
     );
   };
 
   const displayCountdownHideInfoRef = () => {
     const countdownElem = countdownRef.current as HTMLElement;
-    countdownElem.classList.add("animate-dissolve-appear");
-    countdownElem.classList.remove("hidden");
-    countdownElem.classList.add("group-hover:hidden");
-
-    const infoElem = infoRefContainer.current as HTMLElement;
-    infoElem.classList.add("hidden");
-    infoElem.classList.add("group-hover:block");
+    countdownElem.classList.add("opacity-100");
+    countdownElem.classList.add("group-hover:opacity-0");
 
     setFinishedSequence(true);
   };
 
   useEffect(() => {
     const elem = infoRef.current;
-    animateDissolve(elem?.children[0] as HTMLElement, 5000);
+    animateDissolve(elem?.children[0] as HTMLElement, 4000);
     setTimeout(() => {
-      animateDissolve(elem?.children[1] as HTMLElement, 5000);
-    }, 5000);
-    setTimeout(displayCountdownHideInfoRef, 10000);
+      animateDissolve(elem?.children[1] as HTMLElement, 4000);
+    }, 4000);
+    setTimeout(() => {
+      animateDissolve(elem?.children[2] as HTMLElement, 10000);
+    }, 8000);
+    setTimeout(displayCountdownHideInfoRef, 18000);
   }, []);
 
   const onMouseEnter = () => {
     if (!finishedSequence) return;
 
-    const elem = infoRef.current!.children;
-    let i = 0;
-
-    animateDissolve(elem[i] as HTMLElement, 3000);
-    i = (i + 1) % elem.length;
-
-    setTimer(
-      setInterval(() => {
-        animateDissolve(elem[i] as HTMLElement, 3000);
-        i = (i + 1) % elem.length;
-      }, 3000)
-    );
+    countdownRef.current!.classList.remove("opacity-100");
+    infoRef.current!.children[2].classList.add("opacity-100");
   };
 
   const onMouseLeave = () => {
     if (!finishedSequence) return;
 
-    clearInterval(timer);
     clearTimeout(timeoutId);
-    Array.from(infoRef.current?.children ?? []).forEach((child) => {
-      child.classList.remove("animate-dissolve-text");
-    });
+
+    infoRef.current!.children[2].classList.remove("opacity-100");
+    countdownRef.current!.classList.add("opacity-100");
   };
 
   return (
@@ -118,16 +108,18 @@ const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => {
       </Glow>
       <Bg className="bg-[#121223] lg:-m-2" />
 
-      <div className="hidden" ref={countdownRef}>
+      <div className="invisible">99d 99h 99m 99s</div>
+      <div
+        className="absolute inset-0 grid place-items-center opacity-0 transition-opacity duration-1000"
+        ref={countdownRef}
+      >
         {children}
       </div>
 
-      <div className="relative" ref={infoRefContainer}>
-        <div className="invisible">99d 99h 99m 99s</div>
-        <div ref={infoRef}>
-          <HiddenText>Fri Oct 28th 3-6pm</HiddenText>
-          <HiddenText>UNSW Leighton Hall</HiddenText>
-        </div>
+      <div ref={infoRef}>
+        <HiddenText>Fri Oct 28th 3-6pm</HiddenText>
+        <HiddenText>UNSW Leighton Hall</HiddenText>
+        <HiddenTextButton>Get Tickets</HiddenTextButton>
       </div>
     </div>
   );
