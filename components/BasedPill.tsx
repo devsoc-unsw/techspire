@@ -35,6 +35,7 @@ const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => {
   const countdownRef = useRef<HTMLDivElement>(null);
   const [timer, setTimer] = useState<NodeJS.Timer>();
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>();
+  const [finishedSequence, setFinishedSequence] = useState(false);
 
   const animateDissolve = (elem: HTMLElement, duration: number) => {
     if (!elem) {
@@ -59,6 +60,8 @@ const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => {
     const infoElem = infoRefContainer.current as HTMLElement;
     infoElem.classList.add("hidden");
     infoElem.classList.add("group-hover:block");
+
+    setFinishedSequence(true);
   };
 
   useEffect(() => {
@@ -71,6 +74,8 @@ const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => {
   }, []);
 
   const onMouseEnter = () => {
+    if (!finishedSequence) return;
+
     const elem = infoRef.current!.children;
     let i = 0;
 
@@ -83,11 +88,11 @@ const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => {
         i = (i + 1) % elem.length;
       }, 3000)
     );
-    // animateInfoDissolve(0, 3000);
-    // setTimer(setInterval(() => {animateInfoDissolve(1, 3000)}, 3000));
   };
 
   const onMouseLeave = () => {
+    if (!finishedSequence) return;
+
     clearInterval(timer);
     clearTimeout(timeoutId);
     Array.from(infoRef.current?.children ?? []).forEach((child) => {
@@ -112,11 +117,11 @@ const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => {
         <div className="absolute inset-x-0 animate-pulse-and-spin rounded-full bg-gradient-to-br from-blue-400 to-pink-400 pb-[100%]" />
       </Glow>
       <Bg className="bg-[#121223] lg:-m-2" />
+
       <div className="hidden" ref={countdownRef}>
         {children}
       </div>
-      {/* <div className="group-hover:hidden">{children}</div> */}
-      {/* <div className="relative hidden group-hover:block"> */}
+
       <div className="relative" ref={infoRefContainer}>
         <div className="invisible">99d 99h 99m 99s</div>
         <div ref={infoRef}>
