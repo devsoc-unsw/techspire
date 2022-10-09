@@ -21,7 +21,7 @@ const Speaker = ({ speaker, speakerName, text, video }: SpeakerProps) => {
         <h1 className="z-999 flex items-end gap-2 text-3xl md:text-6xl">
           <span>{speaker}</span>
           <button
-            className="inline-flex w-fit items-center gap-1 rounded-full bg-gradient-to-r from-purple-400 to-indigo-400 p-2 text-base text-white shadow md:hidden"
+            className="inline-flex w-fit items-center gap-1 rounded-full bg-gradient-to-br from-purple-400 to-indigo-400 p-2 text-base text-white shadow md:hidden"
             onClick={() => setShowVideo(true)}
           >
             <VideoCameraIcon className="h-5 w-5" />
