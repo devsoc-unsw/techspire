@@ -5,8 +5,8 @@ WORKDIR /app
 COPY . .
 
 RUN npm install && \
-	npm build && \
-	npm build:ci
+	npm run build && \
+	npm run build:ci
 
 FROM nginx:alpine
 
