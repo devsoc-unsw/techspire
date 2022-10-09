@@ -2,11 +2,13 @@ FROM node:18.10.0-alpine as builder
 
 WORKDIR /app
 
+COPY package.json yarn.lock ./
+RUN yarn install
+
 COPY . .
 
-RUN npm install && \
-	npm run build && \
-	npm run build:ci
+RUN yarn run build && \
+	yarn run build:ci
 
 FROM nginx:alpine
 
