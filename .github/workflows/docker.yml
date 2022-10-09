@@ -2,7 +2,7 @@ name: Docker
 on:
   push:
     branches:
-      - "master"
+      - "main"
 
 jobs:
   build:
@@ -35,6 +35,6 @@ jobs:
           platforms: linux/amd64
           file: Dockerfile
           tags: |
-            ghcr.io/csesoc/tech-spire-2022-${{ matrix.component }}:${{ github.sha }}
-            ghcr.io/csesoc/tech-spire-2022-${{ matrix.component }}:latest
+            ghcr.io/csesoc/tech-spire-2022:${{ github.sha }}
+            ghcr.io/csesoc/tech-spire-2022:latest
           labels: ${{ steps.meta.outputs.labels }}
