@@ -1,12 +1,12 @@
-FROM node:18-alpine as builder
+FROM node:18.10.0-alpine as builder
 
 WORKDIR /app
 
 COPY . .
 
 RUN npm install && \
-	npx next build && \
-	npx next export
+	npm build && \
+	npm build:ci
 
 FROM nginx:alpine
 
