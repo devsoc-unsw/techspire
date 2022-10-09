@@ -1,7 +1,6 @@
 const CanvaText = () => {
   return (
     <>
-      <p>Adam Tizzone</p>
       <p>
         Just a few years into his career, Adam has already built an impressive
         track record. Upon graduating from UNSW in 2019, he made his way to

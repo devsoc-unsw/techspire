@@ -6,17 +6,24 @@ import CanvaText from "./Speakers/CanvaText";
 import MarcCheeText from "./Speakers/MarcCheeText";
 import PearlerText from "./Speakers/PearlerText";
 import JobsboardText from "./Speakers/JobsboardText";
+import Speaker, { SpeakerProps } from "./Speaker";
 
-const speakers = {
+type Speakers = {
+  [speaker: string]: Omit<SpeakerProps, "speaker">;
+};
+const speakers: Speakers = {
   Amazon: {
+    speakerName: "Adam Leung",
     text: <AmazonText />,
     video: "./videos/portal.mp4",
   },
   Atlassian: {
+    speakerName: "Ofir Zeevi",
     text: <AtlassianText />,
     video: "./videos/portal.mp4",
   },
   Canva: {
+    speakerName: "Adam Tizzone",
     text: <CanvaText />,
     video: "./videos/portal.mp4",
   },
@@ -29,6 +36,7 @@ const speakers = {
     video: "./videos/portal.mp4",
   },
   Jobsboard: {
+    speakerName: "Darian, Joanna",
     text: <JobsboardText />,
     video: "./videos/portal.mp4",
   },
@@ -67,29 +75,17 @@ const Thingy = () => {
         ))}
       </nav>
       <main id="info-section" className={`flex-1`} ref={intersectorRef}>
-        {Object.entries(speakers).map(([speaker, { text, video }]) => (
-          <section
-            key={speaker}
-            className="flex h-screen flex-1 snap-center flex-col justify-center gap-8 px-8 py-16 md:flex-row lg:gap-16"
-          >
-            <section className="flex flex-col justify-center space-y-5 md:flex-[4_4_0%]">
-              <h1 className="z-999 text-3xl md:text-6xl">{speaker}</h1>
-              {text}
-            </section>
-            <aside className="flex flex-col justify-center md:flex-[3_3_0%]">
-              <video
-                autoPlay
-                loop
-                muted
-                controls
-                controlsList="nodownload noplaybackrate nofullscreen"
-                disablePictureInPicture
-              >
-                <source src={video} type="video/mp4" />
-              </video>
-            </aside>
-          </section>
-        ))}
+        {Object.entries(speakers).map(
+          ([speaker, { speakerName, text, video }]) => (
+            <Speaker
+              key={speaker}
+              speaker={speaker}
+              speakerName={speakerName}
+              text={text}
+              video={video}
+            />
+          )
+        )}
       </main>
     </div>
   );

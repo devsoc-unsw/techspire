@@ -1,7 +1,6 @@
 const AmazonText = () => {
   return (
     <>
-      <p>Adam Leung</p>
       <p>
         Adam&apos;s journey began in highschool with an informatics class. Since
         then, he has continued to broaden his horizons through various companies
