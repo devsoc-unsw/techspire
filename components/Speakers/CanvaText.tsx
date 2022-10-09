@@ -12,15 +12,13 @@ const CanvaText = () => {
       <p>
         During his time at university, Adam was heavily involved in various
         extra-cirriculars including CSESoc where he would eventually become the
-        2017 Co-President. It is also rumoured that he founded CSESoc Projects
-        where he kickstarted many teams including the soon to be unveiled
-        Jobsboard.
+        2017 Co-President.
       </p>
 
       <p>
-        He is extremely passionate about music, having helped direct multiple
-        revues for different societies. When he is away from his desk, you might
-        find him playing -INSTRUMENT- at the Hornsby Gangshow.
+        He has a deep passion for music, having helped direct multiple revues
+        for different societies. When he is away from his desk, you might find
+        him in his garage working on cars.
       </p>
     </>
   );
