@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from "react";
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface BgProps {
   className?: string;
@@ -31,32 +31,68 @@ interface Props {
 
 const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => {
   const infoRef = useRef<HTMLDivElement>(null);
+  const infoRefContainer = useRef<HTMLDivElement>(null);
+  const countdownRef = useRef<HTMLDivElement>(null);
   const [timer, setTimer] = useState<NodeJS.Timer>();
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>();
+  const [finishedSequence, setFinishedSequence] = useState(false);
+
+  const animateDissolve = (elem: HTMLElement, duration: number) => {
+    if (!elem) {
+      return;
+    }
+
+    elem.classList.add("animate-dissolve-text");
+    elem.style.animationDuration = `${duration / 1000}s`;
+    setTimeoutId(
+      setTimeout(() => {
+        elem.classList.remove("animate-dissolve-text");
+      }, duration)
+    );
+  };
+
+  const displayCountdownHideInfoRef = () => {
+    const countdownElem = countdownRef.current as HTMLElement;
+    countdownElem.classList.add("animate-dissolve-appear");
+    countdownElem.classList.remove("hidden");
+    countdownElem.classList.add("group-hover:hidden");
+
+    const infoElem = infoRefContainer.current as HTMLElement;
+    infoElem.classList.add("hidden");
+    infoElem.classList.add("group-hover:block");
+
+    setFinishedSequence(true);
+  };
+
+  useEffect(() => {
+    const elem = infoRef.current;
+    animateDissolve(elem?.children[0] as HTMLElement, 5000);
+    setTimeout(() => {
+      animateDissolve(elem?.children[1] as HTMLElement, 5000);
+    }, 5000);
+    setTimeout(displayCountdownHideInfoRef, 10000);
+  }, []);
 
   const onMouseEnter = () => {
+    if (!finishedSequence) return;
+
+    const elem = infoRef.current!.children;
     let i = 0;
-    const animate = () => {
-      const elem = infoRef.current;
-      if (!elem) {
-        return;
-      }
 
-      const child = elem.children[i];
-      child.classList.add("animate-dissolve-text");
-      setTimeoutId(
-        setTimeout(() => {
-          child.classList.remove("animate-dissolve-text");
-        }, 3000)
-      );
+    animateDissolve(elem[i] as HTMLElement, 3000);
+    i = (i + 1) % elem.length;
 
-      i = (i + 1) % elem.children.length;
-    };
-    animate();
-    setTimer(setInterval(animate, 3000));
+    setTimer(
+      setInterval(() => {
+        animateDissolve(elem[i] as HTMLElement, 3000);
+        i = (i + 1) % elem.length;
+      }, 3000)
+    );
   };
 
   const onMouseLeave = () => {
+    if (!finishedSequence) return;
+
     clearInterval(timer);
     clearTimeout(timeoutId);
     Array.from(infoRef.current?.children ?? []).forEach((child) => {
@@ -81,8 +117,12 @@ const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => {
         <div className="absolute inset-x-0 animate-pulse-and-spin rounded-full bg-gradient-to-br from-blue-400 to-pink-400 pb-[100%]" />
       </Glow>
       <Bg className="bg-[#121223] lg:-m-2" />
-      <div className="group-hover:hidden">{children}</div>
-      <div className="relative hidden group-hover:block">
+
+      <div className="hidden" ref={countdownRef}>
+        {children}
+      </div>
+
+      <div className="relative" ref={infoRefContainer}>
         <div className="invisible">99d 99h 99m 99s</div>
         <div ref={infoRef}>
           <HiddenText>Fri Oct 28th 3-6pm</HiddenText>

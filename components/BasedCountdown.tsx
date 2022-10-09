@@ -10,11 +10,13 @@ interface Props {
 }
 
 const BasedCountdown: FC<Props> = ({ date, completed, setCompleted }) => {
-  const [value, setValue] = useState(calculateTimeLeft(date));
+  const [value, setValue] = useState(0);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { fire } = useConfetti();
 
   useEffect(() => {
+    setValue(calculateTimeLeft(date));
+
     const interval = setInterval(() => {
       if (calculateTimeLeft(date) <= 0) {
         setCompleted(true);

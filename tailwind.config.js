@@ -24,7 +24,8 @@ module.exports = {
         "gradient-y": "gradient-y 10s ease infinite",
         "gradient-xy": "gradient-xy 10s ease infinite",
         "slide-text": "slide-text 3s ease 1",
-        "dissolve-text": "dissolve-text 3s ease 1",
+        "dissolve-text": "dissolve-text ease 1",
+        "dissolve-appear": "dissolve-appear 3s ease 1",
         "pulse-and-spin": "pulse 2s infinite, spin 5s linear infinite",
         spin: "spin 5s linear infinite",
       },
@@ -90,6 +91,17 @@ module.exports = {
           },
           "100%": {
             opacity: 0,
+          },
+        },
+        "dissolve-appear": {
+          "0%": {
+            opacity: 0,
+          },
+          "15%, 85%": {
+            opacity: 1,
+          },
+          "100%": {
+            opacity: 1,
           },
         },
       },

@@ -2,17 +2,12 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import LandingLayout from "../components/Layouts/LandingLayout";
 
-import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 
 import Logo from "../public/images/logo.png";
 import Thingy from "../components/Thingy";
 import Arrow from "../components/Arrow";
-
-const DynamicBasedCountdown = dynamic(
-  () => import("../components/BasedCountdown"),
-  { ssr: false }
-);
+import BasedCountdown from "../components/BasedCountdown";
 
 const Home: NextPage = () => {
   const [completed, setCompleted] = useState(false);
@@ -109,7 +104,7 @@ const Home: NextPage = () => {
         </h1>
         {/* <h3 className={`z-10 text-2xl`}>Friday 28th Oct 3-6pm | Week 7</h3> */}
 
-        <DynamicBasedCountdown
+        <BasedCountdown
           date={new Date(2022, 9, 28, 15)}
           completed={completed}
           setCompleted={setCompleted}
