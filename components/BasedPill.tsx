@@ -92,8 +92,8 @@ const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => {
 
   const handleClick = () => {
     window
-      ?.open("https://events.humanitix.com/csesoc-annual-techspire", "_blank")
-      .focus();
+      .open("https://events.humanitix.com/csesoc-annual-techspire", "_blank")
+      ?.focus();
   };
 
   return (
