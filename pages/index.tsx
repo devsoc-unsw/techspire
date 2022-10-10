@@ -55,7 +55,7 @@ const Home: NextPage = () => {
 
   const [focusedPage, _setFocusedPage] = useState(0);
 
-  const [touchStart, setTouchStart] = useState<number>(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
   const [scrolling, setScrolling] = useState(false);
   const setFocusedPage = (focusedPage: number) => {
     _setFocusedPage(focusedPage);
@@ -131,9 +131,17 @@ const Home: NextPage = () => {
     <div
       onWheel={(e) => handleScroll(e.deltaY)}
       onTouchStart={(e) => setTouchStart(e.touches[0].clientY)}
-      onTouchMove={(e) =>
-        handleScroll(touchStart - e.changedTouches[0].clientY)
-      }
+      onTouchMove={(e) => {
+        if (touchStart === null) {
+          setTouchStart(e.touches[0].clientY);
+        } else {
+          const diff = touchStart - e.changedTouches[0].clientY;
+          if (Math.abs(diff) > 10) {
+            handleScroll(diff);
+            setTouchStart(null);
+          }
+        }
+      }}
     >
       <div
         className={`absolute inset-0 z-20 hidden bg-black/80 ${
