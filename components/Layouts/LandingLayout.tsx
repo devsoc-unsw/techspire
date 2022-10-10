@@ -12,7 +12,7 @@ const LandingLayout = (
   return (
     <section
       ref={ref}
-      className={`relative -mt-8 flex h-screen w-full snap-center flex-col items-center justify-center space-y-8 transition-transform duration-1000`}
+      className="relative -mt-8 flex h-screen w-full snap-center flex-col items-center justify-center space-y-8 transition-transform duration-1000"
       style={style}
     >
       {children}
