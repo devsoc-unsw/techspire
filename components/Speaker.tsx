@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { CSSProperties, Fragment, useState } from "react";
 import type { ReactNode } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { VideoCameraIcon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -8,14 +8,22 @@ export interface SpeakerProps {
   speakerName?: string;
   text: ReactNode;
   video: string;
+  style: CSSProperties;
 }
-const Speaker = ({ speaker, speakerName, text, video }: SpeakerProps) => {
+const Speaker = ({
+  speaker,
+  speakerName,
+  text,
+  video,
+  style,
+}: SpeakerProps) => {
   const [showVideo, setShowVideo] = useState(false);
 
   return (
     <section
       key={speaker}
-      className="flex h-screen flex-1 snap-center flex-col justify-center gap-8 px-8 py-16 xl:flex-row xl:gap-16"
+      className="flex h-screen flex-1 snap-center flex-col justify-center gap-8 px-8 py-16 transition-transform duration-1000 xl:flex-row xl:gap-16"
+      style={style}
     >
       <section className="flex flex-col justify-center space-y-3 md:space-y-4 xl:flex-[4_4_0%]">
         <h1 className="z-999 flex items-end gap-2 text-3xl md:text-6xl">
