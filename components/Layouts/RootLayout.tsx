@@ -4,7 +4,7 @@ interface Props {}
 
 const RootLayout = ({ children }: PropsWithChildren<Props>) => {
   return (
-    <main className="selection:bg-accent h-screen snap-y snap-mandatory snap-always overflow-y-auto overflow-x-hidden text-white">
+    <main className="selection:bg-accent flex h-screen overflow-hidden text-white">
       {children}
     </main>
   );

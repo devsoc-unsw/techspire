@@ -2,18 +2,88 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import LandingLayout from "../components/Layouts/LandingLayout";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import Logo from "../public/images/logo.png";
 import Thingy from "../components/Thingy";
 import Arrow from "../components/Arrow";
 import BasedCountdown from "../components/BasedCountdown";
 
+import AmazonText from "../components/Speakers/AmazonText";
+import AtlassianText from "../components/Speakers/AtlassianText";
+import CanvaText from "../components/Speakers/CanvaText";
+import MarcCheeText from "../components/Speakers/MarcCheeText";
+import PearlerText from "../components/Speakers/PearlerText";
+import JobsboardText from "../components/Speakers/JobsboardText";
+import { SpeakerProps } from "../components/Speaker";
+
+type Speakers = {
+  [speaker: string]: Omit<SpeakerProps, "speaker" | "style">;
+};
+const speakers: Speakers = {
+  Amazon: {
+    speakerName: "Adam Leung",
+    text: <AmazonText />,
+    video: "./videos/portal.mp4",
+  },
+  Atlassian: {
+    speakerName: "Ofir Zeevi",
+    text: <AtlassianText />,
+    video: "./videos/portal.mp4",
+  },
+  Canva: {
+    speakerName: "Adam Tizzone",
+    text: <CanvaText />,
+    video: "./videos/portal.mp4",
+  },
+  "Marc Chee": {
+    text: <MarcCheeText />,
+    video: "./videos/marc.mp4",
+  },
+  Pearler: {
+    text: <PearlerText />,
+    video: "./videos/portal.mp4",
+  },
+  Jobsboard: {
+    speakerName: "Darian, Joanna",
+    text: <JobsboardText />,
+    video: "./videos/portal.mp4",
+  },
+};
+
 const Home: NextPage = () => {
   const [completed, setCompleted] = useState(false);
   const techPrefixRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
+
+  const [focusedPage, _setFocusedPage] = useState(0);
+  console.log(focusedPage);
+
+  const [touchStart, setTouchStart] = useState<number>(0);
+  const [scrolling, setScrolling] = useState(false);
+  const setFocusedPage = (focusedPage: number) => {
+    _setFocusedPage(focusedPage);
+    setScrolling(true);
+    // fuck yeah, race conditions!
+    setTimeout(() => {
+      setScrolling(false);
+    }, 1000);
+  };
+  const handleScroll = useCallback(
+    (direction: number) => {
+      if (scrolling) {
+        return;
+      }
+
+      if (direction < 0 && focusedPage > 0) {
+        setFocusedPage(focusedPage - 1);
+      } else if (direction > 0 && focusedPage < Object.keys(speakers).length) {
+        setFocusedPage(focusedPage + 1);
+      }
+    },
+    [focusedPage, scrolling]
+  );
 
   useEffect(() => {
     const videoElem = videoRef.current;
@@ -43,13 +113,33 @@ const Home: NextPage = () => {
     animate();
     const interval = setInterval(animate, 3000);
 
+    const onKeyDown = (e: KeyboardEvent) => {
+      switch (e.key) {
+        case "ArrowDown":
+          handleScroll(1);
+          break;
+        case "ArrowUp":
+          handleScroll(-1);
+          break;
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+
     return () => {
       clearInterval(interval);
+      window.removeEventListener("keydown", onKeyDown);
     };
-  }, []);
+  }, [handleScroll]);
 
   return (
-    <>
+    <div
+      onWheel={(e) => handleScroll(e.deltaY)}
+      onTouchStart={(e) => setTouchStart(e.touches[0].clientY)}
+      onTouchMove={(e) =>
+        handleScroll(touchStart - e.changedTouches[0].clientY)
+      }
+    >
       <div
         className={`absolute inset-0 z-20 hidden bg-black/80 ${
           autoplayBlocked ? "!grid place-items-center" : ""
@@ -70,7 +160,10 @@ const Home: NextPage = () => {
       >
         <source src="./videos/ribbon.mp4" type="video/mp4" />
       </video>
-      <LandingLayout>
+
+      <LandingLayout
+        style={{ transform: `translateY(-${100 * focusedPage}vh)` }}
+      >
         <div className="w-64">
           <Image
             src={Logo}
@@ -116,8 +209,12 @@ const Home: NextPage = () => {
         {/* <Card className="top-8 left-4" /> */}
       </LandingLayout>
 
-      <Thingy />
-    </>
+      <Thingy
+        speakers={speakers}
+        focusedPage={focusedPage}
+        setFocusedPage={setFocusedPage}
+      />
+    </div>
   );
 };
 

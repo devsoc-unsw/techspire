@@ -1,13 +1,25 @@
-import { PropsWithChildren } from "react";
+import { forwardRef } from "react";
+import type { CSSProperties, PropsWithChildren, Ref } from "react";
 
-interface Props {}
+interface Props {
+  style: CSSProperties;
+}
 
-const LandingLayout = ({ children }: PropsWithChildren<Props>) => {
+const LandingLayout = (
+  { style, children }: PropsWithChildren<Props>,
+  ref: Ref<HTMLDivElement>
+) => {
   return (
-    <section className="relative -mt-8 flex h-screen w-full snap-center flex-col items-center justify-center space-y-8">
+    <section
+      ref={ref}
+      className="relative -mt-8 flex h-screen w-full snap-center flex-col items-center justify-center space-y-8 transition-transform duration-1000"
+      style={style}
+    >
       {children}
     </section>
   );
 };
 
-export default LandingLayout;
+export default forwardRef<HTMLDivElement, PropsWithChildren<Props>>(
+  LandingLayout
+);
