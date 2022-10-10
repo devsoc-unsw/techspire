@@ -67,7 +67,7 @@ const Home: NextPage = () => {
   };
   const handleScroll = useCallback(
     (direction: number) => {
-      if (scrolling) {
+      if (scrolling || autoplayBlocked) {
         return;
       }
 
@@ -77,7 +77,7 @@ const Home: NextPage = () => {
         setFocusedPage(focusedPage + 1);
       }
     },
-    [focusedPage, scrolling]
+    [focusedPage, scrolling, autoplayBlocked]
   );
 
   useEffect(() => {
