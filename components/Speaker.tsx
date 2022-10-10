@@ -20,59 +20,71 @@ const Speaker = ({
   focusedPage,
 }: SpeakerProps) => {
   const [showVideo, setShowVideo] = useState(false);
-  const [animateVideo, setAnimateVideo] = useState(false);
-  const [animateVideoOut, setAnimateVideoOut] = useState(false);
   const [previousFocusedPage, setPreviousFocusedPage] = useState(focusedPage);
   const textRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const firstUpdate = useRef(true);
   useEffect(() => {
-    const page = idx + 1;
-    if (previousFocusedPage === page) {
-      setAnimateVideoOut(true);
-      setTimeout(() => {
-        setAnimateVideoOut(false);
-      }, 1000);
-    } else if (
-      (focusedPage > previousFocusedPage &&
-        focusedPage >= page &&
-        previousFocusedPage < page) ||
-      (focusedPage < previousFocusedPage &&
-        focusedPage <= page &&
-        previousFocusedPage > page)
-    ) {
-      setAnimateVideo(true);
-      setTimeout(() => {
-        setAnimateVideo(false);
-      }, 2000);
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
 
-      const text = textRef.current;
-      if (text) {
-        const children = Array.from(text.children).filter(
-          (child) => child instanceof HTMLElement
-        ) as HTMLElement[];
-        children.forEach((child, i) => {
+    const page = idx + 1;
+    const video = videoRef.current!;
+    const text = textRef.current!;
+    const animateVideo = async (className: string) => {
+      const video = videoRef.current!;
+      video.getAnimations().forEach((animation) => animation.cancel());
+
+      // disgusting hack to make sure any existing animations are fully aborted before continuing
+      setTimeout(() => {
+        video.classList.add(className);
+        const animations = video.getAnimations();
+        animations[animations.length - 1]?.finished
+          .catch(() => {})
+          .finally(() => video.classList.remove(className));
+      }, 0);
+    };
+
+    if (previousFocusedPage === page) {
+      animateVideo(
+        focusedPage > previousFocusedPage
+          ? "animate-video-scroll-out-up"
+          : "animate-video-scroll-out-down"
+      );
+      video.pause();
+    } else {
+      animateVideo(
+        focusedPage > previousFocusedPage
+          ? "animate-video-scroll-in-up"
+          : "animate-video-scroll-in-down"
+      );
+      if (focusedPage === page) {
+        video.play();
+      }
+
+      const children = Array.from(text.children).filter(
+        (child) => child instanceof HTMLElement
+      ) as HTMLElement[];
+      children.forEach((child, i) => {
+        child.getAnimations().forEach((animation) => animation.cancel());
+
+        setTimeout(() => {
           child.classList.add("opacity-0", "animate-text-scroll-in");
           child.style.animationDelay = `${500 + i * 150}ms`;
-          Promise.all(
-            child.getAnimations().map((animation) => animation.finished)
-          ).then(() => {
-            child.classList.remove("opacity-0", "animate-text-scroll-in");
-          });
-        });
-      }
+          const animations = child.getAnimations();
+          animations[animations.length - 1]?.finished
+            .catch(() => {})
+            .finally(() => {
+              child.classList.remove("opacity-0", "animate-text-scroll-in");
+            });
+        }, 0);
+      });
     }
 
     setPreviousFocusedPage(focusedPage);
 
-    const video = videoRef.current;
-    if (!video) {
-      return;
-    }
-    if (focusedPage === page) {
-      video.play();
-    } else {
-      video.pause();
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TRUST ME ON THIS
   }, [focusedPage, idx]);
 
@@ -86,7 +98,7 @@ const Speaker = ({
     >
       <section
         ref={textRef}
-        className="flex flex-col justify-center space-y-3 [text-shadow:0_2px_7px_black,0_5px_15px_rgba(0,0,0,0.5)] md:space-y-4 xl:flex-[4_4_0%]"
+        className="flex flex-col justify-center space-y-3 md:space-y-4 xl:flex-[4_4_0%]"
       >
         <h1 className="z-999 flex items-end gap-2 text-3xl md:text-6xl">
           <span>{speaker}</span>
@@ -102,7 +114,7 @@ const Speaker = ({
         </h1>
         {text}
       </section>
-      <aside className="-z-10 mx-auto hidden max-w-2xl flex-col justify-center md:flex xl:max-w-none xl:flex-[4] xl:-translate-x-24">
+      <aside className="-z-10 mx-auto hidden max-w-2xl flex-col justify-center md:flex xl:max-w-none xl:flex-[4]">
         <video
           ref={videoRef}
           loop
@@ -110,13 +122,7 @@ const Speaker = ({
           playsInline
           controlsList="nodownload noplaybackrate nofullscreen"
           disablePictureInPicture
-          className={`rotate-1 rounded-sm shadow-xl ${
-            animateVideoOut
-              ? "animate-video-scroll-out"
-              : animateVideo
-              ? "animate-video-scroll-in"
-              : ""
-          }`}
+          className="rounded-sm shadow-xl"
         >
           <source src={video} type="video/mp4" />
         </video>

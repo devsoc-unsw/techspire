@@ -30,8 +30,10 @@ module.exports = {
         "pulse-and-spin": "pulse 2s infinite, spin 5s linear infinite",
         spin: "spin 5s linear infinite",
         "pulse-bright": "pulse 2s infinite",
-        "video-scroll-in": "video-scroll-in 2s ease 1",
-        "video-scroll-out": "video-scroll-out 1s ease 1",
+        "video-scroll-in-down": "video-scroll-in-down 2s ease 1",
+        "video-scroll-in-up": "video-scroll-in-up 2s ease 1",
+        "video-scroll-out-down": "video-scroll-out-down 1s ease 1",
+        "video-scroll-out-up": "video-scroll-out-up 1s ease 1",
         "text-scroll-in": "text-scroll-in 1s cubic-bezier(0.4, 0, 0.2, 1) 1",
       },
       keyframes: {
@@ -109,23 +111,42 @@ module.exports = {
             opacity: 1,
           },
         },
-        "video-scroll-in": {
+        "video-scroll-in-down": {
           "0%": {
-            transform: "rotate(1deg)",
+            transform: "none",
           },
           "25%": {
             transform: "rotate(1deg) translateX(4rem) scale(0.9)",
           },
           "100%": {
-            transform: "rotate(1deg)",
+            transform: "none",
           },
         },
-        "video-scroll-out": {
+        "video-scroll-in-up": {
           "0%": {
-            transform: "rotate(1deg)",
+            transform: "none",
+          },
+          "25%": {
+            transform: "rotate(-1deg) translateX(4rem) scale(0.9)",
+          },
+          "100%": {
+            transform: "none",
+          },
+        },
+        "video-scroll-out-up": {
+          "0%": {
+            transform: "none",
           },
           "100%": {
             transform: "rotate(1deg) translateX(4rem) scale(0.9)",
+          },
+        },
+        "video-scroll-out-down": {
+          "0%": {
+            transform: "none",
+          },
+          "100%": {
+            transform: "rotate(-1deg) translateX(4rem) scale(0.9)",
           },
         },
         "text-scroll-in": {
