@@ -15,12 +15,8 @@ import CanvaText from "../components/Speakers/CanvaText";
 import MarcCheeText from "../components/Speakers/MarcCheeText";
 import PearlerText from "../components/Speakers/PearlerText";
 import JobsboardText from "../components/Speakers/JobsboardText";
-import { SpeakerProps } from "../components/Speaker";
 
-type Speakers = {
-  [speaker: string]: Omit<SpeakerProps, "speaker" | "style">;
-};
-const speakers: Speakers = {
+const speakers = {
   Amazon: {
     speakerName: "Adam Leung",
     text: <AmazonText />,
@@ -58,7 +54,6 @@ const Home: NextPage = () => {
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
 
   const [focusedPage, _setFocusedPage] = useState(0);
-  console.log(focusedPage);
 
   const [touchStart, setTouchStart] = useState<number>(0);
   const [scrolling, setScrolling] = useState(false);
@@ -68,7 +63,7 @@ const Home: NextPage = () => {
     // fuck yeah, race conditions!
     setTimeout(() => {
       setScrolling(false);
-    }, 1000);
+    }, 1500);
   };
   const handleScroll = useCallback(
     (direction: number) => {
