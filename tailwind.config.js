@@ -21,6 +21,7 @@ module.exports = {
       },
       animation: {
         "gradient-x": "gradient-x 10s ease infinite",
+        "gradient-x-fast": "gradient-x 2s ease infinite",
         "gradient-y": "gradient-y 10s ease infinite",
         "gradient-xy": "gradient-xy 10s ease infinite",
         "slide-text": "slide-text 3s ease 1",
@@ -28,6 +29,7 @@ module.exports = {
         "dissolve-appear": "dissolve-appear 3s ease 1",
         "pulse-and-spin": "pulse 2s infinite, spin 5s linear infinite",
         spin: "spin 5s linear infinite",
+        "pulse-bright": "pulse 2s infinite",
       },
       keyframes: {
         "gradient-y": {
@@ -97,7 +99,7 @@ module.exports = {
           "0%": {
             opacity: 0,
           },
-          "15%, 85%": {
+          "40%": {
             opacity: 1,
           },
           "100%": {
