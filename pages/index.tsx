@@ -98,16 +98,23 @@ const Home: NextPage = () => {
       const child = elem.children[i];
       child.classList.remove("invisible");
       child.classList.add("animate-slide-text");
-      setTimeout(() => {
+      // this SHOULD be the only animation
+      child.getAnimations()[0].finished.then(() => {
         child.classList.remove("animate-slide-text");
         child.classList.add("invisible");
-      }, 3000);
+      });
 
       i = (i + 1) % elem.children.length;
     };
     animate();
     const interval = setInterval(animate, 3000);
 
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
+  useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       switch (e.key) {
         case "ArrowDown":
@@ -122,7 +129,6 @@ const Home: NextPage = () => {
     window.addEventListener("keydown", onKeyDown);
 
     return () => {
-      clearInterval(interval);
       window.removeEventListener("keydown", onKeyDown);
     };
   }, [handleScroll]);
