@@ -53,10 +53,11 @@ const Speaker = ({
         children.forEach((child, i) => {
           child.classList.add("opacity-0", "animate-text-scroll-in");
           child.style.animationDelay = `${500 + i * 150}ms`;
-          console.log(child);
-          setTimeout(() => {
+          Promise.all(
+            child.getAnimations().map((animation) => animation.finished)
+          ).then(() => {
             child.classList.remove("opacity-0", "animate-text-scroll-in");
-          }, 1500 + i * 150);
+          });
         });
       }
     }
