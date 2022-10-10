@@ -34,7 +34,8 @@ module.exports = {
         "video-scroll-in-up": "video-scroll-in-up 2s ease 1",
         "video-scroll-out-down": "video-scroll-out-down 1s ease 1",
         "video-scroll-out-up": "video-scroll-out-up 1s ease 1",
-        "text-scroll-in": "text-scroll-in 1s cubic-bezier(0.4, 0, 0.2, 1) 1",
+        "text-scroll-in":
+          "text-scroll-in-slide 1s cubic-bezier(0, 0, 0.2, 1) 1, text-scroll-in-opacity 1s cubic-bezier(0.4, 0, 0.2, 1) 1",
       },
       keyframes: {
         "gradient-y": {
@@ -149,13 +150,19 @@ module.exports = {
             transform: "rotate(-1deg) translateX(4rem) scale(0.9)",
           },
         },
-        "text-scroll-in": {
+        "text-scroll-in-slide": {
           "0%": {
             transform: "translateX(-8rem)",
-            opacity: 0,
           },
           "100%": {
             transform: "none",
+          },
+        },
+        "text-scroll-in-opacity": {
+          "0%": {
+            opacity: 0,
+          },
+          "100%": {
             opacity: 1,
           },
         },
