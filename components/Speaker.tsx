@@ -60,7 +60,7 @@ const Speaker = ({
           ? "animate-video-scroll-in-up"
           : "animate-video-scroll-in-down"
       );
-      if (focusedPage === page) {
+      if (focusedPage === page && window.innerWidth >= 768) {
         video.play();
       }
 
@@ -87,6 +87,16 @@ const Speaker = ({
 
     // eslint-disable-next-line react-hooks/exhaustive-deps -- TRUST ME ON THIS
   }, [focusedPage, idx]);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      if (window.innerWidth < 768) {
+        videoRef.current?.pause();
+      } else {
+        videoRef.current?.play();
+      }
+    });
+  }, []);
 
   return (
     <section
