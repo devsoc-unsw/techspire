@@ -89,14 +89,23 @@ const Speaker = ({
   }, [focusedPage, idx]);
 
   useEffect(() => {
-    window.addEventListener("resize", () => {
+    const resizeHandler = () => {
+      if (focusedPage !== idx + 1) {
+        return;
+      }
+
       if (window.innerWidth < 768) {
         videoRef.current?.pause();
       } else {
         videoRef.current?.play();
       }
-    });
-  }, []);
+    };
+    window.addEventListener("resize", resizeHandler);
+
+    return () => {
+      window.removeEventListener("resize", resizeHandler);
+    };
+  }, [focusedPage, idx]);
 
   return (
     <section
