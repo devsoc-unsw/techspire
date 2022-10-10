@@ -90,6 +90,12 @@ const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => {
     countdownRef.current!.classList.add("opacity-100");
   };
 
+  const handleClick = () => {
+    window
+      ?.open("https://events.humanitix.com/csesoc-annual-techspire", "_blank")
+      .focus();
+  };
+
   return (
     <div
       className={`sm:text-md group relative z-0 px-4 py-2 font-mono hover:cursor-pointer md:px-4 md:py-2.5 md:text-3xl lg:text-6xl ${
@@ -97,6 +103,7 @@ const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => {
       }`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      onClick={handleClick}
     >
       {/* The below background will fade in on hover */}
       <Glow className="opacity-0 group-hover:opacity-50">
