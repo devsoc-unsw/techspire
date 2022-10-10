@@ -68,17 +68,18 @@ const Speaker = ({
         (child) => child instanceof HTMLElement
       ) as HTMLElement[];
       children.forEach((child, i) => {
-        child.getAnimations().forEach((animation) => animation.cancel());
+        child.style.transition = "";
+        child.classList.add("opacity-0", "-translate-x-32");
 
         setTimeout(() => {
-          child.classList.add("opacity-0", "animate-text-scroll-in");
-          child.style.animationDelay = `${500 + i * 150}ms`;
-          const animations = child.getAnimations();
-          animations[animations.length - 1]?.finished
-            .catch(() => {})
-            .finally(() => {
-              child.classList.remove("opacity-0", "animate-text-scroll-in");
-            });
+          child.style.transition =
+            "opacity cubic-bezier(0.4, 0, 0.2, 1), transform cubic-bezier(0, 0, 0.2, 1)";
+          child.style.transitionDuration = "1s";
+          child.style.transitionDelay = `${500 + i * 150}ms`;
+          child.classList.remove("opacity-0", "-translate-x-32");
+          child.addEventListener("transitionend", () => {
+            child.style.transition = "";
+          });
         }, 0);
       });
     }
