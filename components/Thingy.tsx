@@ -1,19 +1,22 @@
-import Speaker, { SpeakerProps } from "./Speaker";
+import { ReactNode } from "react";
+import Speaker from "./Speaker";
 
 interface Props {
   speakers: {
-    [speaker: string]: Omit<SpeakerProps, "speaker" | "style">;
+    [speaker: string]: {
+      speakerName?: string;
+      text: ReactNode;
+      video: string;
+    };
   };
   focusedPage: number;
   setFocusedPage: (_focusedPage: number) => void;
 }
 const Thingy = ({ speakers, focusedPage, setFocusedPage }: Props) => {
-  console.log(focusedPage);
-
   return (
     <div className="flex gap-4 lg:px-4">
       <nav
-        className="sticky top-0 hidden h-screen w-40 flex-col justify-center pl-2 transition-transform duration-1000 md:flex lg:w-48"
+        className="sticky top-0 hidden h-screen w-40 flex-col justify-center pl-2 transition-transform duration-[1500ms] md:flex lg:w-48"
         style={{ transform: focusedPage ? "translateY(-100vh)" : undefined }}
       >
         {Object.keys(speakers).map((speaker, idx) => (
@@ -37,16 +40,15 @@ const Thingy = ({ speakers, focusedPage, setFocusedPage }: Props) => {
       </nav>
       <main id="info-section" className={`flex-1`}>
         {Object.entries(speakers).map(
-          ([speaker, { speakerName, text, video }]) => (
+          ([speaker, { speakerName, text, video }], idx) => (
             <Speaker
               key={speaker}
+              idx={idx}
               speaker={speaker}
               speakerName={speakerName}
               text={text}
               video={video}
-              style={{
-                transform: `translateY(-${100 * focusedPage}vh)`,
-              }}
+              focusedPage={focusedPage}
             />
           )
         )}
