@@ -8,11 +8,13 @@
 /* Import Nevis from public folder */
 @font-face {
   font-family: "Nevis";
+  font-display: swap;
   src: url("/fonts/nevis.ttf");
 }
 
 @font-face {
   font-family: "Digital";
+  font-display: swap;
   src: url("/fonts/digital.ttf");
 }
 
