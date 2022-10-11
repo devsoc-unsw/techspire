@@ -32,6 +32,7 @@ const speakers: Speakers = {
     video: "./videos/marc.mp4",
   },
   Pearler: {
+    speakerName: "Kath-Lin Han",
     text: <PearlerText />,
     video: "./videos/portal.mp4",
   },
