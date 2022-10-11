@@ -173,7 +173,7 @@ const Home: NextPage = () => {
       <LandingLayout
         style={{ transform: `translateY(-${100 * focusedPage}vh)` }}
       >
-        <div className="w-64">
+        <div className="w-48 md:w-64">
           <Image
             src={Logo}
             // layout="responsive"
@@ -182,7 +182,7 @@ const Home: NextPage = () => {
           />
         </div>
         <h1
-          className={`group flex w-full text-6xl font-bold tracking-wide md:text-8xl lg:text-11xl ${
+          className={`group mb-8 flex w-full text-6xl font-bold tracking-wide md:text-8xl lg:mb-12 lg:text-11xl ${
             completed && "animate-bounce"
           }`}
         >
