@@ -108,7 +108,7 @@ const Speaker = ({
   return (
     <section
       key={speaker}
-      className="flex h-screen flex-1 snap-center flex-col justify-center gap-8 px-8 py-16 transition-transform duration-[1500ms] xl:flex-row"
+      className="flex h-screen flex-1 snap-center flex-col items-center justify-center gap-8 px-8 py-16 transition-transform duration-[1500ms] xl:flex-row"
       style={{
         transform: `translateY(calc(-${100 * focusedPage} * var(--vh, 1vh)))`,
       }}
@@ -131,7 +131,7 @@ const Speaker = ({
         </h1>
         {text}
       </section>
-      <aside className="-z-10 mx-auto hidden max-w-2xl flex-col justify-center md:flex xl:max-w-none xl:flex-[4]">
+      <aside className="-z-10 mx-auto hidden max-h-[50%] max-w-2xl flex-col justify-center md:flex xl:max-h-[75%] xl:max-w-none xl:flex-[4]">
         <video
           ref={videoRef}
           loop
@@ -139,7 +139,7 @@ const Speaker = ({
           playsInline
           controlsList="nodownload noplaybackrate nofullscreen"
           disablePictureInPicture
-          className="rounded-sm shadow-xl"
+          className="mx-auto max-h-full w-auto rounded-sm shadow-xl"
         >
           <source src={video} type="video/mp4" />
         </video>

@@ -1,19 +1,18 @@
 const PearlerText = () => {
   return (
     <>
-      <p>Pearler example text</p>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
+        During university, Kath-Lin explored a variety of internships in various
+        fields from large industrial manufacturers to fast-paced FinTechs. Her
+        exprience has taken her across the entire tech-stack from frontend to
+        backend to UI design, helping her excel in her current role as a Full
+        Stack Engineer at Pearler.
       </p>
 
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
+        Kath-Lin graduated from UNSW in 2021 after studying Computer Science and
+        Mechatronics. Occasionally, you might see her at one of our barbecues in
+        her white Pearler shirt!
       </p>
     </>
   );

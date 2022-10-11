@@ -20,30 +20,31 @@ const speakers = {
   Amazon: {
     speakerName: "Adam Leung",
     text: <AmazonText />,
-    video: "./videos/portal.mp4",
+    video: "./videos/ribbon.mp4",
   },
   Atlassian: {
     speakerName: "Ofir Zeevi",
     text: <AtlassianText />,
-    video: "./videos/portal.mp4",
+    video: "./videos/ribbon.mp4",
   },
   Canva: {
     speakerName: "Adam Tizzone",
     text: <CanvaText />,
-    video: "./videos/portal.mp4",
+    video: "./videos/ribbon.mp4",
   },
   "Marc Chee": {
     text: <MarcCheeText />,
     video: "./videos/marc.mp4",
   },
   Pearler: {
+    speakerName: "Kath-Lin Han",
     text: <PearlerText />,
-    video: "./videos/portal.mp4",
+    video: "./videos/kathlin.mp4",
   },
   Jobsboard: {
     speakerName: "Darian, Joanna",
     text: <JobsboardText />,
-    video: "./videos/portal.mp4",
+    video: "./videos/jobsboard.mp4",
   },
 };
 
