@@ -223,8 +223,8 @@ const Home: NextPage = () => {
           completed={completed}
           setCompleted={setCompleted}
         />
-        <div className="absolute bottom-16 justify-center">
-          <Arrow />
+        <div className="absolute bottom-32 justify-center">
+          <Arrow onClick={() => setFocusedPage(1)} />
         </div>
 
         {/* <Card className="top-8 left-4" /> */}
