@@ -19,7 +19,6 @@ module.exports = {
       },
       fontFamily: {
         sans: ["Nevis", ...defaultTheme.fontFamily.sans],
-        digital: ["Digital", ...defaultTheme.fontFamily.mono],
       },
       animation: {
         "gradient-x": "gradient-x 10s ease infinite",
