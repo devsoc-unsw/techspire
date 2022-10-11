@@ -77,9 +77,6 @@ const Speaker = ({
           child.style.transitionDuration = "1s";
           child.style.transitionDelay = `${500 + i * 150}ms`;
           child.classList.remove("opacity-0", "-translate-x-32");
-          child.addEventListener("transitionend", () => {
-            child.style.transition = "";
-          });
         }, 0);
       });
     }
