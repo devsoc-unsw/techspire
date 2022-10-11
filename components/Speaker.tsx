@@ -110,7 +110,7 @@ const Speaker = ({
       key={speaker}
       className="flex h-screen flex-1 snap-center flex-col justify-center gap-8 px-8 py-16 transition-transform duration-[1500ms] xl:flex-row"
       style={{
-        transform: `translateY(-${100 * focusedPage}vh)`,
+        transform: `translateY(calc(-${100 * focusedPage} * var(--vh, 1vh)))`,
       }}
     >
       <section
