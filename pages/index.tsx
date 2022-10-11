@@ -174,6 +174,7 @@ const Home: NextPage = () => {
         autoPlay
         loop
         muted
+        playsInline
         className="absolute -z-10 min-h-full w-auto min-w-full max-w-full object-cover brightness-[0.3]"
         ref={videoRef}
       >

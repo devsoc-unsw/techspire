@@ -178,6 +178,7 @@ const Speaker = ({
                 autoPlay
                 loop
                 controls
+                playsInline
                 controlsList="nodownload noplaybackrate nofullscreen"
                 disablePictureInPicture
               >
