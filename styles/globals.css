@@ -13,9 +13,7 @@
   html,
   body,
   #__next {
-    height: 100%;
-    overflow: hidden;
-    /* @apply bg-dark; */
+    @apply h-screen overflow-hidden;
   }
 
   body {

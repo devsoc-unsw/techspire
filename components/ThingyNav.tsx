@@ -16,7 +16,11 @@ const ThingyNav = ({ speakers, focusedPage, setFocusedPage }: Props) => (
   <>
     <nav
       className="sticky top-0 hidden h-screen w-40 flex-col justify-center pl-2 transition-transform duration-[1500ms] md:flex lg:w-48"
-      style={{ transform: focusedPage ? "translateY(-100vh)" : undefined }}
+      style={{
+        transform: focusedPage
+          ? "translateY(calc(-100 * var(--vh, 1vh)))"
+          : undefined,
+      }}
     >
       {Object.keys(speakers).map((speaker, idx) => (
         <button
@@ -38,8 +42,12 @@ const ThingyNav = ({ speakers, focusedPage, setFocusedPage }: Props) => (
       ))}
     </nav>
     <nav
-      className="fixed inset-x-0 bottom-[calc(20px-100vh)] z-10 flex items-end justify-center transition-transform duration-[1500ms] md:hidden"
-      style={{ transform: focusedPage ? "translateY(-100vh)" : undefined }}
+      className="fixed inset-x-0 bottom-[calc(20px-100*var(--vh,1vh))] z-10 flex items-end justify-center transition-transform duration-[1500ms] md:hidden"
+      style={{
+        transform: focusedPage
+          ? "translateY(calc(-100 * var(--vh, 1vh)))"
+          : undefined,
+      }}
     >
       {Object.keys(speakers).map((speaker, idx) => (
         <button

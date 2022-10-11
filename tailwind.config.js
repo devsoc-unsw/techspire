@@ -20,6 +20,9 @@ module.exports = {
       fontFamily: {
         sans: ["Nevis", ...defaultTheme.fontFamily.sans],
       },
+      height: {
+        screen: "calc(var(--vh, 1vh) * 100)",
+      },
       animation: {
         "gradient-x": "gradient-x 10s ease infinite",
         "gradient-x-fast": "gradient-x 2s ease infinite",

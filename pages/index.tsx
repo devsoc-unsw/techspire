@@ -109,8 +109,18 @@ const Home: NextPage = () => {
     animate();
     const interval = setInterval(animate, 3000);
 
+    const resetHeight = () => {
+      document.documentElement.style.setProperty(
+        "--vh",
+        `${window.innerHeight / 100}px`
+      );
+    };
+    resetHeight();
+    window.addEventListener("resize", resetHeight);
+
     return () => {
       clearInterval(interval);
+      window.removeEventListener("resize", resetHeight);
     };
   }, []);
 
@@ -171,7 +181,9 @@ const Home: NextPage = () => {
       </video>
 
       <LandingLayout
-        style={{ transform: `translateY(-${100 * focusedPage}vh)` }}
+        style={{
+          transform: `translateY(calc(-${100 * focusedPage} * var(--vh, 1vh)))`,
+        }}
       >
         <div className="w-48 md:w-64">
           <Image
@@ -211,7 +223,7 @@ const Home: NextPage = () => {
           completed={completed}
           setCompleted={setCompleted}
         />
-        <div className="absolute bottom-[10%] justify-center">
+        <div className="absolute bottom-16 justify-center">
           <Arrow />
         </div>
 
