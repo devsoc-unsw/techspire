@@ -1,3 +1,5 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -16,8 +18,10 @@ module.exports = {
         25: ".25",
       },
       fontFamily: {
-        sans: ["Nevis", "sans-serif"],
-        digital: ["Digital"],
+        sans: ["Nevis", ...defaultTheme.fontFamily.sans],
+      },
+      height: {
+        screen: "calc(var(--vh, 1vh) * 100)",
       },
       animation: {
         "gradient-x": "gradient-x 10s ease infinite",
@@ -30,6 +34,10 @@ module.exports = {
         "pulse-and-spin": "pulse 2s infinite, spin 5s linear infinite",
         spin: "spin 5s linear infinite",
         "pulse-bright": "pulse 2s infinite",
+        "video-scroll-in-down": "video-scroll-in-down 2s ease 1",
+        "video-scroll-in-up": "video-scroll-in-up 2s ease 1",
+        "video-scroll-out-down": "video-scroll-out-down 1s ease 1",
+        "video-scroll-out-up": "video-scroll-out-up 1s ease 1",
       },
       keyframes: {
         "gradient-y": {
@@ -104,6 +112,44 @@ module.exports = {
           },
           "100%": {
             opacity: 1,
+          },
+        },
+        "video-scroll-in-down": {
+          "0%": {
+            transform: "none",
+          },
+          "25%": {
+            transform: "rotate(1deg) translateX(4rem) scale(0.9)",
+          },
+          "100%": {
+            transform: "none",
+          },
+        },
+        "video-scroll-in-up": {
+          "0%": {
+            transform: "none",
+          },
+          "25%": {
+            transform: "rotate(-1deg) translateX(4rem) scale(0.9)",
+          },
+          "100%": {
+            transform: "none",
+          },
+        },
+        "video-scroll-out-up": {
+          "0%": {
+            transform: "none",
+          },
+          "100%": {
+            transform: "rotate(1deg) translateX(4rem) scale(0.9)",
+          },
+        },
+        "video-scroll-out-down": {
+          "0%": {
+            transform: "none",
+          },
+          "100%": {
+            transform: "rotate(-1deg) translateX(4rem) scale(0.9)",
           },
         },
       },

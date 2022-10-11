@@ -2,18 +2,84 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import LandingLayout from "../components/Layouts/LandingLayout";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import Logo from "../public/images/logo.png";
 import Thingy from "../components/Thingy";
 import Arrow from "../components/Arrow";
 import BasedCountdown from "../components/BasedCountdown";
 
+import AmazonText from "../components/Speakers/AmazonText";
+import AtlassianText from "../components/Speakers/AtlassianText";
+import CanvaText from "../components/Speakers/CanvaText";
+import MarcCheeText from "../components/Speakers/MarcCheeText";
+import PearlerText from "../components/Speakers/PearlerText";
+import JobsboardText from "../components/Speakers/JobsboardText";
+
+const speakers = {
+  Amazon: {
+    speakerName: "Adam Leung",
+    text: <AmazonText />,
+    video: "./videos/ribbon.mp4",
+  },
+  Atlassian: {
+    speakerName: "Ofir Zeevi",
+    text: <AtlassianText />,
+    video: "./videos/ribbon.mp4",
+  },
+  Canva: {
+    speakerName: "Adam Tizzone",
+    text: <CanvaText />,
+    video: "./videos/ribbon.mp4",
+  },
+  "Marc Chee": {
+    text: <MarcCheeText />,
+    video: "./videos/marc.mp4",
+  },
+  Pearler: {
+    speakerName: "Kath-Lin Han",
+    text: <PearlerText />,
+    video: "./videos/kathlin.mp4",
+  },
+  Jobsboard: {
+    speakerName: "Darian, Joanna",
+    text: <JobsboardText />,
+    video: "./videos/jobsboard.mp4",
+  },
+};
+
 const Home: NextPage = () => {
   const [completed, setCompleted] = useState(false);
   const techPrefixRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
+
+  const [focusedPage, _setFocusedPage] = useState(0);
+
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [scrolling, setScrolling] = useState(false);
+  const setFocusedPage = (focusedPage: number) => {
+    _setFocusedPage(focusedPage);
+    setScrolling(true);
+    // fuck yeah, race conditions!
+    setTimeout(() => {
+      setScrolling(false);
+    }, 1500);
+  };
+  const handleScroll = useCallback(
+    (direction: number) => {
+      if (scrolling || autoplayBlocked) {
+        return;
+      }
+
+      if (direction < 0 && focusedPage > 0) {
+        setFocusedPage(focusedPage - 1);
+      } else if (direction > 0 && focusedPage < Object.keys(speakers).length) {
+        setFocusedPage(focusedPage + 1);
+      }
+    },
+    [focusedPage, scrolling, autoplayBlocked]
+  );
 
   useEffect(() => {
     const videoElem = videoRef.current;
@@ -33,23 +99,67 @@ const Home: NextPage = () => {
       const child = elem.children[i];
       child.classList.remove("invisible");
       child.classList.add("animate-slide-text");
-      setTimeout(() => {
+      // this SHOULD be the only animation
+      child.getAnimations()[0].finished.then(() => {
         child.classList.remove("animate-slide-text");
         child.classList.add("invisible");
-      }, 3000);
+      });
 
       i = (i + 1) % elem.children.length;
     };
     animate();
     const interval = setInterval(animate, 3000);
 
+    const resetHeight = () => {
+      document.documentElement.style.setProperty(
+        "--vh",
+        `${window.innerHeight / 100}px`
+      );
+    };
+    resetHeight();
+    window.addEventListener("resize", resetHeight);
+
     return () => {
       clearInterval(interval);
+      window.removeEventListener("resize", resetHeight);
     };
   }, []);
 
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      switch (e.key) {
+        case "ArrowDown":
+          handleScroll(1);
+          break;
+        case "ArrowUp":
+          handleScroll(-1);
+          break;
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [handleScroll]);
+
   return (
-    <>
+    <div
+      onWheel={(e) => handleScroll(e.deltaY)}
+      onTouchStart={(e) => setTouchStart(e.touches[0].clientY)}
+      onTouchMove={(e) => {
+        if (touchStart === null) {
+          setTouchStart(e.touches[0].clientY);
+        } else {
+          const diff = touchStart - e.changedTouches[0].clientY;
+          if (Math.abs(diff) > 10) {
+            handleScroll(diff);
+            setTouchStart(null);
+          }
+        }
+      }}
+    >
       <div
         className={`absolute inset-0 z-20 hidden bg-black/80 ${
           autoplayBlocked ? "!grid place-items-center" : ""
@@ -65,13 +175,19 @@ const Home: NextPage = () => {
         autoPlay
         loop
         muted
+        playsInline
         className="absolute -z-10 min-h-full w-auto min-w-full max-w-full object-cover brightness-[0.3]"
         ref={videoRef}
       >
         <source src="./videos/ribbon.mp4" type="video/mp4" />
       </video>
-      <LandingLayout>
-        <div className="w-64">
+
+      <LandingLayout
+        style={{
+          transform: `translateY(calc(-${100 * focusedPage} * var(--vh, 1vh)))`,
+        }}
+      >
+        <div className="w-48 md:w-64">
           <Image
             src={Logo}
             // layout="responsive"
@@ -80,7 +196,7 @@ const Home: NextPage = () => {
           />
         </div>
         <h1
-          className={`group flex w-full text-6xl font-bold tracking-wide md:text-8xl lg:text-11xl ${
+          className={`group mb-8 flex w-full text-6xl font-bold tracking-wide md:text-8xl lg:mb-12 lg:text-11xl ${
             completed && "animate-bounce"
           }`}
         >
@@ -109,15 +225,19 @@ const Home: NextPage = () => {
           completed={completed}
           setCompleted={setCompleted}
         />
-        <div className="absolute bottom-[10%] justify-center">
-          <Arrow />
+        <div className="absolute bottom-32 justify-center">
+          <Arrow onClick={() => setFocusedPage(1)} />
         </div>
 
         {/* <Card className="top-8 left-4" /> */}
       </LandingLayout>
 
-      <Thingy />
-    </>
+      <Thingy
+        speakers={speakers}
+        focusedPage={focusedPage}
+        setFocusedPage={setFocusedPage}
+      />
+    </div>
   );
 };
 
