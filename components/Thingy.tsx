@@ -34,12 +34,12 @@ const speakers: Speakers = {
   Pearler: {
     speakerName: "Kath-Lin Han",
     text: <PearlerText />,
-    video: "./videos/ribbon.mp4",
+    video: "./videos/kathlin.mp4",
   },
   Jobsboard: {
     speakerName: "Darian, Joanna",
     text: <JobsboardText />,
-    video: "./videos/ribbon.mp4",
+    video: "./videos/jobsboard.mp4",
   },
 };
 
