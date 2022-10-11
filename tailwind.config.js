@@ -1,3 +1,5 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -16,8 +18,8 @@ module.exports = {
         25: ".25",
       },
       fontFamily: {
-        sans: ["Nevis", "sans-serif"],
-        digital: ["Digital"],
+        sans: ["Nevis", ...defaultTheme.fontFamily.sans],
+        digital: ["Digital", ...defaultTheme.fontFamily.mono],
       },
       animation: {
         "gradient-x": "gradient-x 10s ease infinite",
