@@ -25,7 +25,7 @@ const speakers = {
   Atlassian: {
     speakerName: "Ofir Zeevi",
     text: <AtlassianText />,
-    video: "./videos/ribbon.mp4",
+    video: "./videos/ofir.mp4",
   },
   Canva: {
     speakerName: "Adam Tizzone",
