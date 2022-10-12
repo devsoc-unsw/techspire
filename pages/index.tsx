@@ -20,7 +20,7 @@ const speakers = {
   Amazon: {
     speakerName: "Adam Leung",
     text: <AmazonText />,
-    video: "./videos/ribbon.mp4",
+    video: "./videos/amazon.mp4",
   },
   Atlassian: {
     speakerName: "Ofir Zeevi",
