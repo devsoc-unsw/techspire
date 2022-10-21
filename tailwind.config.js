@@ -28,7 +28,6 @@ module.exports = {
         "gradient-x-fast": "gradient-x 2s ease infinite",
         "gradient-y": "gradient-y 10s ease infinite",
         "gradient-xy": "gradient-xy 10s ease infinite",
-        "slide-text": "slide-text 3s ease 1",
         "dissolve-text": "dissolve-text ease 1",
         "dissolve-appear": "dissolve-appear 3s ease 1",
         "pulse-and-spin": "pulse 2s infinite, spin 5s linear infinite",
@@ -76,20 +75,6 @@ module.exports = {
           "75%": {
             "background-size": "300% 300%",
             "background-position": "right center",
-          },
-        },
-        "slide-text": {
-          "0%": {
-            transform: "translateX(-30px)",
-            opacity: 0,
-          },
-          "25%, 75%": {
-            transform: "none",
-            opacity: 1,
-          },
-          "100%": {
-            transform: "translateX(30px)",
-            opacity: 0,
           },
         },
         "dissolve-text": {

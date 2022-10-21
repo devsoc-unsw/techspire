@@ -89,26 +89,30 @@ const Home: NextPage = () => {
       });
     }
 
-    let i = 0;
-    const animate = () => {
-      const elem = techPrefixRef.current;
-      if (!elem) {
-        return;
+    const prefixElem = techPrefixRef.current;
+    if (!prefixElem) {
+      return;
+    }
+
+    let cancel = false;
+    const animate = async () => {
+      let i = 0;
+      while (!cancel) {
+        const child = prefixElem.children[i];
+        await child.animate(
+          {
+            visibility: "visible",
+            transform: [-30, 0, 0, 30].map((i) => `translateX(${i}px)`),
+            opacity: [0, 1, 1, 0],
+            offset: [0, 0.25, 0.75, 1],
+            easing: "ease",
+          },
+          3000
+        ).finished;
+        i = (i + 1) % prefixElem.children.length;
       }
-
-      const child = elem.children[i];
-      child.classList.remove("invisible");
-      child.classList.add("animate-slide-text");
-      // this SHOULD be the only animation
-      child.getAnimations()[0].finished.then(() => {
-        child.classList.remove("animate-slide-text");
-        child.classList.add("invisible");
-      });
-
-      i = (i + 1) % elem.children.length;
     };
     animate();
-    const interval = setInterval(animate, 3000);
 
     const resetHeight = () => {
       document.documentElement.style.setProperty(
@@ -120,7 +124,7 @@ const Home: NextPage = () => {
     window.addEventListener("resize", resetHeight);
 
     return () => {
-      clearInterval(interval);
+      cancel = true;
       window.removeEventListener("resize", resetHeight);
     };
   }, []);
