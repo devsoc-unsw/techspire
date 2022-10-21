@@ -33,32 +33,29 @@ const Speaker = ({
     const page = idx + 1;
     const video = videoRef.current!;
     const text = textRef.current!;
-    const animateVideo = async (className: string) => {
-      const video = videoRef.current!;
-      video.getAnimations().forEach((animation) => animation.cancel());
-
-      // disgusting hack to make sure any existing animations are fully aborted before continuing
-      setTimeout(() => {
-        video.classList.add(className);
-        const animations = video.getAnimations();
-        animations[animations.length - 1]?.finished
-          .catch(() => {})
-          .finally(() => video.classList.remove(className));
-      }, 0);
-    };
 
     if (previousFocusedPage === page) {
-      animateVideo(
-        focusedPage > previousFocusedPage
-          ? "animate-video-scroll-out-up"
-          : "animate-video-scroll-out-down"
+      const rotate = focusedPage > previousFocusedPage ? 1 : -1;
+      video.animate(
+        { transform: `rotate(${rotate}deg) translateX(4rem) scale(0.9)` },
+        { duration: 1000, easing: "ease" }
       );
       video.pause();
     } else {
-      animateVideo(
-        focusedPage > previousFocusedPage
-          ? "animate-video-scroll-in-up"
-          : "animate-video-scroll-in-down"
+      const rotate = focusedPage > previousFocusedPage ? -1 : 1;
+      video.animate(
+        [
+          {
+            transform: `rotate(${rotate}deg) translateX(4rem) scale(0.9)`,
+            offset: 0.25,
+            easing: "ease",
+          },
+          {
+            transform: "none",
+            easing: "ease",
+          },
+        ],
+        2000
       );
       if (focusedPage === page && window.innerWidth >= 768) {
         video.play();
