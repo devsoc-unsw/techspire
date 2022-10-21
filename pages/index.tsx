@@ -130,15 +130,30 @@ const Home: NextPage = () => {
   }, []);
 
   useEffect(() => {
+    let lastKey: string | undefined;
     const onKeyDown = (e: KeyboardEvent) => {
       switch (e.key) {
         case "ArrowDown":
+        case "j":
+        case "d":
           handleScroll(1);
           break;
         case "ArrowUp":
+        case "k":
+        case "u":
           handleScroll(-1);
           break;
+        case "g":
+          if (lastKey === "g") {
+            setFocusedPage(0);
+          }
+          break;
+        case "G":
+          setFocusedPage(Object.keys(speakers).length);
+          break;
       }
+
+      lastKey = e.key;
     };
 
     window.addEventListener("keydown", onKeyDown);
