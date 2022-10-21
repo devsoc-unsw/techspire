@@ -61,10 +61,9 @@ const Home: NextPage = () => {
   const setFocusedPage = (focusedPage: number) => {
     _setFocusedPage(focusedPage);
     setScrolling(true);
-    // fuck yeah, race conditions!
     setTimeout(() => {
       setScrolling(false);
-    }, 1500);
+    }, 1000);
   };
   const handleScroll = useCallback(
     (direction: number) => {
