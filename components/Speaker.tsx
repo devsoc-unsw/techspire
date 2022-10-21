@@ -37,9 +37,7 @@ const Speaker = ({
     if (previousFocusedPage === page) {
       const rotate = focusedPage > previousFocusedPage ? 1 : -1;
       video.animate(
-        {
-          transform: `rotate(${rotate}deg) translateX(4rem) scale(0.9)`,
-        },
+        { transform: `rotate(${rotate}deg) translateX(4rem) scale(0.9)` },
         { duration: 1000, easing: "ease" }
       );
       video.pause();
