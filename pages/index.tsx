@@ -200,58 +200,81 @@ const Home: NextPage = () => {
         <source src="./videos/ribbon.mp4" type="video/mp4" />
       </video>
 
-      <LandingLayout
-        className="ease-[cubic-bezier(.75,.03,.3,1.39)]"
+      <div
+        className="transition-[opacity,transform] duration-[6s] ease-[cubic-bezier(.81,.11,1,1)]"
         style={{
-          transform: completed
-            ? "scale(10)"
-            : `translateY(calc(-${100 * focusedPage} * var(--vh, 1vh)))`,
-          opacity: completed ? 0 : 1,
-          transitionDuration: completed ? "8s" : "",
+          ...(completed && {
+            transform: "perspective(10px) translateZ(10px)",
+            opacity: 0,
+          }),
         }}
       >
-        <div className="w-48 md:w-64">
-          <Image
-            src={Logo}
-            // layout="responsive"
-            // objectFit="contain"
-            alt="CSESoc Logo"
-          />
-        </div>
-        <h1
-          className={`group mb-8 flex w-full text-6xl font-bold tracking-wide md:text-8xl lg:mb-12 lg:text-11xl`}
+        <LandingLayout
+          style={{
+            transform: `translateY(calc(-${
+              100 * focusedPage
+            } * var(--vh, 1vh)))`,
+          }}
         >
-          <div className="relative w-1/2" ref={techPrefixRef}>
-            <span className="invisible absolute right-0">
-              <span className="-mr-2 md:-mr-5 lg:-mr-8">T</span>ech
-            </span>
-            <span className="invisible absolute right-0">a</span>
-            <span className="invisible absolute right-0">in</span>
+          <div className="w-48 md:w-64">
+            <Image
+              src={Logo}
+              // layout="responsive"
+              // objectFit="contain"
+              alt="CSESoc Logo"
+            />
           </div>
-          <div className="z-10">
-            <div
-              className={`animate-gradient-xy bg-gradient-to-r from-purple-400 via-violet-400 to-pink-400 bg-clip-text text-transparent`}
-            >
-              <span className="transition-[margin] selection:bg-white">
-                spir
-                <span className="-ml-1.5">e</span>
+          <h1
+            className={`group mb-8 flex w-full text-6xl font-bold tracking-wide md:text-8xl lg:mb-12 lg:text-11xl`}
+          >
+            <div className="relative w-1/2" ref={techPrefixRef}>
+              <span className="invisible absolute right-0">
+                <span className="-mr-2 md:-mr-5 lg:-mr-8">T</span>ech
               </span>
+              <span className="invisible absolute right-0">a</span>
+              <span className="invisible absolute right-0">in</span>
             </div>
+            <div className="z-10">
+              <div
+                className={`animate-gradient-xy bg-gradient-to-r from-purple-400 via-violet-400 to-pink-400 bg-clip-text text-transparent`}
+              >
+                <span className="transition-[margin] selection:bg-white">
+                  spir
+                  <span className="-ml-1.5">e</span>
+                </span>
+              </div>
+            </div>
+          </h1>
+          {/* <h3 className={`z-10 text-2xl`}>Friday 28th Oct 3-6pm | Week 7</h3> */}
+
+          <BasedCountdown
+            // date={new Date(Date.now() + 3000)}
+            date={new Date(2022, 9, 28, 15, 15)}
+            completed={completed}
+            setCompleted={setCompleted}
+          />
+          <div className="absolute bottom-32 justify-center">
+            <Arrow onClick={() => setFocusedPage(1)} />
           </div>
-        </h1>
-        {/* <h3 className={`z-10 text-2xl`}>Friday 28th Oct 3-6pm | Week 7</h3> */}
 
-        <BasedCountdown
-          date={new Date(Date.now() + 3000)}
-          completed={completed}
-          setCompleted={setCompleted}
-        />
-        <div className="absolute bottom-32 justify-center">
-          <Arrow onClick={() => setFocusedPage(1)} />
+          {/* <Card className="top-8 left-4" /> */}
+        </LandingLayout>
+      </div>
+
+      <div
+        className="fixed inset-0 flex items-center justify-center opacity-0 transition-[opacity,transform] delay-[6s] duration-[5s]"
+        style={{
+          transform: `perspective(10px) translateZ(${completed ? 0 : -10}px)`,
+          ...(completed && {
+            opacity: 1,
+          }),
+        }}
+      >
+        <div className="flex animate-gradient-xy flex-col items-end gap-4 bg-gradient-to-r from-purple-400 via-indigo-400 to-pink-400 bg-clip-text text-transparent">
+          <h1 className="text-9xl">Adam Leung</h1>
+          <h2 className="text-3xl">Amazon</h2>
         </div>
-
-        {/* <Card className="top-8 left-4" /> */}
-      </LandingLayout>
+      </div>
 
       <Thingy
         speakers={speakers}

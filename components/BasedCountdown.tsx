@@ -20,6 +20,7 @@ const BasedCountdown: FC<Props> = ({ date, completed, setCompleted }) => {
     const interval = setInterval(() => {
       if (calculateTimeLeft(date) <= 0) {
         setCompleted(true);
+        setValue(0);
         clearInterval(interval);
         // fire(canvasRef);
       } else {
@@ -36,9 +37,7 @@ const BasedCountdown: FC<Props> = ({ date, completed, setCompleted }) => {
         ref={canvasRef}
         className="pointer-events-none absolute z-50 !m-0 h-screen w-screen"
       />
-      <BasedPill completed={completed}>
-        {completed ? "ITS TIME!!! 🥳" : formatTime(value)}
-      </BasedPill>
+      <BasedPill>{formatTime(value)}</BasedPill>
     </>
   );
 };

@@ -36,11 +36,9 @@ const HiddenTextButton = ({ children }: PropsWithChildren) => (
   </a>
 );
 
-interface Props {
-  completed: boolean;
-}
+interface Props {}
 
-const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => {
+const BasedPill = ({ children }: PropsWithChildren<Props>) => {
   const infoRef = useRef<HTMLDivElement>(null);
   const countdownRef = useRef<HTMLDivElement>(null);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>();
@@ -97,9 +95,7 @@ const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => {
 
   return (
     <div
-      className={`sm:text-md group relative z-0 px-4 py-2 font-mono hover:cursor-pointer md:px-4 md:py-2.5 md:text-3xl lg:text-6xl ${
-        completed && "animate-pulse"
-      }`}
+      className={`sm:text-md group relative z-0 px-4 py-2 font-mono hover:cursor-pointer md:px-4 md:py-2.5 md:text-3xl lg:text-6xl`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
