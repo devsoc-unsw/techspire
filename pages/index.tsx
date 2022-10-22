@@ -239,7 +239,7 @@ const Home: NextPage = () => {
         {/* <h3 className={`z-10 text-2xl`}>Friday 28th Oct 3-6pm | Week 7</h3> */}
 
         <BasedCountdown
-          date={new Date(2022, 9, 28, 15)}
+          date={new Date(2022, 9, 28, 15, 15)}
           completed={completed}
           setCompleted={setCompleted}
         />
