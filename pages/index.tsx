@@ -201,8 +201,13 @@ const Home: NextPage = () => {
       </video>
 
       <LandingLayout
+        className="ease-[cubic-bezier(.75,.03,.3,1.39)]"
         style={{
-          transform: `translateY(calc(-${100 * focusedPage} * var(--vh, 1vh)))`,
+          transform: completed
+            ? "scale(10)"
+            : `translateY(calc(-${100 * focusedPage} * var(--vh, 1vh)))`,
+          opacity: completed ? 0 : 1,
+          transitionDuration: completed ? "8s" : "",
         }}
       >
         <div className="w-48 md:w-64">
@@ -214,9 +219,7 @@ const Home: NextPage = () => {
           />
         </div>
         <h1
-          className={`group mb-8 flex w-full text-6xl font-bold tracking-wide md:text-8xl lg:mb-12 lg:text-11xl ${
-            completed && "animate-bounce"
-          }`}
+          className={`group mb-8 flex w-full text-6xl font-bold tracking-wide md:text-8xl lg:mb-12 lg:text-11xl`}
         >
           <div className="relative w-1/2" ref={techPrefixRef}>
             <span className="invisible absolute right-0">
@@ -239,7 +242,7 @@ const Home: NextPage = () => {
         {/* <h3 className={`z-10 text-2xl`}>Friday 28th Oct 3-6pm | Week 7</h3> */}
 
         <BasedCountdown
-          date={new Date(2022, 9, 28, 15, 15)}
+          date={new Date(Date.now() + 3000)}
           completed={completed}
           setCompleted={setCompleted}
         />

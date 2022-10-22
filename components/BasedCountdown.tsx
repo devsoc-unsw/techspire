@@ -21,7 +21,7 @@ const BasedCountdown: FC<Props> = ({ date, completed, setCompleted }) => {
       if (calculateTimeLeft(date) <= 0) {
         setCompleted(true);
         clearInterval(interval);
-        fire(canvasRef);
+        // fire(canvasRef);
       } else {
         setValue(calculateTimeLeft(date));
       }

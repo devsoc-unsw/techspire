@@ -98,7 +98,7 @@ const BasedPill = ({ children, completed }: PropsWithChildren<Props>) => {
   return (
     <div
       className={`sm:text-md group relative z-0 px-4 py-2 font-mono hover:cursor-pointer md:px-4 md:py-2.5 md:text-3xl lg:text-6xl ${
-        completed && "animate-bounce"
+        completed && "animate-pulse"
       }`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
