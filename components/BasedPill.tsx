@@ -18,9 +18,11 @@ const Glow = ({ className = "", children }: PropsWithChildren<BgProps>) => (
   </Bg>
 );
 
-interface Props {}
+interface Props {
+  date: Date | null;
+}
 
-const BasedPill = ({ children }: PropsWithChildren<Props>) => {
+const BasedPill = ({ date, children }: PropsWithChildren<Props>) => {
   return (
     <div
       className={`sm:text-md group relative z-0 px-4 py-2 font-mono md:px-4 md:py-2.5 md:text-3xl lg:text-6xl`}
@@ -31,7 +33,12 @@ const BasedPill = ({ children }: PropsWithChildren<Props>) => {
       <Bg className="bg-[#121223] lg:-m-2" />
 
       <div className="invisible">99d 99h 99m 99s</div>
-      <div className="absolute inset-0 grid place-items-center">{children}</div>
+      <div
+        className="absolute inset-0 grid place-items-center"
+        style={{ opacity: date ? 1 : 0 }}
+      >
+        {children}
+      </div>
     </div>
   );
 };

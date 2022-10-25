@@ -58,6 +58,8 @@ const Home: NextPage = () => {
 
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [scrolling, setScrolling] = useState(false);
+  const [finishDate, setFinishDate] = useState<Date | null>(null);
+
   const setFocusedPage = (focusedPage: number) => {
     _setFocusedPage(focusedPage);
     setScrolling(true);
@@ -81,6 +83,8 @@ const Home: NextPage = () => {
   );
 
   useEffect(() => {
+    setFinishDate(new Date(Date.now() + 3000));
+
     const videoElem = videoRef.current;
     if (videoElem) {
       videoElem.play().catch(() => {
@@ -246,12 +250,7 @@ const Home: NextPage = () => {
             </div>
           </h1>
           {/* <h3 className={`z-10 text-2xl`}>Friday 28th Oct 3-6pm | Week 7</h3> */}
-
-          <BasedCountdown
-            // date={new Date(2022, 9, 25, 20, 46, 20)}
-            date={new Date(2022, 9, 28, 15, 15)}
-            setCompleted={setCompleted}
-          />
+          <BasedCountdown date={finishDate} setCompleted={setCompleted} />
           <div className="absolute bottom-32 justify-center">
             <Arrow onClick={() => setFocusedPage(1)} />
           </div>

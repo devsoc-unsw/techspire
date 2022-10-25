@@ -3,7 +3,7 @@ import { calculateTimeLeft, formatTime } from "../lib/countdown";
 import BasedPill from "./BasedPill";
 
 interface Props {
-  date: Date;
+  date: Date | null;
   setCompleted: (_value: boolean) => void;
 }
 
@@ -12,6 +12,8 @@ const BasedCountdown: FC<Props> = ({ date, setCompleted }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    if (date === null) return;
+
     const timeLeft = Math.max(calculateTimeLeft(date), 0);
     setValue(timeLeft);
     if (!timeLeft) return;
@@ -38,7 +40,7 @@ const BasedCountdown: FC<Props> = ({ date, setCompleted }) => {
         ref={canvasRef}
         className="pointer-events-none absolute z-50 !m-0 h-screen w-screen"
       />
-      <BasedPill>{formatTime(value)}</BasedPill>
+      <BasedPill date={date}>{formatTime(value)}</BasedPill>
     </>
   );
 };
