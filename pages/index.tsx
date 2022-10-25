@@ -248,9 +248,8 @@ const Home: NextPage = () => {
           {/* <h3 className={`z-10 text-2xl`}>Friday 28th Oct 3-6pm | Week 7</h3> */}
 
           <BasedCountdown
-            // date={new Date(Date.now() + 3000)}
+            // date={new Date(2022, 9, 25, 20, 46, 20)}
             date={new Date(2022, 9, 28, 15, 15)}
-            completed={completed}
             setCompleted={setCompleted}
           />
           <div className="absolute bottom-32 justify-center">
