@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import LandingLayout from "../components/Layouts/LandingLayout";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { ReactElement, useCallback, useEffect, useRef, useState } from "react";
 
 import Logo from "../public/images/logo.png";
 import Thingy from "../components/Thingy";
@@ -16,16 +16,18 @@ import MarcCheeText from "../components/Speakers/MarcCheeText";
 import PearlerText from "../components/Speakers/PearlerText";
 import JobsboardText from "../components/Speakers/JobsboardText";
 
-const speakers = {
-  Amazon: {
-    speakerName: "Adam Leung",
-    text: <AmazonText />,
-    video: "./videos/adam-leung.mp4",
-  },
+const speakers: {
+  [k: string]: { speakerName?: string; text: ReactElement; video: string };
+} = {
   Atlassian: {
     speakerName: "Ofir Zeevi",
     text: <AtlassianText />,
     video: "./videos/ofir.mp4",
+  },
+  Pearler: {
+    speakerName: "Kath-Lin Han",
+    text: <PearlerText />,
+    video: "./videos/kathlin.mp4",
   },
   Canva: {
     speakerName: "Adam Tizzone",
@@ -36,15 +38,15 @@ const speakers = {
     text: <MarcCheeText />,
     video: "./videos/marc.mp4",
   },
-  Pearler: {
-    speakerName: "Kath-Lin Han",
-    text: <PearlerText />,
-    video: "./videos/kathlin.mp4",
-  },
   Jobsboard: {
     speakerName: "Darian, Joanna",
     text: <JobsboardText />,
     video: "./videos/jobsboard.mp4",
+  },
+  Amazon: {
+    speakerName: "Adam Leung",
+    text: <AmazonText />,
+    video: "./videos/adam-leung.mp4",
   },
 };
 
@@ -59,6 +61,8 @@ const Home: NextPage = () => {
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [scrolling, setScrolling] = useState(false);
   const [finishDate, setFinishDate] = useState<Date | null>(null);
+
+  const [speakerIdx, setSpeakerIdx] = useState(-1);
 
   const setFocusedPage = (focusedPage: number) => {
     _setFocusedPage(focusedPage);
@@ -157,6 +161,11 @@ const Home: NextPage = () => {
       }
 
       lastKey = e.key;
+
+      const num = Number(e.key);
+      if (!isNaN(num) && num >= 1 && num <= Object.keys(speakers).length) {
+        setSpeakerIdx(num - 1);
+      }
     };
 
     window.addEventListener("keydown", onKeyDown);
@@ -207,10 +216,11 @@ const Home: NextPage = () => {
       <div
         className="transition-[opacity,transform] duration-[6s] ease-[cubic-bezier(.81,.11,1,1)]"
         style={{
-          ...(completed && {
-            transform: "perspective(10px) translateZ(10px)",
-            opacity: 0,
-          }),
+          ...(completed &&
+            speakerIdx !== -1 && {
+              transform: "perspective(10px) translateZ(10px)",
+              opacity: 0,
+            }),
         }}
       >
         <LandingLayout
@@ -263,15 +273,21 @@ const Home: NextPage = () => {
         className="invisible fixed inset-0 flex items-center justify-center opacity-0 transition-[opacity,transform] delay-[6s] duration-[5s]"
         style={{
           transform: `perspective(10px) translateZ(${completed ? 0 : -10}px)`,
-          ...(completed && {
-            opacity: 1,
-            visibility: "visible",
-          }),
+          ...(completed &&
+            speakerIdx !== -1 && {
+              opacity: 1,
+              visibility: "visible",
+            }),
         }}
       >
         <div className="flex animate-gradient-xy flex-col items-end gap-4 bg-gradient-to-r from-purple-400 via-indigo-400 to-pink-400 bg-clip-text text-transparent">
-          <h1 className="text-9xl">Adam Leung</h1>
-          <h2 className="text-3xl">Amazon</h2>
+          <h1 className="text-9xl">
+            {Object.values(speakers)[speakerIdx]?.speakerName ??
+              Object.keys(speakers)[speakerIdx]}
+          </h1>
+          {Object.values(speakers)[speakerIdx]?.speakerName !== undefined && (
+            <h2 className="text-3xl">{Object.keys(speakers)[speakerIdx]}</h2>
+          )}
         </div>
       </div>
 
