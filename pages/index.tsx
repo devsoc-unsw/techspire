@@ -262,11 +262,12 @@ const Home: NextPage = () => {
       </div>
 
       <div
-        className="fixed inset-0 flex items-center justify-center opacity-0 transition-[opacity,transform] delay-[6s] duration-[5s]"
+        className="invisible fixed inset-0 flex items-center justify-center opacity-0 transition-[opacity,transform] delay-[6s] duration-[5s]"
         style={{
           transform: `perspective(10px) translateZ(${completed ? 0 : -10}px)`,
           ...(completed && {
             opacity: 1,
+            visibility: "visible",
           }),
         }}
       >
