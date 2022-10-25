@@ -8,6 +8,7 @@ import Logo from "../public/images/logo.png";
 import Thingy from "../components/Thingy";
 import Arrow from "../components/Arrow";
 import BasedCountdown from "../components/BasedCountdown";
+import Credits from "../components/Credits";
 
 import AmazonText from "../components/Speakers/AmazonText";
 import AtlassianText from "../components/Speakers/AtlassianText";
@@ -269,10 +270,11 @@ const Home: NextPage = () => {
           }),
         }}
       >
-        <div className="flex animate-gradient-xy flex-col items-end gap-4 bg-gradient-to-r from-purple-400 via-indigo-400 to-pink-400 bg-clip-text text-transparent">
-          <h1 className="text-9xl">Adam Leung</h1>
-          <h2 className="text-3xl">Amazon</h2>
-        </div>
+        <Credits />
+        {/* <div className="flex animate-gradient-xy flex-col items-end gap-4 bg-gradient-to-r from-purple-400 via-indigo-400 to-pink-400 bg-clip-text text-transparent"> */}
+        {/* <h1 className="text-9xl">Adam Leung</h1>
+          <h2 className="text-3xl">Amazon</h2> */}
+        {/* </div> */}
       </div>
 
       <Thingy
