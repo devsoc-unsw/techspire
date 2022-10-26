@@ -39,7 +39,7 @@ const speakers: {
     video: "./videos/marc.mp4",
   },
   Jobsboard: {
-    speakerName: "Darian, Joanna",
+    speakerName: "Darian & Joanna",
     text: <JobsboardText />,
     video: "./videos/jobsboard.mp4",
   },
