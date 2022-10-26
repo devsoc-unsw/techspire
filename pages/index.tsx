@@ -64,6 +64,7 @@ const Home: NextPage = () => {
   const [finishDate, setFinishDate] = useState<Date | null>(null);
 
   const [speakerIdx, setSpeakerIdx] = useState(-1);
+  const zoom = completed && speakerIdx !== -1;
 
   const setFocusedPage = (focusedPage: number) => {
     _setFocusedPage(focusedPage);
@@ -74,7 +75,7 @@ const Home: NextPage = () => {
   };
   const handleScroll = useCallback(
     (direction: number) => {
-      if (scrolling || autoplayBlocked) {
+      if (scrolling || autoplayBlocked || zoom) {
         return;
       }
 
@@ -84,7 +85,7 @@ const Home: NextPage = () => {
         setFocusedPage(focusedPage + 1);
       }
     },
-    [focusedPage, scrolling, autoplayBlocked]
+    [focusedPage, scrolling, autoplayBlocked, zoom]
   );
 
   useEffect(() => {
@@ -165,7 +166,14 @@ const Home: NextPage = () => {
 
       const num = Number(e.key) - 1;
       if (!isNaN(num) && num >= 0 && num <= Object.keys(speakers).length) {
-        setSpeakerIdx(num);
+        if (focusedPage !== 0) {
+          setFocusedPage(0);
+          setTimeout(() => {
+            setSpeakerIdx(num);
+          }, 1000);
+        } else {
+          setSpeakerIdx(num);
+        }
       }
     };
 
@@ -174,9 +182,7 @@ const Home: NextPage = () => {
     return () => {
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [handleScroll]);
-
-  const zoom = completed && speakerIdx !== -1;
+  }, [handleScroll, focusedPage]);
 
   return (
     <div
