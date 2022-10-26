@@ -176,6 +176,8 @@ const Home: NextPage = () => {
     };
   }, [handleScroll]);
 
+  const zoom = completed && speakerIdx !== -1;
+
   return (
     <div
       onWheel={(e) => handleScroll(e.deltaY)}
@@ -215,13 +217,12 @@ const Home: NextPage = () => {
       </video>
 
       <div
-        className="transition-[opacity,transform] duration-[6s] ease-[cubic-bezier(.81,.11,1,1)]"
+        className="transition-[opacity,transform] duration-[4s] ease-[cubic-bezier(.81,.11,1,1)]"
         style={{
-          ...(completed &&
-            speakerIdx !== -1 && {
-              transform: "perspective(10px) translateZ(10px)",
-              opacity: 0,
-            }),
+          ...(zoom && {
+            transform: "perspective(10px) translateZ(10px)",
+            opacity: 0,
+          }),
         }}
       >
         <LandingLayout
@@ -271,14 +272,13 @@ const Home: NextPage = () => {
       </div>
 
       <div
-        className="invisible fixed inset-0 flex items-center justify-center opacity-0 transition-[opacity,transform] delay-[6s] duration-[5s]"
+        className="invisible fixed inset-0 flex items-center justify-center opacity-0 transition-[opacity,transform] delay-[4s] duration-[3s]"
         style={{
-          transform: `perspective(10px) translateZ(${completed ? 0 : -10}px)`,
-          ...(completed &&
-            speakerIdx !== -1 && {
-              opacity: 1,
-              visibility: "visible",
-            }),
+          transform: `perspective(10px) translateZ(${zoom ? 0 : -10}px)`,
+          ...(zoom && {
+            opacity: 1,
+            visibility: "visible",
+          }),
         }}
       >
         {speakerIdx === Object.keys(speakers).length ? (
