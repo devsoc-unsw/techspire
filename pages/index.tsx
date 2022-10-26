@@ -8,6 +8,8 @@ import Logo from "../public/images/logo.png";
 import Thingy from "../components/Thingy";
 import Arrow from "../components/Arrow";
 import BasedCountdown from "../components/BasedCountdown";
+import useFixedVh from "../hooks/useFixedVh";
+import useAutoplay from "../hooks/useAutoplay";
 
 import AmazonText from "../components/Speakers/AmazonText";
 import AtlassianText from "../components/Speakers/AtlassianText";
@@ -16,6 +18,8 @@ import MarcCheeText from "../components/Speakers/MarcCheeText";
 import PearlerText from "../components/Speakers/PearlerText";
 import JobsboardText from "../components/Speakers/JobsboardText";
 import Credits from "../components/Credits";
+import usePageScroll from "../hooks/usePageScroll";
+import useTouch from "../hooks/useTouch";
 
 const speakers: {
   [k: string]: { speakerName?: string; text: ReactElement; video: string };
@@ -54,49 +58,30 @@ const speakers: {
 const Home: NextPage = () => {
   const [completed, setCompleted] = useState(false);
   const techPrefixRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [autoplayBlocked, setAutoplayBlocked] = useState(false);
-
-  const [focusedPage, _setFocusedPage] = useState(0);
-
-  const touchStart = useRef<number | null>(null);
-  const scrolling = useRef(false);
-  const [finishDate, setFinishDate] = useState<Date | null>(null);
+  const [videoRef, autoplayBlocked, setAutoplayBlocked] = useAutoplay();
 
   const [speakerIdx, setSpeakerIdx] = useState(-1);
   const zoom = completed && speakerIdx !== -1;
 
-  const setFocusedPage = (focusedPage: number) => {
-    _setFocusedPage(focusedPage);
-    scrolling.current = true;
-    setTimeout(() => {
-      scrolling.current = false;
-    }, 1000);
-  };
-  const handleScroll = useCallback(
-    (direction: number) => {
-      if (scrolling.current || autoplayBlocked || zoom) {
-        return;
-      }
-
-      if (direction < 0 && focusedPage > 0) {
-        setFocusedPage(focusedPage - 1);
-      } else if (direction > 0 && focusedPage < Object.keys(speakers).length) {
-        setFocusedPage(focusedPage + 1);
-      }
-    },
-    [focusedPage, autoplayBlocked, zoom]
+  const [scrolling, handleScroll, focusedPage, setFocusedPage] = usePageScroll(
+    Object.keys(speakers).length,
+    1000,
+    () => scrolling.current || autoplayBlocked || zoom
   );
+
+  const [onTouchStart, onTouchMove] = useTouch(
+    useCallback(
+      (touchStart, touchEnd) =>
+        handleScroll(Math.trunc((touchStart - touchEnd) / 10)),
+      [handleScroll]
+    )
+  );
+  const [finishDate, setFinishDate] = useState<Date | null>(null);
+
+  useFixedVh();
 
   useEffect(() => {
     setFinishDate(new Date(Date.now() + 3000));
-
-    const videoElem = videoRef.current;
-    if (videoElem) {
-      videoElem.play().catch(() => {
-        setAutoplayBlocked(true);
-      });
-    }
 
     const prefixElem = techPrefixRef.current;
     if (!prefixElem) {
@@ -123,18 +108,8 @@ const Home: NextPage = () => {
     };
     animate();
 
-    const resetHeight = () => {
-      document.documentElement.style.setProperty(
-        "--vh",
-        `${window.innerHeight / 100}px`
-      );
-    };
-    resetHeight();
-    window.addEventListener("resize", resetHeight);
-
     return () => {
       cancel = true;
-      window.removeEventListener("resize", resetHeight);
     };
   }, []);
 
@@ -182,23 +157,13 @@ const Home: NextPage = () => {
     return () => {
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [handleScroll, focusedPage]);
+  }, [handleScroll, focusedPage, setFocusedPage]);
 
   return (
     <div
       onWheel={(e) => handleScroll(e.deltaY)}
-      onTouchStart={(e) => (touchStart.current = e.touches[0].clientY)}
-      onTouchMove={(e) => {
-        if (touchStart.current === null) {
-          touchStart.current = e.touches[0].clientY;
-        } else {
-          const diff = touchStart.current - e.changedTouches[0].clientY;
-          if (Math.abs(diff) > 10) {
-            handleScroll(diff);
-            touchStart.current = null;
-          }
-        }
-      }}
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
     >
       <div
         className={`absolute inset-0 z-20 hidden bg-black/80 ${
