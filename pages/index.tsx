@@ -59,8 +59,8 @@ const Home: NextPage = () => {
 
   const [focusedPage, _setFocusedPage] = useState(0);
 
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [scrolling, setScrolling] = useState(false);
+  const touchStart = useRef<number | null>(null);
+  const scrolling = useRef(false);
   const [finishDate, setFinishDate] = useState<Date | null>(null);
 
   const [speakerIdx, setSpeakerIdx] = useState(-1);
@@ -68,14 +68,14 @@ const Home: NextPage = () => {
 
   const setFocusedPage = (focusedPage: number) => {
     _setFocusedPage(focusedPage);
-    setScrolling(true);
+    scrolling.current = true;
     setTimeout(() => {
-      setScrolling(false);
+      scrolling.current = false;
     }, 1000);
   };
   const handleScroll = useCallback(
     (direction: number) => {
-      if (scrolling || autoplayBlocked || zoom) {
+      if (scrolling.current || autoplayBlocked || zoom) {
         return;
       }
 
@@ -85,7 +85,7 @@ const Home: NextPage = () => {
         setFocusedPage(focusedPage + 1);
       }
     },
-    [focusedPage, scrolling, autoplayBlocked, zoom]
+    [focusedPage, autoplayBlocked, zoom]
   );
 
   useEffect(() => {
@@ -187,15 +187,15 @@ const Home: NextPage = () => {
   return (
     <div
       onWheel={(e) => handleScroll(e.deltaY)}
-      onTouchStart={(e) => setTouchStart(e.touches[0].clientY)}
+      onTouchStart={(e) => (touchStart.current = e.touches[0].clientY)}
       onTouchMove={(e) => {
-        if (touchStart === null) {
-          setTouchStart(e.touches[0].clientY);
+        if (touchStart.current === null) {
+          touchStart.current = e.touches[0].clientY;
         } else {
-          const diff = touchStart - e.changedTouches[0].clientY;
+          const diff = touchStart.current - e.changedTouches[0].clientY;
           if (Math.abs(diff) > 10) {
             handleScroll(diff);
-            setTouchStart(null);
+            touchStart.current = null;
           }
         }
       }}
