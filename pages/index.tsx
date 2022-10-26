@@ -15,6 +15,7 @@ import CanvaText from "../components/Speakers/CanvaText";
 import MarcCheeText from "../components/Speakers/MarcCheeText";
 import PearlerText from "../components/Speakers/PearlerText";
 import JobsboardText from "../components/Speakers/JobsboardText";
+import Credits from "../components/Credits";
 
 const speakers: {
   [k: string]: { speakerName?: string; text: ReactElement; video: string };
@@ -162,9 +163,9 @@ const Home: NextPage = () => {
 
       lastKey = e.key;
 
-      const num = Number(e.key);
-      if (!isNaN(num) && num >= 1 && num <= Object.keys(speakers).length) {
-        setSpeakerIdx(num - 1);
+      const num = Number(e.key) - 1;
+      if (!isNaN(num) && num >= 0 && num <= Object.keys(speakers).length) {
+        setSpeakerIdx(num);
       }
     };
 
@@ -280,15 +281,19 @@ const Home: NextPage = () => {
             }),
         }}
       >
-        <div className="flex animate-gradient-xy flex-col items-end gap-4 bg-gradient-to-r from-purple-400 via-indigo-400 to-pink-400 bg-clip-text text-transparent">
-          <h1 className="text-9xl">
-            {Object.values(speakers)[speakerIdx]?.speakerName ??
-              Object.keys(speakers)[speakerIdx]}
-          </h1>
-          {Object.values(speakers)[speakerIdx]?.speakerName !== undefined && (
-            <h2 className="text-3xl">{Object.keys(speakers)[speakerIdx]}</h2>
-          )}
-        </div>
+        {speakerIdx === Object.keys(speakers).length ? (
+          <Credits />
+        ) : (
+          <div className="flex animate-gradient-xy flex-col items-end gap-4 bg-gradient-to-r from-purple-400 via-indigo-400 to-pink-400 bg-clip-text text-transparent">
+            <h1 className="text-9xl">
+              {Object.values(speakers)[speakerIdx]?.speakerName ??
+                Object.keys(speakers)[speakerIdx]}
+            </h1>
+            {Object.values(speakers)[speakerIdx]?.speakerName !== undefined && (
+              <h2 className="text-3xl">{Object.keys(speakers)[speakerIdx]}</h2>
+            )}
+          </div>
+        )}
       </div>
 
       <Thingy
