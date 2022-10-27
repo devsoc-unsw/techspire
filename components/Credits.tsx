@@ -12,7 +12,7 @@ interface Props {
 
 const Helper = ({ name = "", role = "", imageSrc }: Props) => {
   return (
-    <div className="flex animate-gradient-x flex-col bg-gradient-to-r from-purple-400 via-indigo-400 to-pink-400 bg-clip-text py-1 text-transparent">
+    <div className="flex flex-col py-1">
       <div className="mx-auto h-72 w-72 overflow-hidden rounded-full brightness-90">
         <Image src={imageSrc} alt="credits image" />
       </div>
@@ -24,7 +24,7 @@ const Helper = ({ name = "", role = "", imageSrc }: Props) => {
 
 const Credits = () => {
   return (
-    <div className="flex min-h-screen w-[100vw] min-w-full items-center justify-between py-32 xl:px-32 2xl:px-64">
+    <div className="flex min-h-screen w-[100vw] min-w-full animate-gradient-x items-center justify-between bg-gradient-to-r from-purple-400 via-indigo-400 to-pink-400 bg-clip-text py-32 text-transparent xl:px-32 2xl:px-64">
       <Helper name={"Michael Vo"} role={"Website"} imageSrc={MichaelVo} />
       <Helper name={"Rachel Ahn"} role={"Assistant"} imageSrc={RachelAhn} />
       <Helper name={"Amy Liu"} role={"Creative"} imageSrc={AmyLiu} />
