@@ -20,6 +20,7 @@ import JobsboardText from "../components/Speakers/JobsboardText";
 import Credits from "../components/Credits";
 import usePageScroll from "../hooks/usePageScroll";
 import useTouch from "../hooks/useTouch";
+import { useRouter } from "next/router";
 
 const speakers: {
   [k: string]: { speakerName?: string; text: ReactElement; video: string };
@@ -56,6 +57,7 @@ const speakers: {
 };
 
 const Home: NextPage<{ seconds: number }> = ({ seconds }) => {
+  const router = useRouter();
   const [completed, setCompleted] = useState(false);
   const techPrefixRef = useRef<HTMLDivElement>(null);
   const [videoRef, autoplayBlocked, setAutoplayBlocked] = useAutoplay();
@@ -81,8 +83,11 @@ const Home: NextPage<{ seconds: number }> = ({ seconds }) => {
   useFixedVh();
 
   useEffect(() => {
+    if (seconds === null) {
+      seconds = Number(router.query.seconds);
+    }
     setFinishDate(
-      seconds !== null
+      seconds !== null && !isNaN(seconds)
         ? new Date(Date.now() + 1000 * seconds)
         : new Date(2022, 9, 28, 15, 15)
     );
