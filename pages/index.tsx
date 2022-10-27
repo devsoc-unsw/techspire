@@ -56,7 +56,7 @@ const speakers: {
   },
 };
 
-const Home: NextPage<{ seconds: number }> = ({ seconds }) => {
+const Home: NextPage = () => {
   const router = useRouter();
   const [completed, setCompleted] = useState(false);
   const techPrefixRef = useRef<HTMLDivElement>(null);
@@ -83,14 +83,18 @@ const Home: NextPage<{ seconds: number }> = ({ seconds }) => {
   useFixedVh();
 
   useEffect(() => {
-    if (seconds === null) {
-      seconds = Number(router.query.seconds);
+    if (!router.isReady) {
+      return;
     }
+    const seconds = Number(router.query.seconds);
     setFinishDate(
-      seconds !== null && !isNaN(seconds)
+      !isNaN(seconds)
         ? new Date(Date.now() + 1000 * seconds)
         : new Date(2022, 9, 28, 15, 15)
     );
+  }, [router.isReady, router.query.seconds]);
+
+  useEffect(() => {
     const prefixElem = techPrefixRef.current;
     if (!prefixElem) {
       return;
@@ -282,12 +286,6 @@ const Home: NextPage<{ seconds: number }> = ({ seconds }) => {
       />
     </div>
   );
-};
-
-Home.getInitialProps = async ({ query }) => {
-  const { seconds } = query;
-
-  return { seconds: Number(seconds) };
 };
 
 export default Home;
