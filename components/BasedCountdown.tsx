@@ -16,7 +16,10 @@ const BasedCountdown: FC<Props> = ({ date, setCompleted }) => {
 
     const timeLeft = Math.max(calculateTimeLeft(date), 0);
     setValue(timeLeft);
-    if (!timeLeft) return;
+    if (!timeLeft) {
+      setCompleted(true);
+      return;
+    }
 
     const interval = setInterval(() => {
       const timeLeft = calculateTimeLeft(date);
