@@ -55,7 +55,7 @@ const speakers: {
   },
 };
 
-const Home: NextPage = () => {
+const Home: NextPage<{ seconds: number }> = ({ seconds }) => {
   const [completed, setCompleted] = useState(false);
   const techPrefixRef = useRef<HTMLDivElement>(null);
   const [videoRef, autoplayBlocked, setAutoplayBlocked] = useAutoplay();
@@ -76,13 +76,11 @@ const Home: NextPage = () => {
       [handleScroll]
     )
   );
-  const [finishDate, setFinishDate] = useState<Date | null>(null);
+  const finishDate = new Date(Date.now() + 1000 * seconds);
 
   useFixedVh();
 
   useEffect(() => {
-    setFinishDate(new Date(Date.now() + 3000));
-
     const prefixElem = techPrefixRef.current;
     if (!prefixElem) {
       return;
@@ -274,6 +272,12 @@ const Home: NextPage = () => {
       />
     </div>
   );
+};
+
+Home.getInitialProps = async ({ query }) => {
+  const { seconds } = query;
+
+  return { seconds: Number(seconds) };
 };
 
 export default Home;
