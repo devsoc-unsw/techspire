@@ -20,7 +20,7 @@ const Speaker = ({
   focusedPage,
 }: SpeakerProps) => {
   const [showVideo, setShowVideo] = useState(false);
-  const [previousFocusedPage, setPreviousFocusedPage] = useState(focusedPage);
+  const previousFocusedPage = useRef(focusedPage);
   const textRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const firstUpdate = useRef(true);
@@ -34,15 +34,15 @@ const Speaker = ({
     const video = videoRef.current!;
     const text = textRef.current!;
 
-    if (previousFocusedPage === page) {
-      const rotate = focusedPage > previousFocusedPage ? 1 : -1;
+    if (previousFocusedPage.current === page) {
+      const rotate = focusedPage > previousFocusedPage.current ? 1 : -1;
       video.animate(
         { transform: `rotate(${rotate}deg) translateX(4rem) scale(0.9)` },
         { duration: 1000, easing: "ease" }
       );
       video.pause();
     } else {
-      const rotate = focusedPage > previousFocusedPage ? -1 : 1;
+      const rotate = focusedPage > previousFocusedPage.current ? -1 : 1;
       video.animate(
         [
           {
@@ -78,9 +78,7 @@ const Speaker = ({
       });
     }
 
-    setPreviousFocusedPage(focusedPage);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- TRUST ME ON THIS
+    previousFocusedPage.current = focusedPage;
   }, [focusedPage, idx]);
 
   useEffect(() => {

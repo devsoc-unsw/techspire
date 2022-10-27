@@ -1,34 +1,41 @@
 import { FC, useEffect, useRef, useState } from "react";
-import { useConfetti } from "../hooks/useConfetti";
 import { calculateTimeLeft, formatTime } from "../lib/countdown";
 import BasedPill from "./BasedPill";
 
 interface Props {
-  date: Date;
-  completed: boolean;
+  date: Date | null;
   setCompleted: (_value: boolean) => void;
 }
 
-const BasedCountdown: FC<Props> = ({ date, completed, setCompleted }) => {
+const BasedCountdown: FC<Props> = ({ date, setCompleted }) => {
   const [value, setValue] = useState(0);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { fire } = useConfetti();
 
   useEffect(() => {
-    setValue(calculateTimeLeft(date));
+    if (date === null) return;
+
+    const timeLeft = Math.max(calculateTimeLeft(date), 0);
+    setValue(timeLeft);
+    if (!timeLeft) {
+      setCompleted(true);
+      return;
+    }
 
     const interval = setInterval(() => {
-      if (calculateTimeLeft(date) <= 0) {
+      const timeLeft = calculateTimeLeft(date);
+      if (timeLeft <= 0) {
         setCompleted(true);
+        setValue(0);
         clearInterval(interval);
-        fire(canvasRef);
+        // fire(canvasRef);
       } else {
-        setValue(calculateTimeLeft(date));
+        setValue(timeLeft);
       }
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [date, fire, completed, setCompleted]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [date, setCompleted]);
 
   return (
     <>
@@ -36,9 +43,7 @@ const BasedCountdown: FC<Props> = ({ date, completed, setCompleted }) => {
         ref={canvasRef}
         className="pointer-events-none absolute z-50 !m-0 h-screen w-screen"
       />
-      <BasedPill completed={completed}>
-        {completed ? "ITS TIME!!! 🥳" : formatTime(value)}
-      </BasedPill>
+      <BasedPill date={date}>{formatTime(value)}</BasedPill>
     </>
   );
 };

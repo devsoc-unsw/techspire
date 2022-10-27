@@ -2,12 +2,14 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import LandingLayout from "../components/Layouts/LandingLayout";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { ReactElement, useCallback, useEffect, useRef, useState } from "react";
 
 import Logo from "../public/images/logo.png";
 import Thingy from "../components/Thingy";
 import Arrow from "../components/Arrow";
 import BasedCountdown from "../components/BasedCountdown";
+import useFixedVh from "../hooks/useFixedVh";
+import useAutoplay from "../hooks/useAutoplay";
 
 import AmazonText from "../components/Speakers/AmazonText";
 import AtlassianText from "../components/Speakers/AtlassianText";
@@ -15,17 +17,22 @@ import CanvaText from "../components/Speakers/CanvaText";
 import MarcCheeText from "../components/Speakers/MarcCheeText";
 import PearlerText from "../components/Speakers/PearlerText";
 import JobsboardText from "../components/Speakers/JobsboardText";
+import Credits from "../components/Credits";
+import usePageScroll from "../hooks/usePageScroll";
+import useTouch from "../hooks/useTouch";
 
-const speakers = {
-  Amazon: {
-    speakerName: "Adam Leung",
-    text: <AmazonText />,
-    video: "./videos/adam-leung.mp4",
-  },
+const speakers: {
+  [k: string]: { speakerName?: string; text: ReactElement; video: string };
+} = {
   Atlassian: {
     speakerName: "Ofir Zeevi",
     text: <AtlassianText />,
     video: "./videos/ofir.mp4",
+  },
+  Pearler: {
+    speakerName: "Kath-Lin Han",
+    text: <PearlerText />,
+    video: "./videos/kathlin.mp4",
   },
   Canva: {
     speakerName: "Adam Tizzone",
@@ -36,58 +43,49 @@ const speakers = {
     text: <MarcCheeText />,
     video: "./videos/marc.mp4",
   },
-  Pearler: {
-    speakerName: "Kath-Lin Han",
-    text: <PearlerText />,
-    video: "./videos/kathlin.mp4",
-  },
   Jobsboard: {
-    speakerName: "Darian, Joanna",
+    speakerName: "Darian & Joanna",
     text: <JobsboardText />,
     video: "./videos/jobsboard.mp4",
   },
+  Amazon: {
+    speakerName: "Adam Leung",
+    text: <AmazonText />,
+    video: "./videos/adam-leung.mp4",
+  },
 };
 
-const Home: NextPage = () => {
+const Home: NextPage<{ seconds: number }> = ({ seconds }) => {
   const [completed, setCompleted] = useState(false);
   const techPrefixRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [autoplayBlocked, setAutoplayBlocked] = useState(false);
+  const [videoRef, autoplayBlocked, setAutoplayBlocked] = useAutoplay();
 
-  const [focusedPage, _setFocusedPage] = useState(0);
+  const [speakerIdx, setSpeakerIdx] = useState(-1);
+  const zoom = completed && speakerIdx !== -1;
 
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [scrolling, setScrolling] = useState(false);
-  const setFocusedPage = (focusedPage: number) => {
-    _setFocusedPage(focusedPage);
-    setScrolling(true);
-    setTimeout(() => {
-      setScrolling(false);
-    }, 1000);
-  };
-  const handleScroll = useCallback(
-    (direction: number) => {
-      if (scrolling || autoplayBlocked) {
-        return;
-      }
-
-      if (direction < 0 && focusedPage > 0) {
-        setFocusedPage(focusedPage - 1);
-      } else if (direction > 0 && focusedPage < Object.keys(speakers).length) {
-        setFocusedPage(focusedPage + 1);
-      }
-    },
-    [focusedPage, scrolling, autoplayBlocked]
+  const [scrolling, handleScroll, focusedPage, setFocusedPage] = usePageScroll(
+    Object.keys(speakers).length,
+    1000,
+    () => scrolling.current || autoplayBlocked || zoom
   );
 
-  useEffect(() => {
-    const videoElem = videoRef.current;
-    if (videoElem) {
-      videoElem.play().catch(() => {
-        setAutoplayBlocked(true);
-      });
-    }
+  const [onTouchStart, onTouchMove] = useTouch(
+    useCallback(
+      (touchStart, touchEnd) =>
+        handleScroll(Math.trunc((touchStart - touchEnd) / 10)),
+      [handleScroll]
+    )
+  );
+  const [finishDate, setFinishDate] = useState<Date | null>(null);
 
+  useFixedVh();
+
+  useEffect(() => {
+    setFinishDate(
+      seconds !== null
+        ? new Date(Date.now() + 1000 * seconds)
+        : new Date(2022, 9, 28, 15, 15)
+    );
     const prefixElem = techPrefixRef.current;
     if (!prefixElem) {
       return;
@@ -113,18 +111,8 @@ const Home: NextPage = () => {
     };
     animate();
 
-    const resetHeight = () => {
-      document.documentElement.style.setProperty(
-        "--vh",
-        `${window.innerHeight / 100}px`
-      );
-    };
-    resetHeight();
-    window.addEventListener("resize", resetHeight);
-
     return () => {
       cancel = true;
-      window.removeEventListener("resize", resetHeight);
     };
   }, []);
 
@@ -153,6 +141,18 @@ const Home: NextPage = () => {
       }
 
       lastKey = e.key;
+
+      const num = Number(e.key) - 1;
+      if (!isNaN(num) && num >= 0 && num <= Object.keys(speakers).length) {
+        if (focusedPage !== 0) {
+          setFocusedPage(0);
+          setTimeout(() => {
+            setSpeakerIdx(num);
+          }, 1000);
+        } else {
+          setSpeakerIdx(num);
+        }
+      }
     };
 
     window.addEventListener("keydown", onKeyDown);
@@ -160,23 +160,13 @@ const Home: NextPage = () => {
     return () => {
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [handleScroll]);
+  }, [handleScroll, focusedPage, setFocusedPage]);
 
   return (
     <div
       onWheel={(e) => handleScroll(e.deltaY)}
-      onTouchStart={(e) => setTouchStart(e.touches[0].clientY)}
-      onTouchMove={(e) => {
-        if (touchStart === null) {
-          setTouchStart(e.touches[0].clientY);
-        } else {
-          const diff = touchStart - e.changedTouches[0].clientY;
-          if (Math.abs(diff) > 10) {
-            handleScroll(diff);
-            setTouchStart(null);
-          }
-        }
-      }}
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
     >
       <div
         className={`absolute inset-0 z-20 hidden bg-black/80 ${
@@ -200,55 +190,85 @@ const Home: NextPage = () => {
         <source src="./videos/ribbon.mp4" type="video/mp4" />
       </video>
 
-      <LandingLayout
+      <div
+        className="transition-[opacity,transform] duration-[4s] ease-[cubic-bezier(.81,.11,1,1)]"
         style={{
-          transform: `translateY(calc(-${100 * focusedPage} * var(--vh, 1vh)))`,
+          ...(zoom && {
+            transform: "perspective(10px) translateZ(10px)",
+            opacity: 0,
+          }),
         }}
       >
-        <div className="w-48 md:w-64">
-          <Image
-            src={Logo}
-            // layout="responsive"
-            // objectFit="contain"
-            alt="CSESoc Logo"
-          />
-        </div>
-        <h1
-          className={`group mb-8 flex w-full text-6xl font-bold tracking-wide md:text-8xl lg:mb-12 lg:text-11xl ${
-            completed && "animate-bounce"
-          }`}
+        <LandingLayout
+          style={{
+            transform: `translateY(calc(-${
+              100 * focusedPage
+            } * var(--vh, 1vh)))`,
+          }}
         >
-          <div className="relative w-1/2" ref={techPrefixRef}>
-            <span className="invisible absolute right-0">
-              <span className="-mr-2 md:-mr-5 lg:-mr-8">T</span>ech
-            </span>
-            <span className="invisible absolute right-0">a</span>
-            <span className="invisible absolute right-0">in</span>
+          <div className="w-48 md:w-64">
+            <Image
+              src={Logo}
+              // layout="responsive"
+              // objectFit="contain"
+              alt="CSESoc Logo"
+            />
           </div>
-          <div className="z-10">
-            <div
-              className={`animate-gradient-xy bg-gradient-to-r from-purple-400 via-violet-400 to-pink-400 bg-clip-text text-transparent`}
-            >
-              <span className="transition-[margin] selection:bg-white">
-                spir
-                <span className="-ml-1.5">e</span>
+          <h1
+            className={`group mb-8 flex w-full text-6xl font-bold tracking-wide md:text-8xl lg:mb-12 lg:text-11xl`}
+          >
+            <div className="relative w-1/2" ref={techPrefixRef}>
+              <span className="invisible absolute right-0">
+                <span className="-mr-2 md:-mr-5 lg:-mr-8">T</span>ech
               </span>
+              <span className="invisible absolute right-0">a</span>
+              <span className="invisible absolute right-0">in</span>
             </div>
+            <div className="z-10">
+              <div
+                className={`animate-gradient-xy bg-gradient-to-r from-purple-400 via-violet-400 to-pink-400 bg-clip-text text-transparent`}
+              >
+                <span className="transition-[margin] selection:bg-white">
+                  spir
+                  <span className="-ml-1.5">e</span>
+                </span>
+              </div>
+            </div>
+          </h1>
+          {/* <h3 className={`z-10 text-2xl`}>Friday 28th Oct 3-6pm | Week 7</h3> */}
+          <BasedCountdown date={finishDate} setCompleted={setCompleted} />
+          <div className="absolute bottom-32 justify-center">
+            <Arrow onClick={() => setFocusedPage(1)} />
           </div>
-        </h1>
-        {/* <h3 className={`z-10 text-2xl`}>Friday 28th Oct 3-6pm | Week 7</h3> */}
 
-        <BasedCountdown
-          date={new Date(2022, 9, 28, 15, 15)}
-          completed={completed}
-          setCompleted={setCompleted}
-        />
-        <div className="absolute bottom-32 justify-center">
-          <Arrow onClick={() => setFocusedPage(1)} />
-        </div>
+          {/* <Card className="top-8 left-4" /> */}
+        </LandingLayout>
+      </div>
 
-        {/* <Card className="top-8 left-4" /> */}
-      </LandingLayout>
+      <div
+        className="invisible fixed inset-0 flex items-center justify-center opacity-0 transition-[opacity,transform] delay-[4s] duration-[3s]"
+        style={{
+          transform: `perspective(10px) translateZ(${zoom ? 0 : -10}px)`,
+          ...(zoom && {
+            opacity: 1,
+            visibility: "visible",
+          }),
+        }}
+      >
+        {speakerIdx === Object.keys(speakers).length ? (
+          <Credits />
+        ) : (
+          <div className="flex animate-gradient-xy flex-col items-end gap-4 bg-gradient-to-r from-purple-400 via-indigo-400 to-pink-400 bg-clip-text text-transparent">
+            <h1 className="text-9xl">
+              {Object.values(speakers)[speakerIdx]?.speakerName ??
+                Object.keys(speakers)[speakerIdx]}
+            </h1>
+            {Object.values(speakers)[speakerIdx]?.speakerName !== undefined && (
+              <h2 className="text-3xl">{Object.keys(speakers)[speakerIdx]}</h2>
+            )}
+          </div>
+        )}
+      </div>
 
       <Thingy
         speakers={speakers}
@@ -257,6 +277,12 @@ const Home: NextPage = () => {
       />
     </div>
   );
+};
+
+Home.getInitialProps = async ({ query }) => {
+  const { seconds } = query;
+
+  return { seconds: Number(seconds) };
 };
 
 export default Home;

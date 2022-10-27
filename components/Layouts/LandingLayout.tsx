@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import type { CSSProperties, PropsWithChildren, Ref } from "react";
 
 interface Props {
-  style: CSSProperties;
+  style?: CSSProperties;
 }
 
 const LandingLayout = (
@@ -12,7 +12,7 @@ const LandingLayout = (
   return (
     <section
       ref={ref}
-      className="relative flex h-screen w-full snap-center flex-col items-center justify-center transition-transform duration-[1500ms]"
+      className="relative flex h-screen w-full snap-center flex-col items-center justify-center transition-[opacity,transform] duration-[1500ms]"
       style={style}
     >
       {children}
