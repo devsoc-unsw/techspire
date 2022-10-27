@@ -76,11 +76,16 @@ const Home: NextPage<{ seconds: number }> = ({ seconds }) => {
       [handleScroll]
     )
   );
-  const finishDate = new Date(Date.now() + 1000 * seconds);
+  const [finishDate, setFinishDate] = useState<Date | null>(null);
 
   useFixedVh();
 
   useEffect(() => {
+    setFinishDate(
+      seconds !== null
+        ? new Date(Date.now() + 1000 * seconds)
+        : new Date(2022, 9, 28, 15, 15)
+    );
     const prefixElem = techPrefixRef.current;
     if (!prefixElem) {
       return;
