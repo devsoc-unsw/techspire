@@ -25,6 +25,12 @@ const Speaker = ({
   const videoRef = useRef<HTMLVideoElement>(null);
   const firstUpdate = useRef(true);
   useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.volume = 0.3;
+    }
+  }, []);
+
+  useEffect(() => {
     if (firstUpdate.current) {
       firstUpdate.current = false;
       return;
