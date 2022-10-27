@@ -71,16 +71,21 @@ const Speaker = ({
         (child) => child instanceof HTMLElement
       ) as HTMLElement[];
       children.forEach((child, i) => {
-        child.style.transition = "";
-        child.classList.add("opacity-0", "-translate-x-32");
-
-        setTimeout(() => {
-          child.style.transition =
-            "opacity cubic-bezier(0.4, 0, 0.2, 1), transform cubic-bezier(0, 0, 0.2, 1)";
-          child.style.transitionDuration = "1s";
-          child.style.transitionDelay = `${500 + i * 150}ms`;
-          child.classList.remove("opacity-0", "-translate-x-32");
-        }, 0);
+        child.animate([{ opacity: 0 }, { opacity: 1 }], {
+          duration: 1000,
+          easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+          delay: 500 + i * 150,
+          fill: "both",
+        });
+        child.animate(
+          [{ transform: "translateX(-8rem)" }, { transform: "none" }],
+          {
+            duration: 1000,
+            easing: "cubic-bezier(0, 0, 0.2, 1)",
+            delay: 500 + i * 150,
+            fill: "both",
+          }
+        );
       });
     }
 
