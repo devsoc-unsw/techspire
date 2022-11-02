@@ -27,7 +27,7 @@ const Helper = ({ name = "", role = "", imageSrc, className = "" }: Props) => {
 
 const Credits = () => {
   return (
-    <div className="flex min-h-screen w-[100vw] min-w-full animate-gradient-x items-center justify-around bg-gradient-to-r from-purple-400 via-indigo-400 to-pink-400 bg-clip-text py-32 text-transparent 2xl:px-32">
+    <div className="flex min-h-screen w-screen min-w-full animate-gradient-x items-center justify-around bg-gradient-to-r from-purple-400 via-indigo-400 to-pink-400 bg-clip-text py-32 text-transparent 2xl:px-32">
       <Helper
         className="translate-x-8 -translate-y-16 lg:transform-none"
         name={"Michael Vo"}
