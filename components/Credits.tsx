@@ -13,15 +13,15 @@ interface Props {
 
 const Helper = ({ name = "", role = "", imageSrc, className = "" }: Props) => {
   return (
-    <div className={`flex flex-col py-1 ${className}`}>
+    <article className={`flex flex-col py-1 ${className}`}>
       <div className="mx-auto h-[clamp(6rem,25vw,18rem)] w-[clamp(6rem,25vw,18rem)] overflow-hidden rounded-full brightness-90">
         <Image src={imageSrc} alt="credits image" />
       </div>
-      <div className="mt-1 text-center text-[clamp(1.125rem,5vw,3.75rem)] leading-none lg:mt-8">
+      <h2 className="mt-1 text-center text-[clamp(1.125rem,5vw,3.75rem)] leading-none lg:mt-8">
         {name}
-      </div>
-      <div className="text-center text-[clamp(1rem,4vw,2.25rem)]">{role}</div>
-    </div>
+      </h2>
+      <h3 className="text-center text-[clamp(1rem,4vw,2.25rem)]">{role}</h3>
+    </article>
   );
 };
 
