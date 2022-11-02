@@ -30,20 +30,20 @@ const Credits = () => {
     <div className="flex min-h-screen w-screen min-w-full animate-gradient-x items-center justify-around bg-gradient-to-r from-purple-400 via-indigo-400 to-pink-400 bg-clip-text py-32 text-transparent 2xl:px-32">
       <Helper
         className="translate-x-8 -translate-y-16 lg:transform-none"
-        name={"Michael Vo"}
-        role={"Website"}
+        name="Michael Vo"
+        role="Website"
         imageSrc={MichaelVo}
       />
       <Helper
         className="translate-y-16 lg:transform-none"
-        name={"Rachel Ahn"}
-        role={"Assistant"}
+        name="Rachel Ahn"
+        role="Assistant"
         imageSrc={RachelAhn}
       />
       <Helper
         className="-translate-x-8 -translate-y-16 lg:transform-none"
-        name={"Amy Liu"}
-        role={"Creative"}
+        name="Amy Liu"
+        role="Creative"
         imageSrc={AmyLiu}
       />
     </div>
