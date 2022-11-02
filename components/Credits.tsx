@@ -8,26 +8,44 @@ interface Props {
   name: string;
   role: string;
   imageSrc: StaticImageData;
+  className?: string;
 }
 
-const Helper = ({ name = "", role = "", imageSrc }: Props) => {
+const Helper = ({ name = "", role = "", imageSrc, className = "" }: Props) => {
   return (
-    <div className="flex flex-col py-1">
-      <div className="mx-auto h-72 w-72 overflow-hidden rounded-full brightness-90">
+    <article className={`flex flex-col py-1 ${className}`}>
+      <div className="mx-auto h-[clamp(6rem,25vw,18rem)] w-[clamp(6rem,25vw,18rem)] overflow-hidden rounded-full brightness-90">
         <Image src={imageSrc} alt="credits image" />
       </div>
-      <div className="mt-8 mb-2 text-center text-6xl">{name}</div>
-      <div className="text-center text-4xl">{role}</div>
-    </div>
+      <h2 className="mt-1 text-center text-[clamp(1.125rem,5vw,3.75rem)] leading-none lg:mt-8">
+        {name}
+      </h2>
+      <h3 className="text-center text-[clamp(1rem,4vw,2.25rem)]">{role}</h3>
+    </article>
   );
 };
 
 const Credits = () => {
   return (
-    <div className="flex min-h-screen w-[100vw] min-w-full animate-gradient-x items-center justify-between bg-gradient-to-r from-purple-400 via-indigo-400 to-pink-400 bg-clip-text py-32 text-transparent xl:px-32 2xl:px-64">
-      <Helper name={"Michael Vo"} role={"Website"} imageSrc={MichaelVo} />
-      <Helper name={"Rachel Ahn"} role={"Assistant"} imageSrc={RachelAhn} />
-      <Helper name={"Amy Liu"} role={"Creative"} imageSrc={AmyLiu} />
+    <div className="flex min-h-screen w-screen min-w-full animate-gradient-x items-center justify-around bg-gradient-to-r from-purple-400 via-indigo-400 to-pink-400 bg-clip-text py-32 text-transparent 2xl:px-32">
+      <Helper
+        className="translate-x-8 -translate-y-16 lg:transform-none"
+        name="Michael Vo"
+        role="Website"
+        imageSrc={MichaelVo}
+      />
+      <Helper
+        className="translate-y-16 lg:transform-none"
+        name="Rachel Ahn"
+        role="Assistant"
+        imageSrc={RachelAhn}
+      />
+      <Helper
+        className="-translate-x-8 -translate-y-16 lg:transform-none"
+        name="Amy Liu"
+        role="Creative"
+        imageSrc={AmyLiu}
+      />
     </div>
   );
 };
