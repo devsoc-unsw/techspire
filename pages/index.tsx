@@ -193,7 +193,7 @@ const Home: NextPage = () => {
         loop
         muted
         playsInline
-        className="absolute -z-10 min-h-full w-auto min-w-full max-w-full object-cover brightness-[0.45]"
+        className="absolute -z-10 min-h-full w-auto min-w-full max-w-full object-cover brightness-[0.55]"
         ref={videoRef}
       >
         <source src="./videos/ribbon.mp4" type="video/mp4" />
@@ -220,7 +220,7 @@ const Home: NextPage = () => {
               src={Logo}
               // layout="responsive"
               // objectFit="contain"
-              alt="CSESoc Logo"
+              alt="DevSoc Logo"
             />
           </div>
           <h1
@@ -244,8 +244,8 @@ const Home: NextPage = () => {
               </div>
             </div>
           </h1>
-          {/* <h3 className={`z-10 text-2xl`}>Friday 28th Oct 3-6pm | Week 7</h3> */}
-          <BasedCountdown date={finishDate} setCompleted={setCompleted} />
+          <h3 className={`z-10 text-2xl`}>Returning Term 3 2024</h3>
+          {/*<BasedCountdown date={finishDate} setCompleted={setCompleted} />*/}
           <div className="absolute bottom-32 justify-center">
             <Arrow onClick={() => setFocusedPage(1)} />
           </div>
