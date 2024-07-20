@@ -4,7 +4,7 @@ import LandingLayout from "../components/Layouts/LandingLayout";
 
 import { ReactElement, useCallback, useEffect, useRef, useState } from "react";
 
-import Logo from "../public/images/logo.png";
+import Logo from "../public/images/logo.svg";
 import Thingy from "../components/Thingy";
 import Arrow from "../components/Arrow";
 import BasedCountdown from "../components/BasedCountdown";
@@ -90,7 +90,7 @@ const Home: NextPage = () => {
     setFinishDate(
       !isNaN(seconds)
         ? new Date(Date.now() + 1000 * seconds)
-        : new Date(2022, 9, 28, 15, 15)
+        : new Date(2024, 12, 5, 15, 0)
     );
   }, [router.isReady, router.query.seconds]);
 
@@ -215,23 +215,21 @@ const Home: NextPage = () => {
             } * var(--vh, 1vh)))`,
           }}
         >
-          <div className="w-48 md:w-64">
+          <div className="my-4 w-48 md:w-64">
             <Image
               src={Logo}
-              // layout="responsive"
-              // objectFit="contain"
+              layout="responsive"
+              objectFit="contain"
               alt="DevSoc Logo"
             />
           </div>
           <h1
-            className={`group mb-8 flex w-full text-6xl font-bold tracking-wide md:text-8xl lg:mb-12 lg:text-11xl`}
+            className={`group mb-8 flex w-full text-6xl font-bold tracking-wide md:text-8xl lg:mb-12 lg:text-9xl`}
           >
             <div className="relative w-1/2" ref={techPrefixRef}>
-              <span className="invisible absolute right-0">
-                <span className="-mr-2 md:-mr-5 lg:-mr-8">T</span>ech
-              </span>
-              <span className="invisible absolute right-0">a</span>
-              <span className="invisible absolute right-0">in</span>
+              <span className="invisible absolute right-0">Tech</span>
+              <span className="invisible absolute right-0">A</span>
+              <span className="invisible absolute right-0">In</span>
             </div>
             <div className="z-10">
               <div
@@ -244,13 +242,15 @@ const Home: NextPage = () => {
               </div>
             </div>
           </h1>
-          <h3 className={`z-10 text-2xl`}>Returning Term 3 2024</h3>
-          {/*<BasedCountdown date={finishDate} setCompleted={setCompleted} />*/}
+
+          <BasedCountdown date={finishDate} setCompleted={setCompleted} />
+
+          <h3 className={`z-10 mt-12 text-2xl`}>
+            View the 2022 presentations below
+          </h3>
           <div className="absolute bottom-32 justify-center">
             <Arrow onClick={() => setFocusedPage(1)} />
           </div>
-
-          {/* <Card className="top-8 left-4" /> */}
         </LandingLayout>
       </div>
 

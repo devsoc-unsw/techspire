@@ -7,10 +7,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <RootLayout>
       <Head>
-        <title>CSESoc Techspire 2022</title>
+        <title>Techspire</title>
         <meta
           name="description"
-          content="The premier technology event from the largest computer science society in the southern hemisphere."
+          content="The premier technology event by Software Development Society."
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
