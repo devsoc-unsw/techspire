@@ -60,7 +60,7 @@ jobs:
           git config user.name "CSESoc CD"
           git config user.email "technical@csesoc.org.au"
           git checkout -b update/tech-spire-2024/${{ github.sha }}
-          yq -i '.items[0].spec.template.spec.containers[0].image = "ghcr.io/csesoc/tech-spire-2024:${{ github.sha }}"' apps/projects/tech-spire-2024/deploy.yml
+          yq -i '.items[0].spec.template.spec.containers[0].image = "ghcr.io/csesoc/tech-spire-2024:${{ github.sha }}"' projects/tech-spire-2024/deploy.yml
           git add .
           git commit -m "feat(tech-spire-2024): update images"
           git push -u origin update/tech-spire-2024/${{ github.sha }}
