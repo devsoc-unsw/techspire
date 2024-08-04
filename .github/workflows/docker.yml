@@ -35,8 +35,8 @@ jobs:
           platforms: linux/amd64
           file: Dockerfile
           tags: |
-            ghcr.io/csesoc/tech-spire-2024:${{ github.sha }}
-            ghcr.io/csesoc/tech-spire-2024:latest
+            ghcr.io/devsoc-unsw/tech-spire-2024:${{ github.sha }}
+            ghcr.io/devsoc-unsw/tech-spire-2024:latest
           labels: ${{ steps.meta.outputs.labels }}
   deploy:
     name: Deploy (CD)
@@ -60,7 +60,7 @@ jobs:
           git config user.name "CSESoc CD"
           git config user.email "technical@csesoc.org.au"
           git checkout -b update/tech-spire-2024/${{ github.sha }}
-          yq -i '.items[0].spec.template.spec.containers[0].image = "ghcr.io/csesoc/tech-spire-2024:${{ github.sha }}"' projects/tech-spire-2024/deploy.yml
+          yq -i '.items[0].spec.template.spec.containers[0].image = "ghcr.io/devsoc-unsw/tech-spire-2024:${{ github.sha }}"' projects/tech-spire-2024/deploy.yml
           git add .
           git commit -m "feat(tech-spire-2024): update images"
           git push -u origin update/tech-spire-2024/${{ github.sha }}
