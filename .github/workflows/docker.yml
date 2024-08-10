@@ -37,7 +37,9 @@ jobs:
           tags: |
             ghcr.io/devsoc-unsw/tech-spire-2024:${{ github.sha }}
             ghcr.io/devsoc-unsw/tech-spire-2024:latest
-          labels: ${{ steps.meta.outputs.labels }}
+          labels: |
+            ${{ steps.meta.outputs.labels }}
+            org.opencontainers.image.source
   deploy:
     name: Deploy (CD)
     runs-on: ubuntu-latest
