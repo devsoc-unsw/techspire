@@ -22,6 +22,9 @@ import usePageScroll from "../hooks/usePageScroll";
 import useTouch from "../hooks/useTouch";
 import { useRouter } from "next/router";
 
+import Select from "@mui/joy/Select";
+import Option from "@mui/joy/Option";
+
 const speakers: {
   [k: string]: { speakerName?: string; text: ReactElement; video: string };
 } = {
@@ -90,7 +93,7 @@ const Home: NextPage = () => {
     setFinishDate(
       !isNaN(seconds)
         ? new Date(Date.now() + 1000 * seconds)
-        : new Date(2024, 12, 5, 15, 0)
+        : new Date(2024, 10, 5, 15, 0)
     );
   }, [router.isReady, router.query.seconds]);
 
@@ -208,6 +211,14 @@ const Home: NextPage = () => {
           }),
         }}
       >
+        <Select
+          defaultValue="2024"
+          className="fixed right-0 z-10 m-4"
+          variant="solid"
+        >
+          <Option value="2022">2022</Option>
+          <Option value="2024">2024</Option>
+        </Select>
         <LandingLayout
           style={{
             transform: `translateY(calc(-${
