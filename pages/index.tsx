@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Image from "next/image";
 import LandingLayout from "../components/Layouts/LandingLayout";
 
-import { ReactElement, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import Logo from "../public/images/logo.svg";
 import Thingy from "../components/Thingy";
@@ -11,59 +11,35 @@ import BasedCountdown from "../components/BasedCountdown";
 import useFixedVh from "../hooks/useFixedVh";
 import useAutoplay from "../hooks/useAutoplay";
 
-import AmazonText from "../components/Speakers/AmazonText";
-import AtlassianText from "../components/Speakers/AtlassianText";
-import CanvaText from "../components/Speakers/CanvaText";
-import MarcCheeText from "../components/Speakers/MarcCheeText";
-import PearlerText from "../components/Speakers/PearlerText";
-import JobsboardText from "../components/Speakers/JobsboardText";
 import Credits from "../components/Credits";
 import usePageScroll from "../hooks/usePageScroll";
 import useTouch from "../hooks/useTouch";
 import { useRouter } from "next/router";
 
+import { siteData } from "../public/data";
+
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 
-const speakers: {
-  [k: string]: { speakerName?: string; text: ReactElement; video: string };
-} = {
-  Atlassian: {
-    speakerName: "Ofir Zeevi",
-    text: <AtlassianText />,
-    video: "./videos/ofir.mp4",
-  },
-  Pearler: {
-    speakerName: "Kath-Lin Han",
-    text: <PearlerText />,
-    video: "./videos/kathlin.mp4",
-  },
-  Canva: {
-    speakerName: "Adam Tizzone",
-    text: <CanvaText />,
-    video: "./videos/ribbon.mp4",
-  },
-  "Marc Chee": {
-    text: <MarcCheeText />,
-    video: "./videos/marc.mp4",
-  },
-  Jobsboard: {
-    speakerName: "Darian & Joanna",
-    text: <JobsboardText />,
-    video: "./videos/jobsboard.mp4",
-  },
-  Amazon: {
-    speakerName: "Adam Leung",
-    text: <AmazonText />,
-    video: "./videos/adam-leung.mp4",
-  },
-};
-
 const Home: NextPage = () => {
+  const [year, setYear] = useState("2024");
   const router = useRouter();
   const [completed, setCompleted] = useState(false);
   const techPrefixRef = useRef<HTMLDivElement>(null);
   const [videoRef, autoplayBlocked, setAutoplayBlocked] = useAutoplay();
+  const [speakers, setSpeakers] = useState(siteData[year]);
+
+  function setCountdown() {
+    const seconds = Number(router.query.seconds);
+    switch (year) {
+      case "2022":
+        setFinishDate(null);
+        break;
+      case "2024":
+        setFinishDate(new Date(2024, 10, 5, 15, 0));
+        break;
+    }
+  }
 
   const [speakerIdx, setSpeakerIdx] = useState(-1);
   const zoom = completed && speakerIdx !== -1;
@@ -89,13 +65,13 @@ const Home: NextPage = () => {
     if (!router.isReady) {
       return;
     }
-    const seconds = Number(router.query.seconds);
-    setFinishDate(
-      !isNaN(seconds)
-        ? new Date(Date.now() + 1000 * seconds)
-        : new Date(2024, 10, 5, 15, 0)
-    );
+    setCountdown();
   }, [router.isReady, router.query.seconds]);
+
+  useEffect(() => {
+    setCountdown();
+    setSpeakers(siteData[year]);
+  }, [year]);
 
   useEffect(() => {
     const prefixElem = techPrefixRef.current;
@@ -212,9 +188,16 @@ const Home: NextPage = () => {
         }}
       >
         <Select
-          defaultValue="2024"
+          value={year}
+          defaultValue={year}
           className="fixed right-0 z-10 m-4"
           variant="solid"
+          onChange={(
+            event: React.SyntheticEvent | null,
+            newValue: string | null
+          ) => {
+            setYear(newValue ?? "2024");
+          }}
         >
           <Option value="2022">2022</Option>
           <Option value="2024">2024</Option>
@@ -253,11 +236,11 @@ const Home: NextPage = () => {
               </div>
             </div>
           </h1>
-
-          <BasedCountdown date={finishDate} setCompleted={setCompleted} />
-
+          {finishDate ? (
+            <BasedCountdown date={finishDate} setCompleted={setCompleted} />
+          ) : null}
           <h3 className={`z-10 mt-12 text-2xl`}>
-            View the 2022 presentations below
+            Find out more about the {year} Techspire
           </h3>
           <div className="absolute bottom-32 justify-center">
             <Arrow onClick={() => setFocusedPage(1)} />

@@ -5,7 +5,7 @@ interface Props {
     [speaker: string]: {
       speakerName?: string;
       text: ReactNode;
-      video: string;
+      video: string | null;
     };
   };
   focusedPage: number;

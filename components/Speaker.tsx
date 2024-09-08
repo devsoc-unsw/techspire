@@ -8,7 +8,7 @@ export interface SpeakerProps {
   speaker: string;
   speakerName?: string;
   text: ReactNode;
-  video: string;
+  video: string | null;
   focusedPage: number;
 }
 const Speaker = ({
@@ -39,6 +39,9 @@ const Speaker = ({
     const page = idx + 1;
     const video = videoRef.current!;
     const text = textRef.current!;
+    if (!video) {
+      return;
+    }
 
     if (previousFocusedPage.current === page) {
       const rotate = focusedPage > previousFocusedPage.current ? 1 : -1;
@@ -138,17 +141,19 @@ const Speaker = ({
         {text}
       </section>
       <aside className="-z-10 mx-auto hidden max-h-[50%] max-w-2xl flex-col justify-center md:flex xl:max-h-[75%] xl:max-w-none xl:flex-[4]">
-        <video
-          ref={videoRef}
-          loop
-          controls
-          playsInline
-          controlsList="nodownload noplaybackrate nofullscreen"
-          disablePictureInPicture
-          className="mx-auto max-h-full w-auto rounded-sm shadow-xl"
-        >
-          <source src={video} type="video/mp4" />
-        </video>
+        {video ? (
+          <video
+            ref={videoRef}
+            loop
+            controls
+            playsInline
+            controlsList="nodownload noplaybackrate nofullscreen"
+            disablePictureInPicture
+            className="mx-auto max-h-full w-auto rounded-sm shadow-xl"
+          >
+            <source src={video} type="video/mp4" />
+          </video>
+        ) : null}
       </aside>
       <Transition show={showVideo} as={Fragment}>
         <Dialog
@@ -188,7 +193,7 @@ const Speaker = ({
                 controlsList="nodownload noplaybackrate nofullscreen"
                 disablePictureInPicture
               >
-                <source src={video} type="video/mp4" />
+                {video ? <source src={video} type="video/mp4" /> : null}
               </video>
             </Dialog.Panel>
           </Transition.Child>
