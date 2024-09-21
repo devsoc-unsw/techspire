@@ -5,6 +5,7 @@ import CanvaText from "../components/Speakers/CanvaText";
 import MarcCheeText from "../components/Speakers/MarcCheeText";
 import JobsboardText from "../components/Speakers/JobsboardText";
 import AmazonText from "../components/Speakers/AmazonText";
+import Placeholder from "../components/Speakers/Placeholder";
 
 export const siteData: {
   [k: string]: {
@@ -47,10 +48,10 @@ export const siteData: {
     },
   },
   "2024": {
-    Amazon: {
-      speakerName: "Adam Leung",
-      text: <AmazonText />,
-      video: "./videos/adam-leung.mp4",
+    "Under Construction": {
+      speakerName: "",
+      text: <Placeholder />,
+      video: null,
     },
   },
 };

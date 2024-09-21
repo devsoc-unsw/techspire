@@ -22,12 +22,14 @@ import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 
 const Home: NextPage = () => {
-  const [year, setYear] = useState("2024");
+  const [year, setYear] = useState("2022");
   const router = useRouter();
   const [completed, setCompleted] = useState(false);
   const techPrefixRef = useRef<HTMLDivElement>(null);
   const [videoRef, autoplayBlocked, setAutoplayBlocked] = useAutoplay();
   const [speakers, setSpeakers] = useState(siteData[year]);
+  const [videoSrc, setVideoSrc] = useState("./videos/ribbon.mp4"); // default video source
+  const [videoKey, setVideoKey] = useState(0);
 
   function setCountdown() {
     const seconds = Number(router.query.seconds);
@@ -40,6 +42,21 @@ const Home: NextPage = () => {
         break;
     }
   }
+
+  const changeVideoSource = (year: string) => {
+    switch (year) {
+      case "2022":
+        setVideoSrc("./videos/ribbon.mp4");
+        break;
+      case "2024":
+        setVideoSrc("./videos/IMG_3965.MOV");
+        break;
+    }
+    setVideoKey((videoKey) => videoKey + 1);
+    if (videoRef.current) {
+      videoRef.current.load(); // Reload the video with new source
+    }
+  };
 
   const [speakerIdx, setSpeakerIdx] = useState(-1);
   const zoom = completed && speakerIdx !== -1;
@@ -71,6 +88,7 @@ const Home: NextPage = () => {
   useEffect(() => {
     setCountdown();
     setSpeakers(siteData[year]);
+    changeVideoSource(year);
   }, [year]);
 
   useEffect(() => {
@@ -172,10 +190,11 @@ const Home: NextPage = () => {
         loop
         muted
         playsInline
-        className="absolute -z-10 min-h-full w-auto min-w-full max-w-full object-cover brightness-[0.55]"
+        className="absolute -z-10 min-h-full w-auto min-w-full max-w-full object-cover brightness-[0.45]"
         ref={videoRef}
+        key={videoKey}
       >
-        <source src="./videos/ribbon.mp4" type="video/mp4" />
+        <source src={videoSrc} type="video/mp4" />
       </video>
 
       <div
