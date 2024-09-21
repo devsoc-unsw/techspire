@@ -209,7 +209,7 @@ const Home: NextPage = () => {
         <Select
           value={year}
           defaultValue={year}
-          className="fixed right-0 z-10 m-4"
+          className="fixed right-0 z-10 m-4 w-24"
           variant="solid"
           onChange={(
             event: React.SyntheticEvent | null,
