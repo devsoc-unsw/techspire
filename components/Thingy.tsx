@@ -8,6 +8,7 @@ interface Props {
       speakerName?: string;
       text: ReactNode;
       video: string | null;
+      image?: string;
     };
   };
   focusedPage: number;
@@ -23,7 +24,7 @@ const Thingy = ({ speakers, focusedPage, setFocusedPage }: Props) => {
       />
       <main id="info-section" className={`flex-1`}>
         {Object.entries(speakers).map(
-          ([speaker, { speakerName, text, video }], idx) => (
+          ([speaker, { speakerName, text, video, image }], idx) => (
             <Speaker
               key={speaker}
               idx={idx}
@@ -31,6 +32,7 @@ const Thingy = ({ speakers, focusedPage, setFocusedPage }: Props) => {
               speakerName={speakerName}
               text={text}
               video={video}
+              image={image}
               focusedPage={focusedPage}
             />
           )

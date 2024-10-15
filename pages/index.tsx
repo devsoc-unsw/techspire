@@ -22,7 +22,7 @@ import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 
 const Home: NextPage = () => {
-  const [year, setYear] = useState("2022");
+  const [year, setYear] = useState("2024");
   const router = useRouter();
   const [completed, setCompleted] = useState(false);
   const techPrefixRef = useRef<HTMLDivElement>(null);
