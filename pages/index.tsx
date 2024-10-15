@@ -261,7 +261,19 @@ const Home: NextPage = () => {
           <h3 className={`z-10 mt-12 text-2xl`}>
             Find out more about the {year} Techspire
           </h3>
-          <div className="absolute bottom-32 justify-center">
+          {year === "2024" ? (
+            <a
+              className="mt-8 flex pb-8 underline"
+              href="https://events.humanitix.com/techspire-2024"
+            >
+              Tickets
+            </a>
+          ) : null}
+          <div
+            className={`absolute bottom-${
+              year === "2024" ? 24 : 32
+            } justify-center`}
+          >
             <Arrow onClick={() => setFocusedPage(1)} />
           </div>
         </LandingLayout>
