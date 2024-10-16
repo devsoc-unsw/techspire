@@ -123,7 +123,7 @@ const Speaker = ({
   return (
     <section
       key={speaker}
-      className="flex h-screen flex-1 snap-center flex-col items-center justify-center gap-8 px-8 py-16 transition-transform duration-[1500ms] xl:flex-row"
+      className="mx-10 flex h-screen flex-1 snap-center flex-col items-center justify-center gap-8 py-16 transition-transform duration-[1500ms] md:mx-0 xl:flex-row xl:px-8"
       style={{
         transform: `translateY(calc(-${100 * focusedPage} * var(--vh, 1vh)))`,
       }}
