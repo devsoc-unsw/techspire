@@ -16,7 +16,7 @@ interface Props {
 }
 const Thingy = ({ speakers, focusedPage, setFocusedPage }: Props) => {
   return (
-    <div className="flex gap-4 lg:px-4">
+    <div className="flex gap-4 px-4">
       <ThingyNav
         speakers={speakers}
         focusedPage={focusedPage}
