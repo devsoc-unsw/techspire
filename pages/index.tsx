@@ -22,7 +22,7 @@ import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 
 const Home: NextPage = () => {
-  const [year, setYear] = useState("2022");
+  const [year, setYear] = useState("2024");
   const router = useRouter();
   const [completed, setCompleted] = useState(false);
   const techPrefixRef = useRef<HTMLDivElement>(null);
@@ -258,10 +258,22 @@ const Home: NextPage = () => {
           {finishDate ? (
             <BasedCountdown date={finishDate} setCompleted={setCompleted} />
           ) : null}
-          <h3 className={`z-10 mt-12 text-2xl`}>
+          <h3 className={`z-10 mt-12 text-center text-2xl`}>
             Find out more about the {year} Techspire
           </h3>
-          <div className="absolute bottom-32 justify-center">
+          {year === "2024" ? (
+            <a
+              className="mt-8 flex pb-8 underline"
+              href="https://events.humanitix.com/techspire-2024"
+            >
+              Tickets
+            </a>
+          ) : null}
+          <div
+            className={`absolute ${
+              year === "2024" ? "bottom-24" : "bottom-32"
+            } justify-center`}
+          >
             <Arrow onClick={() => setFocusedPage(1)} />
           </div>
         </LandingLayout>

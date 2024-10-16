@@ -9,6 +9,7 @@ export interface SpeakerProps {
   speakerName?: string;
   text: ReactNode;
   video: string | null;
+  image: string | undefined;
   focusedPage: number;
 }
 const Speaker = ({
@@ -17,6 +18,7 @@ const Speaker = ({
   speakerName,
   text,
   video,
+  image,
   focusedPage,
 }: SpeakerProps) => {
   const [showVideo, setShowVideo] = useState(false);
@@ -153,6 +155,11 @@ const Speaker = ({
           >
             <source src={video} type="video/mp4" />
           </video>
+        ) : null}
+        {image ? (
+          <div className="mx-auto max-h-full w-72 rounded-sm shadow-xl">
+            <img src={image} alt="" />
+          </div>
         ) : null}
       </aside>
       <Transition show={showVideo} as={Fragment}>

@@ -5,6 +5,8 @@ import CanvaText from "../components/Speakers/CanvaText";
 import MarcCheeText from "../components/Speakers/MarcCheeText";
 import JobsboardText from "../components/Speakers/JobsboardText";
 import AmazonText from "../components/Speakers/AmazonText";
+import Macquarie24 from "../components/Speakers/Macquarie24";
+import Atlassian24 from "../components/Speakers/Atlassian24";
 import Placeholder from "../components/Speakers/Placeholder";
 
 export const siteData: {
@@ -13,6 +15,7 @@ export const siteData: {
       speakerName?: string;
       text: ReactElement;
       video: string | null;
+      image?: string;
     };
   };
 } = {
@@ -48,8 +51,20 @@ export const siteData: {
     },
   },
   "2024": {
-    "Under Construction": {
-      speakerName: "",
+    "Chris Peters": {
+      speakerName: "Macquarie",
+      text: <Macquarie24 />,
+      video: null,
+      image: "./images/2024/chris.JPG",
+    },
+    "Nick Patrikeos": {
+      speakerName: "Atlassian",
+      text: <Atlassian24 />,
+      video: null,
+      image: "./images/2024/nick.JPG",
+    },
+    "More speakers": {
+      speakerName: "To be announced",
       text: <Placeholder />,
       video: null,
     },
