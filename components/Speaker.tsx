@@ -1,7 +1,11 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { VideoCameraIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  CameraIcon,
+  VideoCameraIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 
 export interface SpeakerProps {
   idx: number;
@@ -130,12 +134,22 @@ const Speaker = ({
       >
         <h1 className="z-999 flex items-end gap-2 text-3xl md:text-6xl">
           <span>{speaker}</span>
-          <button
-            className="inline-flex w-fit items-center gap-1 rounded-full bg-gradient-to-br from-purple-400 to-indigo-400 p-2 text-base text-white shadow md:hidden"
-            onClick={() => setShowVideo(true)}
-          >
-            <VideoCameraIcon className="h-5 w-5" />
-          </button>
+          {video ? (
+            <button
+              className="inline-flex w-fit items-center gap-1 rounded-full bg-gradient-to-br from-purple-400 to-indigo-400 p-2 text-base text-white shadow md:hidden"
+              onClick={() => setShowVideo(true)}
+            >
+              <VideoCameraIcon className="h-5 w-5" />
+            </button>
+          ) : null}
+          {image ? (
+            <button
+              className="inline-flex w-fit items-center gap-1 rounded-full bg-gradient-to-br from-purple-400 to-indigo-400 p-2 text-base text-white shadow md:hidden"
+              onClick={() => setShowVideo(true)}
+            >
+              <CameraIcon className="h-5 w-5" />
+            </button>
+          ) : null}
           {speakerName && (
             <span className="ml-auto text-sm md:text-base">{speakerName}</span>
           )}
@@ -192,16 +206,20 @@ const Speaker = ({
               >
                 <XMarkIcon className="h-8 w-8" />
               </button>
-              <video
-                autoPlay
-                loop
-                controls
-                playsInline
-                controlsList="nodownload noplaybackrate nofullscreen"
-                disablePictureInPicture
-              >
-                {video ? <source src={video} type="video/mp4" /> : null}
-              </video>
+              {video ? (
+                <video
+                  autoPlay
+                  loop
+                  controls
+                  playsInline
+                  controlsList="nodownload noplaybackrate nofullscreen"
+                  disablePictureInPicture
+                >
+                  <source src={video} type="video/mp4" />
+                </video>
+              ) : (
+                <img src={image} alt="" />
+              )}
             </Dialog.Panel>
           </Transition.Child>
         </Dialog>

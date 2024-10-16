@@ -8,6 +8,7 @@ import AmazonText from "../components/Speakers/AmazonText";
 import Macquarie24 from "../components/Speakers/Macquarie24";
 import Atlassian24 from "../components/Speakers/Atlassian24";
 import Placeholder from "../components/Speakers/Placeholder";
+import Apple24 from "../components/Speakers/Apple24";
 
 export const siteData: {
   [k: string]: {
@@ -62,6 +63,12 @@ export const siteData: {
       text: <Atlassian24 />,
       video: null,
       image: "./images/2024/nick.JPG",
+    },
+    "Nelson Tam": {
+      speakerName: "Apple",
+      text: <Apple24 />,
+      video: null,
+      image: "./images/2024/nelson.jpg",
     },
     "More speakers": {
       speakerName: "To be announced",
