@@ -258,7 +258,7 @@ const Home: NextPage = () => {
           {finishDate ? (
             <BasedCountdown date={finishDate} setCompleted={setCompleted} />
           ) : null}
-          <h3 className={`z-10 mt-12 text-2xl`}>
+          <h3 className={`z-10 mt-12 text-center text-2xl`}>
             Find out more about the {year} Techspire
           </h3>
           {year === "2024" ? (
@@ -270,8 +270,8 @@ const Home: NextPage = () => {
             </a>
           ) : null}
           <div
-            className={`absolute bottom-${
-              year === "2024" ? 24 : 32
+            className={`absolute ${
+              year === "2024" ? "bottom-24" : "bottom-32"
             } justify-center`}
           >
             <Arrow onClick={() => setFocusedPage(1)} />

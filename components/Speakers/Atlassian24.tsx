@@ -22,10 +22,6 @@ const Placeholder = () => {
         pipelines in Atlassian’s Monorepo.
       </p>
       <p>
-        When he’s not at work, you’ll find Nick at one of Sydney’s beaches, or
-        training in the taekwondo gym.
-      </p>
-      <p>
         Nick’s talk is titled “Why you should pay more attention to
         non-functional requirements” and discusses how we focus on the wrong
         thing - what we’re building - when we should be focusing on how we’re
