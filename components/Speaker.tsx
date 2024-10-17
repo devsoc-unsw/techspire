@@ -29,6 +29,7 @@ const Speaker = ({
   const previousFocusedPage = useRef(focusedPage);
   const textRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
   const firstUpdate = useRef(true);
   useEffect(() => {
     if (videoRef.current) {
@@ -43,22 +44,21 @@ const Speaker = ({
     }
 
     const page = idx + 1;
-    const video = videoRef.current!;
+    const video = videoRef.current;
+    const image = imageRef.current;
     const text = textRef.current!;
-    if (!video) {
-      return;
-    }
+    const media = video || image;
 
     if (previousFocusedPage.current === page) {
       const rotate = focusedPage > previousFocusedPage.current ? 1 : -1;
-      video.animate(
+      media?.animate(
         { transform: `rotate(${rotate}deg) translateX(4rem) scale(0.9)` },
         { duration: 1000, easing: "ease" }
       );
-      video.pause();
+      video?.pause();
     } else {
       const rotate = focusedPage > previousFocusedPage.current ? -1 : 1;
-      video.animate(
+      media?.animate(
         [
           {
             transform: `rotate(${rotate}deg) translateX(4rem) scale(0.9)`,
@@ -73,7 +73,7 @@ const Speaker = ({
         2000
       );
       if (focusedPage === page && window.innerWidth >= 768) {
-        video.play();
+        video?.play();
       }
 
       const children = Array.from(text.children).filter(
@@ -172,7 +172,7 @@ const Speaker = ({
         ) : null}
         {image ? (
           <div className="mx-auto max-h-full w-72 rounded-sm shadow-xl">
-            <img src={image} alt="" />
+            <img ref={imageRef} src={image} alt={speaker} />
           </div>
         ) : null}
       </aside>
